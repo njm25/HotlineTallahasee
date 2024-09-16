@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bh7b8lddcmdgo"]
 
-[ext_resource type="Script" path="res://scenes/player/playerController.gd" id="1_0bmme"]
+[ext_resource type="Script" path="res://objects/player/playerController.gd" id="1_0bmme"]
 [ext_resource type="Texture2D" uid="uid://do2nns76bn6nv" path="res://assets/devassets.png" id="2_ngrnw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yv1mi"]
@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 	pass
 "
 
-[node name="Player" type="CharacterBody2D"]
+[node name="playerController" type="CharacterBody2D"]
 script = ExtResource("1_0bmme")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

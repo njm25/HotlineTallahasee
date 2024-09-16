@@ -24,4 +24,3 @@
 
 6. **Select the Project**  
    Once you’ve selected the project folder, click `Import & Edit` to load the project in Godot.
-

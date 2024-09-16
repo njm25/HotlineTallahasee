@@ -24,6 +24,8 @@ func get_input():
 		input.y += 1
 	if Input.is_action_pressed('ui_up'):
 		input.y -= 1
+	if Input.is_action_pressed('reload'):
+		get_parent().player_inventory.current_weapon.reload()
 	
 	return input.normalized() * current_speed
 
