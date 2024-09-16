@@ -1,9 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://4h3g0mbjmqmq"]
+[gd_scene load_steps=5 format=3 uid="uid://4h3g0mbjmqmq"]
 
 [ext_resource type="Script" path="res://objects/player/Player.gd" id="1_2nn6m"]
 [ext_resource type="PackedScene" uid="uid://bh7b8lddcmdgo" path="res://objects/player/playerController.tscn" id="2_i33wk"]
+
+[sub_resource type="Gradient" id="Gradient_m1bof"]
+offsets = PackedFloat32Array(0, 0.0844156)
+colors = PackedColorArray(0, 0, 0, 1, 0.843184, 0.843184, 0.843184, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rmc3k"]
+gradient = SubResource("Gradient_m1bof")
+width = 800
+height = 800
 
 [node name="Player" type="Node"]
 script = ExtResource("1_2nn6m")
 
 [node name="playerController" parent="." instance=ExtResource("2_i33wk")]
+
+[node name="PointLight2D" type="PointLight2D" parent="playerController"]
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_rmc3k")
