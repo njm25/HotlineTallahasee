@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://d3iw8rv6xioil"]
+
+[node name="PlayerInventory" type="Node2D"]

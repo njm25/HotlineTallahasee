@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh7b8lddcmdgo"]
+[gd_scene load_steps=6 format=3 uid="uid://dpyrvt4x37bc6"]
 
-[ext_resource type="Script" path="res://objects/player/playerController.gd" id="1_0bmme"]
-[ext_resource type="Texture2D" uid="uid://do2nns76bn6nv" path="res://assets/devassets.png" id="2_ngrnw"]
+[ext_resource type="Script" path="res://objects/player/playerController.gd" id="1_a0vcr"]
+[ext_resource type="Texture2D" uid="uid://do2nns76bn6nv" path="res://assets/devassets.png" id="2_woyes"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yv1mi"]
-atlas = ExtResource("2_ngrnw")
+atlas = ExtResource("2_woyes")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xiayp"]
@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 "
 
 [node name="playerController" type="CharacterBody2D"]
-script = ExtResource("1_0bmme")
+script = ExtResource("1_a0vcr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 4.71239

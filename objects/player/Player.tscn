@@ -1,12 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://4h3g0mbjmqmq"]
+[gd_scene load_steps=8 format=3 uid="uid://4h3g0mbjmqmq"]
 
 [ext_resource type="Script" path="res://objects/player/Player.gd" id="1_2nn6m"]
-[ext_resource type="PackedScene" uid="uid://bh7b8lddcmdgo" path="res://objects/player/playerController.tscn" id="2_i33wk"]
+[ext_resource type="PackedScene" uid="uid://dpyrvt4x37bc6" path="res://objects/player/PlayerController.tscn" id="2_xh1mq"]
+[ext_resource type="PackedScene" uid="uid://duxsypous837d" path="res://objects/weapons/Weapon.tscn" id="4_f5rdc"]
+[ext_resource type="PackedScene" uid="uid://d3iw8rv6xioil" path="res://objects/player/PlayerInventory.tscn" id="5_4mwp1"]
+[ext_resource type="Script" path="res://objects/player/PlayerInventory.gd" id="6_ssnt1"]
 
 [sub_resource type="Gradient" id="Gradient_x84d4"]
 offsets = PackedFloat32Array(0, 0.00649351)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ixj4y"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_66usp"]
 gradient = SubResource("Gradient_x84d4")
 width = 800
 height = 800
@@ -14,9 +17,16 @@ height = 800
 [node name="Player" type="Node"]
 script = ExtResource("1_2nn6m")
 
-[node name="playerController" parent="." instance=ExtResource("2_i33wk")]
+[node name="PlayerController" parent="." instance=ExtResource("2_xh1mq")]
 
-[node name="PointLight2D" type="PointLight2D" parent="playerController"]
+[node name="PointLight2D" type="PointLight2D" parent="PlayerController"]
 energy = 0.46
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_ixj4y")
+texture = SubResource("GradientTexture2D_66usp")
+
+[node name="Weapon" parent="PlayerController" instance=ExtResource("4_f5rdc")]
+position = Vector2(18.27, 9.9)
+rotation = -1.64061
+
+[node name="PlayerInventory" parent="PlayerController" instance=ExtResource("5_4mwp1")]
+script = ExtResource("6_ssnt1")
