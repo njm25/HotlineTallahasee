@@ -1,21 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0efqyaw1yuh1"]
+[gd_scene load_steps=5 format=3 uid="uid://c0efqyaw1yuh1"]
 
 [ext_resource type="Script" path="res://objects/enemy/EnemyController.gd" id="1_14gvb"]
 [ext_resource type="Texture2D" uid="uid://b2cotgq5e6616" path="res://assets/enemy.png" id="1_gbb1q"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_d160c"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_eomci"]
 radius = 8.0
 
-[node name="Enemy" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_omgo2"]
+radius = 284.007
 
-[node name="EnemyController" type="RigidBody2D" parent="."]
-collision_layer = 2
-collision_mask = 15
-gravity_scale = 0.0
+[node name="Enemy" type="Node2D"]
+rotation = 4.71239
+
+[node name="EnemyController" type="CharacterBody2D" parent="."]
 script = ExtResource("1_14gvb")
 
 [node name="Sprite2D" type="Sprite2D" parent="EnemyController"]
 texture = ExtResource("1_gbb1q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyController"]
-shape = SubResource("CircleShape2D_d160c")
+shape = SubResource("CircleShape2D_eomci")
+
+[node name="Area2D" type="Area2D" parent="EnemyController"]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyController/Area2D"]
+shape = SubResource("CircleShape2D_omgo2")
+debug_color = Color(0, 0.647059, 0.258824, 0.137255)

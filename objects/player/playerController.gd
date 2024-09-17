@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name	Player
+
 @export var speed = 250
 @export var sprint_speed = 500
 @export var sneak_speed = 150  # Reduced speed when sneaking

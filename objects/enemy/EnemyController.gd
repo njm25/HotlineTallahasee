@@ -1,12 +1,27 @@
-extends RigidBody2D
+extends CharacterBody2D
 
-@export var friction = 0.1 
+var player_in_area = null  # Variable to hold reference to the player
+@export var turn_speed = 5.0  # Adjust this value to change how quickly the enemy turns
 
 func _ready():
-	pass  # Function body can be defined here if needed
+	var area = get_node("Area2D")
+	area.connect("body_entered", self._on_area_body_entered)
+	area.connect("body_exited", self._on_area_body_exited)
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if state.get_contact_count() > 0:
-		# Apply friction only when colliding
-		state.linear_velocity *= friction
-		state.angular_velocity *= friction
+func _on_area_body_entered(body):
+	if body is Player:
+		print("sum")
+		player_in_area = body  # Store the player reference
+
+func _on_area_body_exited(body):
+	if body is Player:
+		player_in_area = null  # Clear the player reference when they exit the area
+
+func _process(delta):
+	if player_in_area:
+		# Calculate the direction vector towards the player
+		var direction = (player_in_area.global_position - global_position).normalized()
+		# Calculate the angle to the player
+		var target_angle = direction.angle()
+		# Smoothly rotate towards the target angle
+		rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
