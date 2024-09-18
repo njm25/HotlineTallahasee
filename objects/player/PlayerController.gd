@@ -27,6 +27,14 @@ func get_input():
 	var input = Vector2()
 	var current_speed = speed  # Default walking speed
 	
+	if Input.is_action_just_pressed('nextweapon'):
+		get_node("PlayerInventory").next_weapon()
+
+	if Input.is_action_just_pressed('prevweapon'):
+		get_node("PlayerInventory").prev_weapon()
+
+		
+		
 	# Check for sprinting (cannot sprint and sneak at the same time)
 	if Input.is_action_pressed('run') and not Input.is_action_pressed('sneak'):
 		current_speed = sprint_speed

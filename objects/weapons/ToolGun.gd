@@ -1,5 +1,5 @@
 extends 'res://objects/weapons/Weapon.gd'
-class_name Pistol
+class_name ToolGun
 
 
 
@@ -13,7 +13,7 @@ func new(this):
 	pass
 
 func get_gun_type():
-	return "Pistol"
+	return "ToolGun"
 
 func _process(delta: float) -> void:
 	pass
