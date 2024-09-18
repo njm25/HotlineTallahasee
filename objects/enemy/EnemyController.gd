@@ -9,12 +9,12 @@ func _ready():
 	area.connect("body_exited", self._on_area_body_exited)
 
 func _on_area_body_entered(body):
-	if body is Player:
+	if body is PlayerController:
 		print("sum")
 		player_in_area = body  # Store the player reference
 
 func _on_area_body_exited(body):
-	if body is Player:
+	if body is PlayerController:
 		player_in_area = null  # Clear the player reference when they exit the area
 
 func _process(delta):
