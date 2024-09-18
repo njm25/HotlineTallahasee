@@ -1,6 +1,6 @@
-extends CharacterBody2D
 
-class_name	PlayerController
+class_name	PlayerController extends CharacterBody2D
+
 
 @export var speed = 250
 @export var sprint_speed = 500
