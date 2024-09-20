@@ -5,6 +5,6 @@ func _ready():
 
 # Signal handler for detecting body collisions
 func _on_body_entered(body):
-	if body is EnemyController:
-		body.queue_free()
+	if body.get_parent().get_parent() is Enemy:
+		body.get_parent().queue_free()
 	queue_free()  # Delete the projectile when a collision occurs

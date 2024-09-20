@@ -18,33 +18,41 @@ func create_weapon(weapon: Weapon, _player):
 	if player == null:
 		player = _player
 
+	# Holster the current weapon (remove from scene)
+	if weapon_instance != null:
+		weapon_instance.queue_free()  # Remove the current weapon from the scene
+		weapon_instance = null
+		current_weapon = null
+	
 	# Add the weapon to the inventory if it's not already there
 	if weapon not in inventory_slots:
 		inventory_slots.append(weapon)
 
-	# Set the current weapon index to the index of the weapon
+	# Set the current weapon index to the index of the new weapon
 	current_weapon_index = inventory_slots.find(weapon)
 	current_weapon = weapon
 
-	# Update the weapon instance
+	# Update the weapon instance and equip the new weapon
 	update_weapon()
 
 func update_weapon():
-	# Clear current weapon sprite before updating
-	if weapon_instance != null && current_weapon != null:
-		weapon_instance.clear_wep_sprite(current_weapon.get_gun_type())  # Clear current weapon sprite
-	
+	# Clear the current weapon sprite and instance before updating
+	if weapon_instance != null:
+		weapon_instance.queue_free()  # Free the current weapon instance
+		weapon_instance = null
+
 	if current_weapon_index == -1:
 		# No weapon equipped
 		current_weapon = null
 	else:
 		# Equip the current weapon
 		current_weapon = inventory_slots[current_weapon_index]
-		# If there's no weapon instance, create one and add it to the player
-		if weapon_instance == null:
-			weapon_instance = _weapon_scene.instantiate()
-			player.add_child(weapon_instance)
-		# Update the weapon's sprite or other properties as needed
+		
+		# Instantiate a new weapon instance and add it to the player
+		weapon_instance = _weapon_scene.instantiate()
+		player.add_child(weapon_instance)
+		
+		# Set the weapon's sprite or other properties as needed
 		weapon_instance.set_wep_sprite(current_weapon.get_gun_type())
 
 func next_weapon():

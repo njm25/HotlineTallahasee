@@ -4,12 +4,14 @@ extends Node
 @export var player_inventory = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var player_inventory = get_node("PlayerController/PlayerInventory")
+	var player = get_node("PlayerController")
 	var pistol = Pistol.new()
 	var toolgun = ToolGun.new()
 	var testgun = TestGun.new()
-	get_node("PlayerController/PlayerInventory").create_weapon(pistol, get_node("PlayerController"))
-	get_node("PlayerController/PlayerInventory").create_weapon(toolgun, get_node("PlayerController"))
-	get_node("PlayerController/PlayerInventory").create_weapon(testgun, get_node("PlayerController"))
+	player_inventory.create_weapon(pistol, player)
+	player_inventory.create_weapon(toolgun, player)
+	player_inventory.create_weapon(testgun, player)
 	pass
 
 
