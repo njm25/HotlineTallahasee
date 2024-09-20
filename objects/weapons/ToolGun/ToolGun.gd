@@ -16,7 +16,7 @@ func shoot(player: PlayerController, mouse_pos):
 	var enemy_instance = _enemy.instantiate()
 	enemy_instance.global_position = mouse_pos
 	player.get_parent().add_child(enemy_instance)
-	enemy_instance.get_node("Gremlin").set_visible(true)
+	enemy_instance.set_enemy("Gremlin")
 	pass
 
 func get_gun_type():
