@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://duxsypous837d"]
+[gd_scene load_steps=4 format=3 uid="uid://duxsypous837d"]
 
 [ext_resource type="Script" path="res://objects/weapons/Weapon.gd" id="1_xyd7h"]
+[ext_resource type="PackedScene" uid="uid://ctctyobloax4j" path="res://objects/weapons/Projectile.tscn" id="2_2beyt"]
 [ext_resource type="Texture2D" uid="uid://d0hijp7h5ws6l" path="res://assets/pistol.png" id="2_jfvw6"]
 
 [node name="Weapon" type="Node2D"]
 script = ExtResource("1_xyd7h")
 
+[node name="Projectile" parent="." instance=ExtResource("2_2beyt")]
+position = Vector2(0, -1)
+
 [node name="Pistol" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(17, 10)
 rotation = 4.71239
 texture = ExtResource("2_jfvw6")
@@ -17,4 +20,11 @@ visible = false
 modulate = Color(0.204609, 0.419961, 0.881305, 1)
 position = Vector2(17, 10)
 rotation = 4.71239
+texture = ExtResource("2_jfvw6")
+
+[node name="TestGun" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.808376, 0.150372, 0.317822, 1)
+position = Vector2(17, 10)
+rotation = -1.57079
 texture = ExtResource("2_jfvw6")

@@ -32,8 +32,15 @@ func get_input():
 
 	if Input.is_action_just_pressed('prevweapon'):
 		get_node("PlayerInventory").prev_weapon()
-
 		
+		
+	if Input.is_action_just_pressed('shoot'):
+		if get_node("PlayerInventory").current_weapon is Weapon:
+			# Convert the mouse position to global coordinates before passing it
+			var mouse_global_pos = get_global_mouse_position()
+			get_node("PlayerInventory").current_weapon.shoot(self, mouse_global_pos)
+
+			
 		
 	# Check for sprinting (cannot sprint and sneak at the same time)
 	if Input.is_action_pressed('run') and not Input.is_action_pressed('sneak'):

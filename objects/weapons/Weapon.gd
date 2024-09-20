@@ -2,6 +2,7 @@ extends Node2D
 class_name Weapon
 
 
+var _projectile = preload("res://objects/weapons/Projectile.tscn")
 
 func _init() -> void:
 	pass # Replace with function body.

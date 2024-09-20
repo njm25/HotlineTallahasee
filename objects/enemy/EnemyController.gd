@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name EnemyController
 var player_in_area = null  # Variable to hold reference to the player
 @export var turn_speed = 5.0  # Adjust this value to change how quickly the enemy turns
 

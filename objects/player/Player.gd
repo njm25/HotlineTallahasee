@@ -6,8 +6,10 @@ extends Node
 func _ready():
 	var pistol = Pistol.new()
 	var toolgun = ToolGun.new()
+	var testgun = TestGun.new()
 	get_node("PlayerController/PlayerInventory").create_weapon(pistol, get_node("PlayerController"))
 	get_node("PlayerController/PlayerInventory").create_weapon(toolgun, get_node("PlayerController"))
+	get_node("PlayerController/PlayerInventory").create_weapon(testgun, get_node("PlayerController"))
 	pass
 
 
