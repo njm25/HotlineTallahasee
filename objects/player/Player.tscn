@@ -41,6 +41,7 @@ region_rect = Rect2(128, 0, 32, 32)
 shape = SubResource("CircleShape2D_mch14")
 
 [node name="Camera2D" type="Camera2D" parent="PlayerController"]
+zoom = Vector2(1.405, 1.405)
 
 [node name="PlayerInventory" type="Node2D" parent="PlayerController"]
 script = ExtResource("4_wom8u")
