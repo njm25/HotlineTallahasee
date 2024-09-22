@@ -2,7 +2,7 @@
 class_name	PlayerController extends CharacterBody2D
 
 
-@export var speed = 250
+@export var speed = 500
 @export var sprint_speed = 500
 @export var sneak_speed = 150  # Reduced speed when sneaking
 @export var default_friction = 0.1  # Default friction
@@ -14,7 +14,7 @@ class_name	PlayerController extends CharacterBody2D
 @export var dash_speed = 800  # Speed during dash
 @export var dash_duration = 0.3  # Duration of the dash
 @export var dash_friction = 0.05  # Friction during dash
-@export var dash_cooldown = 2.0  # Cooldown time in seconds before dashing again
+@export var dash_cooldown = 1.25  # Cooldown time in seconds before dashing again
 
 var is_sliding = false  # New sliding flag variable
 var is_dashing = false
