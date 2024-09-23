@@ -1,13 +1,43 @@
-extends RigidBody2D
+extends CharacterBody2D
 
-func _ready():
-	connect("body_entered", self._on_body_entered)
+# Variables for bouncing logic
+var bounces = 0
+@export var max_bounces = 40  # Maximum number of bounces
 
-# Signal handler for detecting body collisions
-func _on_body_entered(body):
-	var base_enemy = body.get_parent().get_parent()
-	if base_enemy is Enemy:
-		base_enemy.queue_free()
-	if body is Map:
-		print("yes")
-	queue_free()  # Delete the projectile when a collision occurs
+func _physics_process(delta):
+	# Move the projectile and check for collisions
+	var collision = move_and_collide(velocity * delta)
+	
+	if collision:
+		var collider = collision.get_collider()
+		var collider_base = collider.get_parent().get_parent()
+		var collider_parent = collider.get_parent()
+		# Handle collision with Enemy
+		if collider_base is Enemy:
+			collider.queue_free()  # Remove the enemy
+			queue_free()  # Remove the projectile
+
+		if collider is PlayerController:
+			queue_free()  # Remove the projectile
+
+		if collider_parent is Projectile:
+			queue_free()  # Remove the projectile
+
+		# Handle collision with walls (e.g., Map) and bounce
+		if collider is Map:
+			handle_bounce(collision)
+			
+	# Rotate the projectile based on its velocity direction
+	rotation = velocity.angle()
+
+func handle_bounce(collision):
+	# Check if the projectile has bounced too many times
+	if bounces >= max_bounces:
+		queue_free()  # Remove the projectile if max bounces is reached
+	else:
+		# Increment the bounce counter
+		bounces += 1
+
+		# Get the normal of the collision and reflect the velocity
+		var normal = collision.get_normal()
+		velocity = velocity.bounce(normal)  # Reflect velocity based on the collision normal

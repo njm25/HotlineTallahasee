@@ -22,6 +22,7 @@ radius = 13.0
 script = ExtResource("1_2nn6m")
 
 [node name="PlayerController" type="CharacterBody2D" parent="."]
+collision_mask = 7
 script = ExtResource("2_56kq6")
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerController"]
@@ -29,6 +30,7 @@ position = Vector2(0.000244141, 0)
 scale = Vector2(14.0488, 10.5015)
 energy = 0.46
 shadow_enabled = true
+shadow_item_cull_mask = 6
 texture = SubResource("GradientTexture2D_66usp")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerController"]

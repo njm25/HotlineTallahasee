@@ -1,6 +1,8 @@
 extends 'res://objects/weapons/Weapon.gd'
 class_name Pistol
 
+var speed = 800
+
 func get_gun_type():
 	return "Pistol"
 
@@ -23,13 +25,15 @@ func shoot(player: PlayerController, mouse_pos):
 	# Now calculate the direction from the projectile's new position to the mouse
 	var corrected_direction = (mouse_pos - projectile_start_pos).normalized()
 
-	# Set the projectile's rotation to point toward the mouse
-	projectile_instance.rotation = corrected_direction.angle()
+	# Ensure the projectile is visible
 	projectile_instance.get_node(get_gun_type()).set_visible(true)
+
 	# Get the rigid body and apply the force in the corrected direction
 	var gun_type = get_gun_type()
-	var rigidbody = projectile_instance.get_node(gun_type)
-	if rigidbody is RigidBody2D:
+	var body = projectile_instance.get_node(gun_type)
+	if body.get_parent() is Projectile:
 		# Apply force in the corrected direction
-		var force = corrected_direction * 800  # Adjust the force magnitude as needed
-		rigidbody.apply_central_impulse(force)
+		body.velocity = corrected_direction * speed
+
+		# Use move_and_slide() to move the projectile and allow it to interact with other bodies
+		body.move_and_slide()
