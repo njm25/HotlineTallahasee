@@ -2,7 +2,10 @@ extends CharacterBody2D
 class_name Projectile
 
 var bounces = 0
-@export var max_bounces = 40  # Maximum number of bounces
+@export var max_bounces = 0  # Maximum number of bounces
+
+func _init():
+	pass
 
 func _physics_process(delta):
 	# Move the projectile and check for collisions
@@ -20,7 +23,7 @@ func _physics_process(delta):
 		if collider is PlayerController:
 			queue_free()  # Remove the projectile
 
-		if collider_parent is Projectile:
+		if collider is Projectile:
 			queue_free()  # Remove the projectile
 
 		# Handle collision with walls (e.g., Map) and bounce

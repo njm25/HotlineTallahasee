@@ -1,15 +1,11 @@
 extends Node2D
 class_name Weapon
 
-# Preload actual projectile scenes into the dictionary
-var _projectile_scenes = {
-	"Pistol": preload("res://objects/weapons/Pistol/PistolProjectile.tscn")
-}
-
 @export var has_recoil: bool = false
 @export var has_projectile: bool = false
 @export var recoil_force: float = 0.0  # Default recoil force
 @export var speed: float = 0.0  # Default speed for projectiles
+
 
 func _init() -> void:
 	pass # Replace with function body.
@@ -70,11 +66,20 @@ func reload():
 	print("reloading")
 
 func get_projectile_scene():
-	# Return the projectile scene based on the weapon's name/class
-	if _projectile_scenes.has(self.name):
-		return _projectile_scenes[self.name]  # Return the preloaded PackedScene
+	# Dynamically create the path based on the gun type
+	var gun_type = get_gun_type()
+	var scene_path = "res://objects/weapons/%s/%sProjectile.tscn" % [gun_type, gun_type]
+
+	# Load and return the PackedScene
+	var projectile_scene = load(scene_path)
+
+	# Check if the scene is valid
+	if projectile_scene:
+		return projectile_scene
 	else:
+		print("Error: Could not load projectile scene for gun type: %s" % gun_type)
 		return null
+
 
 # Leave get_gun_type unchanged so you can still have your custom logic
 func get_gun_type():
