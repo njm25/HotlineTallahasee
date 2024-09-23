@@ -12,6 +12,12 @@ var player = null  # Reference to the player node
 
 func _init() -> void:
 	pass
+	
+func update_speed_all(new_speed):
+	pass
+	
+func update_speed(weapon: Weapon, new_speed):
+	weapon.speed = new_speed
 
 func create_weapon(weapon: Weapon, _player):
 	# Set the player reference if not already set

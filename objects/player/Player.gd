@@ -9,9 +9,13 @@ func _ready():
 	var pistol = Pistol.new()
 	var toolgun = ToolGun.new()
 	var testgun = TestGun.new()
+	
+	
 	player_inventory.create_weapon(pistol, player)
 	player_inventory.create_weapon(toolgun, player)
 	player_inventory.create_weapon(testgun, player)
+	
+	
 	pass
 
 
