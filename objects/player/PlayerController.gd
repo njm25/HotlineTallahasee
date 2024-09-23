@@ -32,13 +32,17 @@ func get_input():
 
 	if Input.is_action_just_pressed('prevweapon'):
 		get_node("PlayerInventory").prev_weapon()
-		
-		
-	if Input.is_action_just_pressed('shoot'):
-		if get_node("PlayerInventory").current_weapon is Weapon:
-			# Convert the mouse position to global coordinates before passing it
-			var mouse_global_pos = get_global_mouse_position()
-			get_node("PlayerInventory").current_weapon.shoot(self, mouse_global_pos)
+	
+	var current_weapon = get_node("PlayerInventory").current_weapon
+	
+	var mouse_global_pos = get_global_mouse_position()
+	if current_weapon is Weapon:
+		if current_weapon.is_continuous:
+			if Input.is_action_pressed('shoot'):
+				current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
+		else:
+			if Input.is_action_just_pressed('shoot'):
+				current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
 
 			
 		

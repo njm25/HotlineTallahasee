@@ -1,10 +1,12 @@
 extends 'res://objects/weapons/Weapon.gd'
 class_name ToolGun
 
-var _enemy = preload("res://objects/enemies/Enemy.tscn")
+var _gremlin = preload("res://objects/enemies/Gremlin/Gremlin.tscn")
 
 func _init():
-	pass 
+	fire_rate = 0
+	
+	super._init() 
 
 func _ready():
 	pass 
@@ -13,10 +15,9 @@ func new(this):
 	pass
 
 func shoot(player: PlayerController, mouse_pos):
-	var enemy_instance = _enemy.instantiate()
-	enemy_instance.global_position = mouse_pos
-	player.get_parent().add_child(enemy_instance)
-	enemy_instance.set_enemy("Gremlin")
+	var gremlin_instance = _gremlin.instantiate()
+	gremlin_instance.global_position = mouse_pos
+	player.get_parent().add_child(gremlin_instance)
 	pass
 
 func get_gun_type():

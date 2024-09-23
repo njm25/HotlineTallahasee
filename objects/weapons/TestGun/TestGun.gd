@@ -3,7 +3,10 @@ class_name TestGun
 
 func _init() -> void:
 	has_projectile = true
-	speed = 10000
+	speed = 800
+	
+	is_continuous = true
+	fire_rate = 0.06
 	
 	
 	super._init()

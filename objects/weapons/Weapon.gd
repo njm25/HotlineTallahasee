@@ -5,13 +5,19 @@ class_name Weapon
 @export var has_projectile: bool = false
 @export var recoil_force: float = 0.0  # Default recoil force
 @export var speed: float = 0.0  # Default speed for projectiles
+@export var is_continuous = false
+@export var fire_rate = 0.2
 
+
+var last_shot_time: float = 0.0  # Tracks the time when the last shot was fired
 
 func _init() -> void:
 	pass # Replace with function body.
 
-# Generic shooting logic moved to Weapon class
+
 func shoot(player: PlayerController, mouse_pos: Vector2):
+
+	# Otherwise, fire instantly without fire rate logic
 	var corrected_direction = Vector2()  # Ensure this is declared before use
 
 	if has_projectile:
@@ -20,6 +26,14 @@ func shoot(player: PlayerController, mouse_pos: Vector2):
 	# Apply recoil if the weapon has recoil
 	if has_recoil:
 		apply_recoil_to_player(player, -corrected_direction)
+
+# Handle shooting with fire rate control
+func shoot_with_fire_rate(player: PlayerController, mouse_pos: Vector2):
+	# Check if enough time has passed since the last shot
+	var current_time = Time.get_ticks_msec() / 1000.0  # Get the current time in seconds
+	if current_time - last_shot_time >= fire_rate:
+		shoot(player, mouse_pos)  # Shoot the weapon
+		last_shot_time = current_time  # Update the last shot time
 
 func apply_recoil_to_player(player: PlayerController, recoil_direction: Vector2):
 	player.velocity += recoil_direction * recoil_force

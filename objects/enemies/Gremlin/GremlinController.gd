@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends 'res://objects/enemies/Enemy.gd'
 
 class_name GremlinController
 
@@ -60,6 +60,7 @@ func choose_random_roam_target():
 		# Set the generated point as the target for the NavigationAgent2D
 		navigation_agent.target_position = potential_target
 		break
+
 
 func handle_roaming(delta):
 	if navigation_agent.is_navigation_finished():

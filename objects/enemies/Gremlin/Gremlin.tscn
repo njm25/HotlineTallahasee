@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt327dru81p33"]
+
+[ext_resource type="Script" path="res://objects/enemies/Gremlin/GremlinController.gd" id="1_rb8dy"]
+[ext_resource type="Texture2D" uid="uid://b2cotgq5e6616" path="res://assets/enemy.png" id="2_6doyi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6gdy7"]
+radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dbtr4"]
+radius = 5.0
+
+[node name="GremlinController" type="RigidBody2D"]
+collision_mask = 7
+gravity_scale = 0.0
+script = ExtResource("1_rb8dy")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6gdy7")
+debug_color = Color(0, 0.63, 0.4725, 0.215686)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("2_6doyi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dbtr4")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+simplify_path = true
+avoidance_enabled = true
+radius = 25.0
+avoidance_layers = 3
+avoidance_mask = 3

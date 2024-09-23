@@ -13,10 +13,8 @@ func _physics_process(delta):
 	
 	if collision:
 		var collider = collision.get_collider()
-		var collider_base = collider.get_parent().get_parent()
-		var collider_parent = collider.get_parent()
 		# Handle collision with Enemy
-		if collider_base is Enemy:
+		if collider is Enemy:
 			collider.queue_free()  # Remove the enemy
 			queue_free()  # Remove the projectile
 
@@ -24,6 +22,7 @@ func _physics_process(delta):
 			queue_free()  # Remove the projectile
 
 		if collider is Projectile:
+			collider.queue_free()  # Remove the enemy
 			queue_free()  # Remove the projectile
 
 		# Handle collision with walls (e.g., Map) and bounce
