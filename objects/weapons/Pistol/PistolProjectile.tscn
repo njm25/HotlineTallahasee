@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5jum8i6pqypv"]
+
+[ext_resource type="Texture2D" uid="uid://d2bw6vmnvynpk" path="res://assets/bullet.png" id="1_foyl6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kxu5i"]
+radius = 2.0
+height = 6.0
+
+[node name="Pistol" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 15
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("1_foyl6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_kxu5i")

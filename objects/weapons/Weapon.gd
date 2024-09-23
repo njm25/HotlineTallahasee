@@ -1,7 +1,10 @@
 extends Node2D
 class_name Weapon
 
-var _projectile = preload("res://objects/weapons/Projectile.tscn")
+# Preload actual projectile scenes into the dictionary
+var _projectile_scenes = {
+	"Pistol": preload("res://objects/weapons/Pistol/PistolProjectile.tscn")
+}
 
 @export var has_recoil: bool = false
 @export var has_projectile: bool = false
@@ -24,10 +27,18 @@ func shoot(player: PlayerController, mouse_pos: Vector2):
 
 func apply_recoil_to_player(player: PlayerController, recoil_direction: Vector2):
 	player.velocity += recoil_direction * recoil_force
-	
+
 func fire_projectile(player, mouse_pos, corrected_direction):
+	# Get the projectile scene for the current gun type
+	var projectile_scene = get_projectile_scene()
+
+	# Ensure the scene exists
+	if projectile_scene == null:
+		print("Error: No projectile scene found for this gun type.")
+		return
+
 	# Create a new projectile instance and add it to the scene
-	var projectile_instance = _projectile.instantiate()
+	var projectile_instance = projectile_scene.instantiate()
 	player.get_parent().add_child(projectile_instance)
 
 	# Calculate the direction from player to the mouse position (ignoring offset for now)
@@ -45,30 +56,26 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	corrected_direction = (mouse_pos - projectile_start_pos).normalized()
 
 	# Ensure the projectile is visible
-	projectile_instance.get_node(get_gun_type()).set_visible(true)
+	projectile_instance.set_visible(true)
 
 	# Get the rigid body and apply the force in the corrected direction
-	var gun_type = get_gun_type()
-	var body = projectile_instance.get_node(gun_type)
-	if body.get_parent() is Projectile:
+	if projectile_instance is CharacterBody2D:
 		# Apply force in the corrected direction
-		body.velocity = corrected_direction * speed
+		projectile_instance.velocity = corrected_direction * speed
 
 		# Use move_and_slide() to move the projectile and allow it to interact with other bodies
-		body.move_and_slide()
-	
-
-func set_wep(weapon):
-	get_node(weapon).set_visible(true)
-
-func clear_wep(weapon):
-	get_node(weapon).set_visible(false)
+		projectile_instance.move_and_slide()
 
 func reload():
 	print("reloading")
 
+func get_projectile_scene():
+	# Return the projectile scene based on the weapon's name/class
+	if _projectile_scenes.has(self.name):
+		return _projectile_scenes[self.name]  # Return the preloaded PackedScene
+	else:
+		return null
+
+# Leave get_gun_type unchanged so you can still have your custom logic
 func get_gun_type():
 	return "Weapon"
-
-func test_print():
-	print("test print")

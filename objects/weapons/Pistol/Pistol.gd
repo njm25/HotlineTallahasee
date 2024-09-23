@@ -5,7 +5,7 @@ func _init() -> void:
 	has_recoil = true
 	has_projectile = true
 	recoil_force = 50.0  # Specific recoil force for the Pistol
-	speed = 100
+	speed = 800
 	  # Specific speed for the Pistol projectile
 	super._init()  # Call parent _init()
 
