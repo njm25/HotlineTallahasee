@@ -8,18 +8,17 @@ class_name Weapon
 @export var is_continuous = false
 @export var fire_rate = 0.2
 
-
 var last_shot_time: float = 0.0  # Tracks the time when the last shot was fired
 
 func _init() -> void:
 	pass # Replace with function body.
 
-
 func shoot(player: PlayerController, mouse_pos: Vector2):
 
-	# Otherwise, fire instantly without fire rate logic
-	var corrected_direction = Vector2()  # Ensure this is declared before use
+	# Calculate the corrected direction from the player to the mouse position
+	var corrected_direction = (mouse_pos - player.global_position).normalized()
 
+	# If the weapon has a projectile, fire it
 	if has_projectile:
 		fire_projectile(player, mouse_pos, corrected_direction)
 
@@ -36,6 +35,7 @@ func shoot_with_fire_rate(player: PlayerController, mouse_pos: Vector2):
 		last_shot_time = current_time  # Update the last shot time
 
 func apply_recoil_to_player(player: PlayerController, recoil_direction: Vector2):
+	# Apply the recoil force to the player's velocity
 	player.velocity += recoil_direction * recoil_force
 
 func fire_projectile(player, mouse_pos, corrected_direction):
@@ -51,20 +51,16 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	var projectile_instance = projectile_scene.instantiate()
 	player.get_parent().add_child(projectile_instance)
 
-	# Calculate the direction from player to the mouse position (ignoring offset for now)
-	var initial_direction = (mouse_pos - player.global_position).normalized()
-
 	# Define the offset for the projectile relative to the player
 	var offset = Vector2(26, 12)  # Example offset
-	var rotated_offset = offset.rotated(initial_direction.angle())
+	var rotated_offset = offset.rotated(corrected_direction.angle())
 
 	# Set the projectile's starting position as player's position + offset
 	var projectile_start_pos = player.global_position + rotated_offset
 	projectile_instance.position = projectile_start_pos
-
-	# Now calculate the direction from the projectile's new position to the mouse
+ 	
+	
 	corrected_direction = (mouse_pos - projectile_start_pos).normalized()
-
 	# Ensure the projectile is visible
 	projectile_instance.set_visible(true)
 
@@ -93,7 +89,6 @@ func get_projectile_scene():
 	else:
 		print("Error: Could not load projectile scene for gun type: %s" % gun_type)
 		return null
-
 
 # Leave get_gun_type unchanged so you can still have your custom logic
 func get_gun_type():
