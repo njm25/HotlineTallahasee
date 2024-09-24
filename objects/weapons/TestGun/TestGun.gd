@@ -7,8 +7,6 @@ func _init() -> void:
 	
 	is_continuous = true
 	fire_rate = 0.06
-	has_recoil = true
-	recoil_force = 50
 	
 	super._init()
 	
