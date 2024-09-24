@@ -4,6 +4,7 @@ class_name Pistol
 func _init() -> void:
 	has_recoil = true
 	has_projectile = true
+	projectile_spawn_offset = Vector2(26, 12)
 	recoil_force = 50.0  # Specific recoil force for the Pistol
 	speed = 800
 	fire_rate = 0.8

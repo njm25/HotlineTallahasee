@@ -15,7 +15,7 @@ class_name Weapon
 @export var has_ammo = true
 # New accuracy-related variable
 @export var accuracy: float = 0.08  # Controls the spread; lower values are more accurate, higher values are less accurate
-
+@export var projectile_spawn_offset = Vector2(0, 0)
 # Burst fire-related variables
 @export var burst_fire: bool = false  # Toggle burst fire mode
 @export var burst_count: int = 3  # Number of shots in a burst
@@ -50,7 +50,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	player.get_parent().add_child(projectile_instance)
 
 	# Define the offset for the projectile relative to the player (keeps spawn location the same)
-	var offset = Vector2(26, 12)  # Example offset for gun barrel or hand
+	var offset = projectile_spawn_offset  # Example offset for gun barrel or hand
 	var rotated_offset = offset.rotated(corrected_direction.angle())
 
 	# Set the projectile's starting position as player's position + offset (unchanged by accuracy)

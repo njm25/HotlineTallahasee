@@ -3,6 +3,8 @@ class_name TestGun
 
 func _init() -> void:
 	has_projectile = true
+	
+	projectile_spawn_offset = Vector2(26, 12)
 	speed = 600
 	
 	is_continuous = true
