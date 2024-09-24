@@ -12,7 +12,7 @@ class_name Weapon
 @export var ammo_capacity: int = 30  # Max ammo capacity
 @export var current_ammo: int = 30  # Current ammo count
 @export var reload_time: float = 2.0  # Time it takes to reload (in seconds)
-
+@export var has_ammo = true
 # New accuracy-related variable
 @export var accuracy: float = 0.08  # Controls the spread; lower values are more accurate, higher values are less accurate
 
@@ -82,7 +82,6 @@ func apply_recoil_to_player(player: PlayerController, recoil_direction: Vector2)
 func shoot(player: PlayerController, mouse_pos: Vector2):
 	# Check if the weapon is currently reloading or in burst delay
 	if is_reloading or is_bursting or is_in_burst_delay:
-		print("Weapon is reloading, bursting, or in burst delay, cannot shoot!")
 		return
 
 	# Check if there's enough ammo
@@ -100,8 +99,6 @@ func shoot(player: PlayerController, mouse_pos: Vector2):
 
 		# Decrease ammo count after shooting
 		current_ammo -= 1
-	else:
-		print("Out of ammo! Reload required.")
 
 # Handle shooting with fire rate control and burst fire
 func shoot_with_fire_rate(player: PlayerController, mouse_pos: Vector2):
@@ -148,13 +145,13 @@ func fire_burst_shot():
 
 		# Check if ammo runs out during the burst
 		if current_ammo <= 0:
-			print("Out of ammo during burst!")
 			is_bursting = false
 			start_burst_delay()  # Start burst delay even if ammo runs out
 			return
 
 		# Create a timer for the next shot in the burst
 		var burst_shot_timer = Timer.new()
+		burst_shot_timer.name = "BurstShotTimer"  # Name the burst shot timer
 		burst_shot_timer.wait_time = burst_shot_delay
 		burst_shot_timer.one_shot = true
 		current_player.add_child(burst_shot_timer)  # Add the timer to the scene
@@ -164,7 +161,6 @@ func fire_burst_shot():
 		burst_shot_timer.start()
 	else:
 		# End the burst if all shots are fired or out of ammo
-		print("Burst complete!")
 		is_bursting = false
 
 		# Start the burst delay timer before allowing another burst
@@ -172,9 +168,12 @@ func fire_burst_shot():
 
 # This function is called after each burst shot delay
 func _on_burst_shot_timeout():
+	# Check if bursting was canceled before proceeding
+	if not is_bursting:
+		return
+	
 	# Fire the next shot in the burst
 	fire_burst_shot()
-
 # This function handles the burst delay (time between bursts)
 func start_burst_delay():
 	is_in_burst_delay = true
@@ -191,8 +190,11 @@ func start_burst_delay():
 
 # This function is called after the burst delay is over
 func _on_burst_delay_timeout():
+	# Check if burst delay is still valid
+	if not is_in_burst_delay:
+		return
+	
 	is_in_burst_delay = false  # Allow firing again
-
 # Reload with a delay
 func reload(player):
 	# Start the reloading process if not already reloading
@@ -202,6 +204,7 @@ func reload(player):
 
 		# Create a Timer node to handle the reload delay
 		var reload_timer = Timer.new()
+		reload_timer.name = "ReloadTimer"  # Name the timer so it can be identified later
 		reload_timer.wait_time = reload_time  # Set the wait time to the reload_time variable
 		reload_timer.one_shot = true  # Make sure the timer runs only once
 		
@@ -216,6 +219,10 @@ func reload(player):
 
 # This function will be called when the reload timer completes
 func _on_reload_timeout():
+	# Check if reloading was canceled before proceeding
+	if not is_reloading:
+		return
+	
 	# Reload the weapon to restore ammo capacity
 	current_ammo = ammo_capacity
 	print("Reload complete!")

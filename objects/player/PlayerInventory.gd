@@ -99,7 +99,7 @@ func update_weapon():
 		player.add_child(weapon_instance)
 		
 		# Set the weapon's sprite or other properties as needed
-		weapon_instance.set_wep(current_weapon.get_gun_type())
+		weapon_instance.set_wep(current_weapon)
 
 func next_weapon():
 	var inventory_size = inventory_slots.size()

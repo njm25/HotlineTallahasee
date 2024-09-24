@@ -21,9 +21,23 @@ radius = 13.0
 [node name="Player" type="Node"]
 script = ExtResource("1_2nn6m")
 
+[node name="GUI" type="Node2D" parent="."]
+top_level = true
+
+[node name="AmmoLabel" type="RichTextLabel" parent="GUI"]
+offset_left = 85.0
+offset_top = 72.0
+offset_right = 125.0
+offset_bottom = 112.0
+text = "trest"
+
 [node name="PlayerController" type="CharacterBody2D" parent="."]
 collision_mask = 3
 script = ExtResource("2_56kq6")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PlayerController"]
+remote_path = NodePath("../../GUI")
+update_rotation = false
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerController"]
 position = Vector2(-0.00012207, 0)

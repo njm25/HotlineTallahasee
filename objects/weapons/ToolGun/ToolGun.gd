@@ -6,6 +6,7 @@ var _gremlin = preload("res://objects/enemies/Gremlin/Gremlin.tscn")
 func _init():
 	fire_rate = 0
 	accept_modifiers = false
+	has_ammo = false
 	super._init() 
 
 func shoot(player: PlayerController, mouse_pos):

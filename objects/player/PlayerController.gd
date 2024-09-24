@@ -69,15 +69,17 @@ func restore_defaults():
 			set(key, default_values[key])
 			# Reset the modification flag so future modifications can work correctly
 			modified_flags[key] = false
-	# Recalculate final speed and friction if needed
 func get_input():
 	var input = Vector2()
 	var current_speed = speed  # Default walking speed
 	
+	# Check for weapon switching
 	if Input.is_action_just_pressed('nextweapon'):
+		cancel_reload_burst()  # Cancel any ongoing reload or burst fire
 		get_node("PlayerInventory").next_weapon()
 
 	if Input.is_action_just_pressed('prevweapon'):
+		cancel_reload_burst()  # Cancel any ongoing reload or burst fire
 		get_node("PlayerInventory").prev_weapon()
 	
 	var current_weapon = get_node("PlayerInventory").current_weapon
@@ -90,9 +92,7 @@ func get_input():
 		else:
 			if Input.is_action_just_pressed('shoot'):
 				current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
-
 			
-		
 	# Check for sprinting (cannot sprint and sneak at the same time)
 	if Input.is_action_pressed('run') and not Input.is_action_pressed('sneak'):
 		current_speed = sprint_speed
@@ -114,6 +114,35 @@ func get_input():
 			current_weapon.reload(self)
 	
 	return input.normalized() * current_speed
+
+# Function to cancel reloads and bursts
+# Function to cancel reloads and bursts
+func cancel_reload_burst():
+	var current_weapon = get_node("PlayerInventory").current_weapon
+	if current_weapon is Weapon:
+		# Cancel reloading
+		if current_weapon.is_reloading:
+			current_weapon.is_reloading = false
+			# Find and remove the reload timer
+			for child in current_weapon.get_children():
+				if child is Timer and child.get_name() == "ReloadTimer":
+					child.stop()
+					current_weapon.remove_child(child)
+					child.queue_free()
+			print("Reload canceled!")
+
+		# Cancel burst fire
+		if current_weapon.is_bursting:
+			current_weapon.is_bursting = false
+			# Find and remove the burst shot timer
+			for child in current_weapon.get_children():
+				if child is Timer and child.get_name() == "BurstShotTimer":
+					child.stop()
+					current_weapon.remove_child(child)
+					child.queue_free()
+			print("Burst fire canceled!")
+			current_weapon.is_in_burst_delay = false  # Also clear any burst delay flag
+			current_weapon.burst_shots_fired = 0  # Reset burst shot count
 
 func _process(delta):
 	look_at(get_global_mouse_position())

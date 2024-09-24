@@ -22,4 +22,12 @@ func test_print():
 	print("this works")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	var player_inventory = get_node("PlayerController/PlayerInventory")
+	var current_weapon = player_inventory.current_weapon
+	var ammo_label = get_node("GUI/AmmoLabel")
+	if current_weapon is Weapon && current_weapon.has_ammo:
+		ammo_label.text = str(current_weapon.current_ammo)
+	else:
+		ammo_label.text = ""
+	
+	
