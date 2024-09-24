@@ -7,11 +7,14 @@ class_name Weapon
 @export var speed: float = 0.0  # Default speed for projectiles
 @export var is_continuous = false
 @export var fire_rate = 0.2
-@export var max_bounces = 0 
+@export var max_bounces = 0
 @export var accept_modifiers = true
 @export var ammo_capacity: int = 30  # Max ammo capacity
 @export var current_ammo: int = 30  # Current ammo count
 @export var reload_time: float = 2.0  # Time it takes to reload (in seconds)
+
+# New accuracy-related variable
+@export var accuracy: float = 0.08  # Controls the spread; lower values are more accurate, higher values are less accurate
 
 # Burst fire-related variables
 @export var burst_fire: bool = false  # Toggle burst fire mode
@@ -30,7 +33,7 @@ var current_mouse_pos = Vector2.ZERO  # Stores the mouse position during burst
 func _init() -> void:
 	pass  # Replace with function body.
 
-# Fires the projectile from the player in the given direction
+# Fires the projectile from the player in the given direction, adjusted by accuracy
 func fire_projectile(player, mouse_pos, corrected_direction):
 	# Get the projectile scene for the current gun type
 	var projectile_scene = get_projectile_scene()
@@ -46,20 +49,25 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	projectile_instance.set_max_bounces(max_bounces)
 	player.get_parent().add_child(projectile_instance)
 
-	# Define the offset for the projectile relative to the player
-	var offset = Vector2(26, 12)  # Example offset
+	# Define the offset for the projectile relative to the player (keeps spawn location the same)
+	var offset = Vector2(26, 12)  # Example offset for gun barrel or hand
 	var rotated_offset = offset.rotated(corrected_direction.angle())
 
-	# Set the projectile's starting position as player's position + offset
+	# Set the projectile's starting position as player's position + offset (unchanged by accuracy)
 	var projectile_start_pos = player.global_position + rotated_offset
 	projectile_instance.position = projectile_start_pos
-	
-	corrected_direction = (mouse_pos - projectile_start_pos).normalized()
 
-	# Get the rigid body and apply the force in the corrected direction
+	# Recalculate direction with the offset applied
+	var final_direction = (mouse_pos - projectile_start_pos).normalized()
+
+	# Apply accuracy to the final firing direction
+	var accuracy_deviation = randf_range(-accuracy, accuracy)  # Random angle within accuracy range
+	var inaccurate_direction = final_direction.rotated(accuracy_deviation)
+
+	# Get the rigid body and apply the force in the inaccurate direction
 	if projectile_instance is CharacterBody2D:
-		# Apply force in the corrected direction
-		projectile_instance.velocity = corrected_direction * speed
+		# Apply force in the inaccurate direction
+		projectile_instance.velocity = inaccurate_direction * speed
 
 		# Use move_and_slide() to move the projectile and allow it to interact with other bodies
 		projectile_instance.move_and_slide()
@@ -70,7 +78,6 @@ func apply_recoil_to_player(player: PlayerController, recoil_direction: Vector2)
 	# Apply the recoil force to the player's velocity
 	player.velocity += recoil_direction * recoil_force
 
-# Main shoot function that checks conditions and fires projectiles
 # Main shoot function that checks conditions and fires projectiles
 func shoot(player: PlayerController, mouse_pos: Vector2):
 	# Check if the weapon is currently reloading or in burst delay

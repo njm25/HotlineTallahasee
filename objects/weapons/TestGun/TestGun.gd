@@ -17,6 +17,7 @@ func _init() -> void:
 	burst_shot_delay = 0.1
 	burst_delay = 0.9
 	burst_count = 3
+	accuracy = 0.1
 	super._init()
 	
 func shoot(player: PlayerController, mouse_pos: Vector2):

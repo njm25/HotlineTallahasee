@@ -5,7 +5,7 @@ func _init() -> void:
 	has_recoil = true
 	has_projectile = true
 	recoil_force = 50.0  # Specific recoil force for the Pistol
-	speed = 800
+	speed = 100
 	fire_rate = 0.8
 	max_bounces = 1
 	ammo_capacity = 5
