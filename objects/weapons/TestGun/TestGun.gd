@@ -3,15 +3,18 @@ class_name TestGun
 
 func _init() -> void:
 	has_projectile = true
-	speed = 800
+	speed = 500
 	
 	is_continuous = true
-	fire_rate = 0.06
 	
 	max_bounces = 10
 	reload_time = 5
 	ammo_capacity = 60
 	current_ammo = 60
+	burst_fire =  true
+	burst_shot_delay = 0.1
+	burst_delay = 0.9
+	burst_count = 3
 	super._init()
 	
 func shoot(player: PlayerController, mouse_pos: Vector2):
