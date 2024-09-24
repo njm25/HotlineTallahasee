@@ -23,6 +23,22 @@ var dash_direction = Vector2.ZERO  # Direction for the dash
 var current_friction = default_friction  # To keep track of the current friction
 var cooldown_timer = 0.0  # Timer to track dash cooldown
 
+
+# Modifiers for stacking
+var speed_modifiers: Array = []
+var friction_modifiers: Array = []
+func apply_modifier(modifier: Modifier):
+	# Apply additive modifiers dynamically
+	for key in modifier.add.keys():
+		if get(key):
+			set(key, get(key) + modifier.add[key])
+
+	# Apply multiplicative modifiers dynamically
+	for key in modifier.multiply.keys():
+		if get(key):
+			set(key, get(key) * modifier.multiply[key])
+
+	# Recalculate final speed and friction if needed
 func get_input():
 	var input = Vector2()
 	var current_speed = speed  # Default walking speed

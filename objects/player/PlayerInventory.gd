@@ -10,8 +10,26 @@ var current_weapon_index := -1  # -1 indicates no weapon equipped
 var weapon_instance = null
 var player = null  # Reference to the player node
 
+var fire_rate_modifiers: Array = []
+var recoil_modifiers: Array = []
+
 func _init() -> void:
 	pass
+
+func apply_modifier(modifier: Modifier):
+	# Apply additive modifiers dynamically to weapons
+	for key in modifier.add.keys():
+		for weapon in inventory_slots:
+			if weapon.get(key):
+				weapon.set(key, weapon.get(key) + modifier.add[key])
+
+	# Apply multiplicative modifiers dynamically to weapons
+	for key in modifier.multiply.keys():
+		for weapon in inventory_slots:
+			if weapon.get(key):
+				weapon.set(key, weapon.get(key) * modifier.multiply[key])
+
+	# Recalculate final weapon stats if needed
 
 
 func create_weapon(weapon: Weapon, _player):
