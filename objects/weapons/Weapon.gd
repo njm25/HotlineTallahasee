@@ -9,24 +9,40 @@ class_name Weapon
 @export var fire_rate = 0.2
 @export var max_bounces = 0 
 @export var accept_modifiers = true
+@export var ammo_capacity: int = 30  # Max ammo capacity
+@export var current_ammo: int = 30  # Current ammo count
+@export var reload_time: float = 2.0  # Time it takes to reload (in seconds)
 
+var is_reloading: bool = false  # To prevent shooting while reloading
 var last_shot_time: float = 0.0  # Tracks the time when the last shot was fired
 
 func _init() -> void:
-	pass # Replace with function body.
+	pass  # Replace with function body.
 
 func shoot(player: PlayerController, mouse_pos: Vector2):
 
-	# Calculate the corrected direction from the player to the mouse position
-	var corrected_direction = (mouse_pos - player.global_position).normalized()
+	# Check if the weapon is currently reloading
+	if is_reloading:
+		print("Weapon is reloading, cannot shoot!")
+		return
 
-	# If the weapon has a projectile, fire it
-	if has_projectile:
-		fire_projectile(player, mouse_pos, corrected_direction)
+	# Check if there's enough ammo
+	if current_ammo > 0:
+		# Calculate the corrected direction from the player to the mouse position
+		var corrected_direction = (mouse_pos - player.global_position).normalized()
 
-	# Apply recoil if the weapon has recoil
-	if has_recoil:
-		apply_recoil_to_player(player, -corrected_direction)
+		# If the weapon has a projectile, fire it
+		if has_projectile:
+			fire_projectile(player, mouse_pos, corrected_direction)
+
+		# Apply recoil if the weapon has recoil
+		if has_recoil:
+			apply_recoil_to_player(player, -corrected_direction)
+
+		# Decrease ammo count after shooting
+		current_ammo -= 1
+	else:
+		print("Out of ammo! Reload required.")
 
 # Handle shooting with fire rate control
 func shoot_with_fire_rate(player: PlayerController, mouse_pos: Vector2):
@@ -63,9 +79,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	var projectile_start_pos = player.global_position + rotated_offset
 	projectile_instance.position = projectile_start_pos
  	
-	
 	corrected_direction = (mouse_pos - projectile_start_pos).normalized()
-	# Ensure the projectile is visible
 
 	# Get the rigid body and apply the force in the corrected direction
 	if projectile_instance is CharacterBody2D:
@@ -76,8 +90,36 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 		projectile_instance.move_and_slide()
 		projectile_instance.set_visible(true)
 
-func reload():
-	print("reloading")
+# Reload with a delay
+func reload(player):
+	# Start the reloading process if not already reloading
+	
+	if not is_reloading and ammo_capacity != current_ammo:
+		is_reloading = true  # Set reloading flag
+		print("Reloading...")
+
+		# Create a Timer node to handle the reload delay
+		var reload_timer = Timer.new()
+		reload_timer.wait_time = reload_time  # Set the wait time to the reload_time variable
+		reload_timer.one_shot = true  # Make sure the timer runs only once
+		
+		# Add the timer to the scene before starting it
+		player.add_child(reload_timer)  
+
+		# Connect the timeout signal to the function that completes the reload
+		reload_timer.connect("timeout", self._on_reload_timeout)
+		
+		# Now start the timer
+		reload_timer.start()
+
+# This function will be called when the reload timer completes
+func _on_reload_timeout():
+	# Reload the weapon to restore ammo capacity
+	current_ammo = ammo_capacity
+	print("Reload complete!")
+
+	# Reset reloading flag
+	is_reloading = false
 
 func get_projectile_scene():
 	# Dynamically create the path based on the gun type

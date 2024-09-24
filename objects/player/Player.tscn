@@ -26,8 +26,8 @@ collision_mask = 3
 script = ExtResource("2_56kq6")
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerController"]
-position = Vector2(0.000244141, 0)
-scale = Vector2(14.0488, 10.5015)
+position = Vector2(-0.00012207, 0)
+scale = Vector2(4.65, 2.8193)
 energy = 0.46
 shadow_enabled = true
 shadow_item_cull_mask = 6

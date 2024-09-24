@@ -9,7 +9,7 @@ func _init() -> void:
 	fire_rate = 0.06
 	
 	max_bounces = 10
-	
+	reload_time = 5
 	super._init()
 	
 func shoot(player: PlayerController, mouse_pos: Vector2):

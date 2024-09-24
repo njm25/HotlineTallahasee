@@ -5,33 +5,59 @@ var _weapon_scene = preload("res://objects/player/CurrentWeapon.tscn")
 
 @export var inventory_slots := []  # Array to hold weapons
 @export var current_weapon: Weapon = null
-
 var current_weapon_index := -1  # -1 indicates no weapon equipped
 var weapon_instance = null
 var player = null  # Reference to the player node
 
-var fire_rate_modifiers: Array = []
-var recoil_modifiers: Array = []
-
-func _init() -> void:
-	pass
+# Store default stats for weapons dynamically
+var weapon_defaults := {}
+var weapon_modified_flags := {}
 
 func apply_modifier(modifier: Modifier):
 	# Apply additive modifiers dynamically to weapons
 	for key in modifier.add.keys():
 		for weapon in inventory_slots:
+			# Initialize default and flag storage for the weapon
+			if weapon not in weapon_defaults:
+				weapon_defaults[weapon] = {}
+				weapon_modified_flags[weapon] = {}
+
+			# Check if this key has been modified before
+			if not weapon_modified_flags[weapon].has(key):
+				# Store the default value and set the modified flag
+				weapon_defaults[weapon][key] = weapon.get(key)
+				weapon_modified_flags[weapon][key] = true
+			
+			# Apply additive modifier
 			if weapon.get(key):
 				weapon.set(key, weapon.get(key) + modifier.add[key])
 
 	# Apply multiplicative modifiers dynamically to weapons
 	for key in modifier.multiply.keys():
 		for weapon in inventory_slots:
+			# Initialize default and flag storage for the weapon
+			if weapon not in weapon_defaults:
+				weapon_defaults[weapon] = {}
+				weapon_modified_flags[weapon] = {}
+
+			# Check if this key has been modified before
+			if not weapon_modified_flags[weapon].has(key):
+				# Store the default value and set the modified flag
+				weapon_defaults[weapon][key] = weapon.get(key)
+				weapon_modified_flags[weapon][key] = true
+
+			# Apply multiplicative modifier
 			if weapon.get(key):
-				if weapon.get(key).accept_modifiers:
-					weapon.set(key, weapon.get(key) * modifier.multiply[key])
+				weapon.set(key, weapon.get(key) * modifier.multiply[key])
 
-	# Recalculate final weapon stats if needed
-
+func restore_defaults():
+	# Restore each weapon's stats to the stored defaults
+	for weapon in inventory_slots:
+		if weapon_defaults.has(weapon):
+			for key in weapon_defaults[weapon]:
+				weapon.set(key, weapon_defaults[weapon][key])
+				# Reset the modification flag so future modifications can work correctly
+				weapon_modified_flags[weapon][key] = false
 
 func create_weapon(weapon: Weapon, _player):
 	# Set the player reference if not already set

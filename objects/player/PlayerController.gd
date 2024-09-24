@@ -27,17 +27,48 @@ var cooldown_timer = 0.0  # Timer to track dash cooldown
 # Modifiers for stacking
 var speed_modifiers: Array = []
 var friction_modifiers: Array = []
+
+var default_values := {}
+var modified_flags := {}
+
 func apply_modifier(modifier: Modifier):
 	# Apply additive modifiers dynamically
 	for key in modifier.add.keys():
-		if get(key):
+		# Initialize the flag if it doesn't exist
+		if not modified_flags.has(key):
+			modified_flags[key] = false
+
+		# Store default value before modifying only if it hasn't been modified yet
+		if not modified_flags[key]:
+			default_values[key] = get(key)
+			modified_flags[key] = true  # Mark this key as modified
+
+		# Apply additive modifier
+		if has_meta(key):
 			set(key, get(key) + modifier.add[key])
 
 	# Apply multiplicative modifiers dynamically
 	for key in modifier.multiply.keys():
-		if get(key):
+		# Initialize the flag if it doesn't exist
+		if not modified_flags.has(key):
+			modified_flags[key] = false
+
+		# Store default value before modifying only if it hasn't been modified yet
+		if not modified_flags[key]:
+			default_values[key] = get(key)
+			modified_flags[key] = true  # Mark this key as modified
+
+		# Apply multiplicative modifier
+		if has_meta(key):
 			set(key, get(key) * modifier.multiply[key])
 
+func restore_defaults():
+	# Restore all variables to their stored defaults
+	for key in default_values.keys():
+		if has_meta(key):
+			set(key, default_values[key])
+			# Reset the modification flag so future modifications can work correctly
+			modified_flags[key] = false
 	# Recalculate final speed and friction if needed
 func get_input():
 	var input = Vector2()
@@ -78,8 +109,8 @@ func get_input():
 		input.y += 1
 	if Input.is_action_pressed('ui_up'):
 		input.y -= 1
-	if Input.is_action_pressed('reload'):
-		get_parent().player_inventory.current_weapon.reload()
+	if Input.is_action_just_pressed('reload'):
+		get_node("PlayerInventory").current_weapon.reload(self)
 	
 	return input.normalized() * current_speed
 

@@ -8,7 +8,9 @@ func _init() -> void:
 	speed = 800
 	fire_rate = 0.8
 	max_bounces = 1
-	
+	ammo_capacity = 5
+	current_ammo = 5
+	reload_time = 1.0
 	  # Specific speed for the Pistol projectile
 	super._init()  # Call parent _init()
 
