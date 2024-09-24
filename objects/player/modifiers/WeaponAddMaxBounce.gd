@@ -1,5 +1,5 @@
 extends 'res://objects/player/Modifier.gd'
-class_name AddMaxBounce
+class_name WeaponAddMaxBounce
 
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:

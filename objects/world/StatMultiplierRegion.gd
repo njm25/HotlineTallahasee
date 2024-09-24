@@ -13,19 +13,12 @@ func _on_body_entered(other):
 		_player = other
 		var player_inventory = _player.get_node("PlayerInventory")
 		# Separate the assignment of the modifier dictionaries
-		var weapon_add_mod = { 
-								"max_bounces": 1,
-							 }
-		var weapon_mult_mod = {  }
-		var weapon_modifiers = Modifier.new(weapon_add_mod, weapon_mult_mod)
 		
-		var player_add_mod = {  }
-		var player_mult_mod = { }
-		var player_modifiers = Modifier.new(player_add_mod, player_mult_mod)
-
-		# Apply to player inventory and controller
-		player_inventory.apply_modifier(weapon_modifiers)
-		_player.apply_modifier(player_modifiers)
+		var modifier = WeaponAddMaxBounce.new()
+		var player_modifier = PlayerSlowing.new()
+		
+		_player.apply_modifier(player_modifier)
+		player_inventory.apply_modifier(modifier)
 		
 		
 func _on_body_exited(other):
