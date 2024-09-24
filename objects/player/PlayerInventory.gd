@@ -1,7 +1,7 @@
 extends Node2D
 class_name PlayerInventory
 
-var _weapon_scene = preload("res://objects/player/SelectedWeapon.tscn")
+var _weapon_scene = preload("res://objects/player/CurrentWeapon.tscn")
 
 @export var inventory_slots := []  # Array to hold weapons
 @export var current_weapon: Weapon = null

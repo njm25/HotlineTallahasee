@@ -49,6 +49,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 
 	# Create a new projectile instance and add it to the scene
 	var projectile_instance = projectile_scene.instantiate()
+	projectile_instance.set_visible(false)
 	player.get_parent().add_child(projectile_instance)
 
 	# Define the offset for the projectile relative to the player
@@ -62,7 +63,6 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	
 	corrected_direction = (mouse_pos - projectile_start_pos).normalized()
 	# Ensure the projectile is visible
-	projectile_instance.set_visible(true)
 
 	# Get the rigid body and apply the force in the corrected direction
 	if projectile_instance is CharacterBody2D:
@@ -71,6 +71,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 
 		# Use move_and_slide() to move the projectile and allow it to interact with other bodies
 		projectile_instance.move_and_slide()
+		projectile_instance.set_visible(true)
 
 func reload():
 	print("reloading")
