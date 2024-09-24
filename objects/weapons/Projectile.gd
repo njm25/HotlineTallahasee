@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Projectile
 
 var bounces = 0
-@export var max_bounces = 0  # Maximum number of bounces
+var max_bounces = 0  # Maximum number of bounces
 
 func set_max_bounces(_max_bounces):
 	max_bounces = _max_bounces

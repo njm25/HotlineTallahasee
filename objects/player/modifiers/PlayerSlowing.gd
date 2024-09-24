@@ -1,4 +1,4 @@
-extends 'res://objects/player/Modifier.gd'
+extends 'res://objects/Modifier.gd'
 class_name PlayerSlowing
 
 # Initialize the slowing modifier
@@ -17,9 +17,9 @@ func _init() -> void:
 
 	# Multiplicative modifiers to further slow down effects (e.g., reduce friction)
 	var _multiply = {
-		"default_friction": 1.5,  # Increase friction to slow down faster
-		"no_friction": 1.5,       # Even when sneaking, increase friction
-		"dash_friction": 2.0,     # Increase dash friction to slow down dash
+		"default_friction": 0.8,  # Increase friction to slow down faster
+		"no_friction": 0.8,       # Even when sneaking, increase friction
+		"dash_friction": 0.8,     # Increase dash friction to slow down dash
 		"push_force": 0.8,        # Reduce push force to make collisions weaker
 	}
 

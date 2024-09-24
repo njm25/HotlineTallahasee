@@ -15,9 +15,7 @@ func _on_body_entered(other):
 		# Separate the assignment of the modifier dictionaries
 		
 		var modifier = WeaponAddMaxBounce.new()
-		var player_modifier = PlayerSlowing.new()
 		
-		_player.apply_modifier(player_modifier)
 		player_inventory.apply_modifier(modifier)
 		
 		

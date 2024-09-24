@@ -1,4 +1,4 @@
-extends 'res://objects/player/Modifier.gd'
+extends 'res://objects/Modifier.gd'
 class_name WeaponAddMaxBounce
 
 # Called when the node enters the scene tree for the first time.
