@@ -27,7 +27,8 @@ func apply_modifier(modifier: Modifier):
 	for key in modifier.multiply.keys():
 		for weapon in inventory_slots:
 			if weapon.get(key):
-				weapon.set(key, weapon.get(key) * modifier.multiply[key])
+				if weapon.get(key).accept_modifiers:
+					weapon.set(key, weapon.get(key) * modifier.multiply[key])
 
 	# Recalculate final weapon stats if needed
 

@@ -8,6 +8,7 @@ class_name Weapon
 @export var is_continuous = false
 @export var fire_rate = 0.2
 @export var max_bounces = 0 
+@export var accept_modifiers = true
 
 var last_shot_time: float = 0.0  # Tracks the time when the last shot was fired
 

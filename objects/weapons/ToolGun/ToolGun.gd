@@ -5,14 +5,8 @@ var _gremlin = preload("res://objects/enemies/Gremlin/Gremlin.tscn")
 
 func _init():
 	fire_rate = 0
-	
+	accept_modifiers = false
 	super._init() 
-
-func _ready():
-	pass 
-	
-func new(this):
-	pass
 
 func shoot(player: PlayerController, mouse_pos):
 	var gremlin_instance = _gremlin.instantiate()
@@ -22,6 +16,3 @@ func shoot(player: PlayerController, mouse_pos):
 
 func get_gun_type():
 	return "ToolGun"
-
-func _process(delta: float) -> void:
-	pass
