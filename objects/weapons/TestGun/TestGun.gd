@@ -3,7 +3,7 @@ class_name TestGun
 
 func _init() -> void:
 	has_projectile = true
-	speed = 550
+	speed = 600
 	
 	is_continuous = true
 	
@@ -11,8 +11,8 @@ func _init() -> void:
 	reload_time = 2
 	has_recoil = true
 	recoil_force = 5
-	ammo_capacity = 12
-	current_ammo = 12
+	ammo_capacity = 11
+	current_ammo = 11
 	burst_fire =  true
 	burst_shot_delay = 0.1
 	burst_delay = 0.9
