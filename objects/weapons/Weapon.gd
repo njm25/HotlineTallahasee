@@ -71,6 +71,7 @@ func apply_recoil_to_player(player: PlayerController, recoil_direction: Vector2)
 	player.velocity += recoil_direction * recoil_force
 
 # Main shoot function that checks conditions and fires projectiles
+# Main shoot function that checks conditions and fires projectiles
 func shoot(player: PlayerController, mouse_pos: Vector2):
 	# Check if the weapon is currently reloading or in burst delay
 	if is_reloading or is_bursting or is_in_burst_delay:
@@ -128,7 +129,22 @@ func fire_burst_shot():
 		# Fire the projectile
 		fire_projectile(current_player, current_mouse_pos, corrected_direction)
 
-		burst_shots_fired += 1  # Increment the burst shot counter
+		# Decrease ammo count after each shot
+		current_ammo -= 1
+
+		# Apply recoil if the weapon has recoil
+		if has_recoil:
+			apply_recoil_to_player(current_player, -corrected_direction)
+
+		# Increment the burst shot counter
+		burst_shots_fired += 1
+
+		# Check if ammo runs out during the burst
+		if current_ammo <= 0:
+			print("Out of ammo during burst!")
+			is_bursting = false
+			start_burst_delay()  # Start burst delay even if ammo runs out
+			return
 
 		# Create a timer for the next shot in the burst
 		var burst_shot_timer = Timer.new()
