@@ -1,11 +1,11 @@
 extends 'res://objects/weapons/Projectile.gd'
-class_name TestGunProjectile
+
 
 # Called when the node enters the scene tree for the first time.
-func _init() -> void:
-	max_bounces = 10
-	
-	super._init()  # Call parent _init()
+func _ready() -> void:
+	pass # Replace with function body.
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

@@ -13,12 +13,14 @@ func _on_body_entered(other):
 		_player = other
 		var player_inventory = _player.get_node("PlayerInventory")
 		# Separate the assignment of the modifier dictionaries
-		var weapon_add_mod = { "fire_rate": 0.2 }
-		var weapon_mult_mod = { "recoil_strength": 2 }
+		var weapon_add_mod = { 
+								"max_bounces": 1,
+							 }
+		var weapon_mult_mod = {  }
 		var weapon_modifiers = Modifier.new(weapon_add_mod, weapon_mult_mod)
 		
-		var player_add_mod = { "speed": 1000 }
-		var player_mult_mod = { "friction": 0.8 }
+		var player_add_mod = {  }
+		var player_mult_mod = { }
 		var player_modifiers = Modifier.new(player_add_mod, player_mult_mod)
 
 		# Apply to player inventory and controller

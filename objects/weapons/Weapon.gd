@@ -7,6 +7,7 @@ class_name Weapon
 @export var speed: float = 0.0  # Default speed for projectiles
 @export var is_continuous = false
 @export var fire_rate = 0.2
+@export var max_bounces = 0 
 
 var last_shot_time: float = 0.0  # Tracks the time when the last shot was fired
 
@@ -50,6 +51,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	# Create a new projectile instance and add it to the scene
 	var projectile_instance = projectile_scene.instantiate()
 	projectile_instance.set_visible(false)
+	projectile_instance.set_max_bounces(max_bounces)
 	player.get_parent().add_child(projectile_instance)
 
 	# Define the offset for the projectile relative to the player
