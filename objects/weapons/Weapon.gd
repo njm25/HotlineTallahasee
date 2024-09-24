@@ -14,7 +14,7 @@ class_name Weapon
 @export var reload_time: float = 2.0  # Time it takes to reload (in seconds)
 @export var has_ammo = true
 # New accuracy-related variable
-@export var accuracy: float = 0.08  # Controls the spread; lower values are more accurate, higher values are less accurate
+@export var spread: float = 0.08  # Controls the spread; lower values are more accurate, higher values are less accurate
 @export var projectile_spawn_offset = Vector2(0, 0)
 # Burst fire-related variables
 @export var burst_fire: bool = false  # Toggle burst fire mode
@@ -61,7 +61,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	var final_direction = (mouse_pos - projectile_start_pos).normalized()
 
 	# Apply accuracy to the final firing direction
-	var accuracy_deviation = randf_range(-accuracy, accuracy)  # Random angle within accuracy range
+	var accuracy_deviation = randf_range(-spread, spread)  # Random angle within accuracy range
 	var inaccurate_direction = final_direction.rotated(accuracy_deviation)
 
 	# Get the rigid body and apply the force in the inaccurate direction
