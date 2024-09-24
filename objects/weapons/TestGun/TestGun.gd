@@ -10,6 +10,8 @@ func _init() -> void:
 	
 	max_bounces = 10
 	reload_time = 5
+	ammo_capacity = 60
+	current_ammo = 60
 	super._init()
 	
 func shoot(player: PlayerController, mouse_pos: Vector2):
