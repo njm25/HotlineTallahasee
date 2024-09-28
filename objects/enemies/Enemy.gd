@@ -7,11 +7,13 @@ var player_in_area = null
 @export var turn_speed = 5.0
 @export var roam_turn_speed = 2.0
 @export var roam_speed = 50.0
+@export var run_speed = 75.0
 @export var friction = 0.1
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @export var roam_radius = 500.0
 @export var roam_wait_time = 2.0
 @export var health = 0
+@export var player_damage = 0
 var roam_timer = 0.0
 var target_position: Vector2
 
@@ -72,10 +74,7 @@ func _on_area_body_exited(body):
 func _physics_process(delta):
 	match current_state:
 		EnemyState.ALERT:
-			if player_in_area:
-				var direction = (player_in_area.global_position - global_position).normalized()
-				var target_angle = direction.angle()
-				rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
+			handle_attacking(delta)
 		EnemyState.UNALERT:
 			handle_roaming(delta)
 	
@@ -97,6 +96,12 @@ func choose_random_roam_target():
 	var random_offset = Vector2(randf_range(-1, 1), randf_range(-1, 1)) * roam_radius
 	var potential_target = global_position + random_offset
 	navigation_agent.target_position = potential_target
+
+func handle_attacking(delta):
+	if player_in_area:
+				var direction = (player_in_area.global_position - global_position).normalized()
+				var target_angle = direction.angle()
+				rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
 
 func handle_roaming(delta):
 	if navigation_agent.is_navigation_finished():

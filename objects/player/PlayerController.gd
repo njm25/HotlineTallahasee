@@ -15,6 +15,8 @@ class_name	PlayerController extends CharacterBody2D
 @export var dash_duration = 0.3  # Duration of the dash
 @export var dash_friction = 0.05  # Friction during dash
 @export var dash_cooldown = 1.25  # Cooldown time in seconds before dashing again
+@export var health = 100
+
 
 var is_sliding = false  # New sliding flag variable
 var is_dashing = false
@@ -22,6 +24,20 @@ var dash_timer = 0.0
 var dash_direction = Vector2.ZERO  # Direction for the dash
 var current_friction = default_friction  # To keep track of the current friction
 var cooldown_timer = 0.0  # Timer to track dash cooldown
+
+
+func damage(amount: int):
+	health -= amount
+	if health <= 0:
+		kill()
+		
+
+func heal(amount: int):
+	health += amount
+
+func kill():
+	queue_free()
+
 
 
 # Modifiers for stacking
