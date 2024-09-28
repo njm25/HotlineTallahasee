@@ -22,6 +22,9 @@ class_name Weapon
 @export var burst_shot_delay: float = 0.1  # Delay between shots in a burst
 @export var burst_delay: float = 0.5  # Delay between bursts
 
+@export var damage: int = 0
+
+
 var is_reloading: bool = false  # To prevent shooting while reloading
 var is_bursting: bool = false  # To prevent firing while in burst fire mode
 var is_in_burst_delay: bool = false  # To prevent firing between bursts
@@ -47,6 +50,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	var projectile_instance = projectile_scene.instantiate()
 	projectile_instance.set_visible(false)
 	projectile_instance.set_max_bounces(max_bounces)
+	projectile_instance.set_damage(damage)
 	player.get_parent().add_child(projectile_instance)
 
 	# Define the offset for the projectile relative to the player (keeps spawn location the same)

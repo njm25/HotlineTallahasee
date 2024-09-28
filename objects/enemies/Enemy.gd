@@ -13,12 +13,28 @@ var player_in_area = null  # Variable to hold reference to the player
 
 @export var roam_radius = 500.0  # Radius within which the enemy roams
 @export var roam_wait_time = 2.0  # Time to wait between random roams
+
+
+@export var health = 0
+
 var roam_timer = 0.0
 var target_position: Vector2  # Target position for roaming
 
 func _init() -> void:
 	pass  # Replace with function body.
 	
+func damage(amount: int):
+	health -= amount
+	if health <= 0:
+		kill()
+	
+func heal(amount: int):
+	health += amount
+	
+func kill():
+	self.queue_free()
+	
+
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# Apply friction to the linear and angular velocity
 	state.linear_velocity *= friction

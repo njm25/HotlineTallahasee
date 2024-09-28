@@ -3,9 +3,13 @@ class_name Projectile
 
 var bounces = 0
 var max_bounces = 0  # Maximum number of bounces
+var damage = 0
 
 func set_max_bounces(_max_bounces):
 	max_bounces = _max_bounces
+
+func set_damage(_damage):
+	damage = _damage
 
 func _init():
 	pass
@@ -18,7 +22,7 @@ func _physics_process(delta):
 		var collider = collision.get_collider()
 		# Handle collision with Enemy
 		if collider is Enemy:
-			collider.queue_free()  # Remove the enemy
+			collider.damage(damage)  # Remove the enemy
 			queue_free()  # Remove the projectile
 
 		if collider is PlayerController:

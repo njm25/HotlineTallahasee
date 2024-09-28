@@ -12,6 +12,7 @@ func _init() -> void:
 	ammo_capacity = 5
 	current_ammo = 5
 	reload_time = 1.0
+	damage = 50
 	  # Specific speed for the Pistol projectile
 	super._init()  # Call parent _init()
 
