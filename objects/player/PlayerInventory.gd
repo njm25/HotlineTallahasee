@@ -12,7 +12,6 @@ var player = null  # Reference to the player node
 # Store default stats for weapons dynamically
 var weapon_defaults := {}
 var weapon_modified_flags := {}
-
 func apply_modifier(modifier: Modifier):
 	# Apply additive modifiers dynamically to weapons
 	for key in modifier.add.keys():
@@ -23,14 +22,20 @@ func apply_modifier(modifier: Modifier):
 				weapon_modified_flags[weapon] = {}
 
 			# Check if this key has been modified before
-			if not weapon_modified_flags[weapon].has(key):
+			if not weapon_modified_flags[weapon].get(key):
 				# Store the default value and set the modified flag
-				weapon_defaults[weapon][key] = weapon.get(key)
+				if weapon.get(key):  # Check if the weapon has the property
+					weapon_defaults[weapon][key] = weapon.get(key)
+				else:
+					weapon_defaults[weapon][key] = 0  # Default to 0 if the property doesn't exist
 				weapon_modified_flags[weapon][key] = true
-			
-			# Apply additive modifier
+
+			# Apply additive modifier, even if the current value is 0
 			if weapon.get(key):
 				weapon.set(key, weapon.get(key) + modifier.add[key])
+			else:
+				# If the weapon doesn't have this key, initialize it with the modifier value
+				weapon.set(key, modifier.add[key])
 
 	# Apply multiplicative modifiers dynamically to weapons
 	for key in modifier.multiply.keys():
@@ -43,12 +48,18 @@ func apply_modifier(modifier: Modifier):
 			# Check if this key has been modified before
 			if not weapon_modified_flags[weapon].has(key):
 				# Store the default value and set the modified flag
-				weapon_defaults[weapon][key] = weapon.get(key)
+				if weapon.has(key):  # Check if the weapon has the property
+					weapon_defaults[weapon][key] = weapon.get(key)
+				else:
+					weapon_defaults[weapon][key] = 1  # Default to 1 for multiplication
 				weapon_modified_flags[weapon][key] = true
 
-			# Apply multiplicative modifier
-			if weapon.get(key):
+			# Apply multiplicative modifier, even if the current value is 0
+			if weapon.has(key):
 				weapon.set(key, weapon.get(key) * modifier.multiply[key])
+			else:
+				# If the weapon doesn't have this key, initialize it with the modifier value
+				weapon.set(key, modifier.multiply[key])
 
 func restore_defaults():
 	# Restore each weapon's stats to the stored defaults
