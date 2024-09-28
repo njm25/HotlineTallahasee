@@ -20,7 +20,7 @@ func _init() -> void:
 	burst_delay = 0.9
 	burst_count = 8
 	spread = 0.15
-	damage = 12
+	damage = 35
 	super._init()
 	
 func shoot(player: PlayerController, mouse_pos: Vector2):
