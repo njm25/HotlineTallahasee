@@ -11,6 +11,8 @@ func _on_body_entered(other):
 		var card_manager = _player.get_node("CardManager")
 		
 		
-		var modifier = PlayerSpeed.new()
+		var speedup = PlayerSpeed.new()
+		var bouncer = WeaponAddMaxBounce.new()
 		
-		card_manager.add_card(modifier)
+		card_manager.add_card(speedup)
+		card_manager.add_card(bouncer)
