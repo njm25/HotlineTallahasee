@@ -11,10 +11,10 @@ func _init() -> void:
 	
 	max_bounces = 0
 	reload_time = 2
-	#has_recoil = true
+	has_recoil = true
 	recoil_force = 15
-	ammo_capacity = 600
-	current_ammo = 600
+	ammo_capacity = 99999
+	current_ammo = 99999
 	#burst_fire =  true
 	#burst_shot_delay = 0.00001
 	#burst_delay = 0.9

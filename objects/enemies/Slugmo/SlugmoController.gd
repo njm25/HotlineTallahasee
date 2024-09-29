@@ -8,7 +8,7 @@ func _init():
 	turn_speed = 2.0  # Gremlin-specific turn speed
 	roam_turn_speed = 1.0  # Gremlin-specific roam turn speed
 	friction = 0.2  # Gremlin-specific friction
-	health = 1000
+	health = 10000
 	is_friendly = true
 	# You can call the parent constructor if any initialization logic is added later
 	super._init()

@@ -1,6 +1,6 @@
 extends RigidBody2D
 class_name Enemy
-
+@onready var death_scene: PackedScene = load("res://objects/enemies/EnemyPerish.tscn")
 enum EnemyState { UNALERT, ALERT }
 var current_state = EnemyState.UNALERT
 var player_in_area = null
@@ -102,6 +102,16 @@ func heal(amount: int):
 	health += amount
 
 func kill():
+	# Instantiate the death scene
+	var death_node = death_scene.instantiate()
+
+	# Set its position to the enemy's position
+	death_node.global_position = global_position
+	
+	# Add the death node to the scene tree
+	get_parent().add_child(death_node)
+
+	# Remove the enemy from the scene
 	queue_free()
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:

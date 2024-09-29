@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtjdf6ralcdtm"]
+
+[ext_resource type="SpriteFrames" uid="uid://ctprbip03t6yi" path="res://assets/enemy perish.gif" id="1_3mo8k"]
+[ext_resource type="Script" path="res://objects/enemies/EnemyPerish.gd" id="2_5b4e1"]
+
+[node name="EnemyPerish" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_3mo8k")
+animation = &"gif"
+script = ExtResource("2_5b4e1")

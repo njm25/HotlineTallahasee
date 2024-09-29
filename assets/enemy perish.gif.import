@@ -1,0 +1,15 @@
+[remap]
+
+importer="import_gif_to_sprite_frames"
+type="SpriteFrames"
+uid="uid://ctprbip03t6yi"
+path="res://.godot/imported/enemy perish.gif-629b0bacfc04a5a6b5caae71431c9969.tres"
+
+[deps]
+
+source_file="res://assets/enemy perish.gif"
+dest_files=["res://.godot/imported/enemy perish.gif-629b0bacfc04a5a6b5caae71431c9969.tres"]
+
+[params]
+
+frames_per_second=30

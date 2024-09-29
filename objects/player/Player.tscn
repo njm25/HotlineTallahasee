@@ -34,7 +34,7 @@ metadata/_edit_use_anchors_ = true
 [node name="AmmoLabel" type="RichTextLabel" parent="Player/GUI"]
 offset_left = 85.0
 offset_top = 72.0
-offset_right = 125.0
+offset_right = 100084.0
 offset_bottom = 112.0
 metadata/_edit_use_anchors_ = true
 
