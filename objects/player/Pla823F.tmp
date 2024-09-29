@@ -19,34 +19,32 @@ fill_from = Vector2(0.87156, 0.206422)
 radius = 13.0
 
 [node name="Player" type="Node"]
-
-[node name="Player" type="Node2D" parent="."]
 script = ExtResource("1_2nn6m")
+health = null
+player_inventory = null
 
-[node name="GUI" type="Node2D" parent="Player"]
+[node name="GUI" type="Node2D" parent="."]
 top_level = true
 
-[node name="ToolGunLabel" type="RichTextLabel" parent="Player/GUI"]
-offset_right = 9.99997e+06
+[node name="ToolGunLabel" type="RichTextLabel" parent="GUI"]
+offset_right = 61.0
 offset_bottom = 28.0
-metadata/_edit_use_anchors_ = true
 
-[node name="AmmoLabel" type="RichTextLabel" parent="Player/GUI"]
+[node name="AmmoLabel" type="RichTextLabel" parent="GUI"]
 offset_left = 85.0
 offset_top = 72.0
 offset_right = 125.0
 offset_bottom = 112.0
-metadata/_edit_use_anchors_ = true
 
-[node name="PlayerController" type="CharacterBody2D" parent="Player"]
+[node name="PlayerController" type="CharacterBody2D" parent="."]
 collision_mask = 3
 script = ExtResource("2_56kq6")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player/PlayerController"]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PlayerController"]
 remote_path = NodePath("../../GUI")
 update_rotation = false
 
-[node name="PointLight2D" type="PointLight2D" parent="Player/PlayerController"]
+[node name="PointLight2D" type="PointLight2D" parent="PlayerController"]
 position = Vector2(-0.00012207, 0)
 scale = Vector2(4.65, 2.8193)
 energy = 0.46
@@ -54,17 +52,17 @@ shadow_enabled = true
 shadow_item_cull_mask = 6
 texture = SubResource("GradientTexture2D_66usp")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player/PlayerController"]
+[node name="Sprite2D" type="Sprite2D" parent="PlayerController"]
 rotation = -1.5708
 texture = ExtResource("3_tn72x")
 region_enabled = true
 region_rect = Rect2(128, 0, 32, 32)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerController"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerController"]
 shape = SubResource("CircleShape2D_mch14")
 
-[node name="Camera2D" type="Camera2D" parent="Player/PlayerController"]
+[node name="Camera2D" type="Camera2D" parent="PlayerController"]
 zoom = Vector2(1.405, 1.405)
 
-[node name="PlayerInventory" type="Node2D" parent="Player/PlayerController"]
+[node name="PlayerInventory" type="Node2D" parent="PlayerController"]
 script = ExtResource("4_wom8u")
