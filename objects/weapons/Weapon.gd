@@ -36,6 +36,8 @@ var current_mouse_pos = Vector2.ZERO  # Stores the mouse position during burst
 func _init() -> void:
 	pass  # Replace with function body.
 
+func cycle():
+	pass
 # Fires the projectile from the player in the given direction, adjusted by accuracy
 func fire_projectile(player, mouse_pos, corrected_direction):
 	# Get the projectile scene for the current gun type

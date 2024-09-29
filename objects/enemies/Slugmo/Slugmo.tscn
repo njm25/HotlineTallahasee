@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjae0lm5fnlcd"]
+
+[ext_resource type="Script" path="res://objects/enemies/Slugmo/SlugmoController.gd" id="1_7sbsk"]
+[ext_resource type="Texture2D" uid="uid://h1tbf5vum25i" path="res://assets/slugmo.png" id="2_483r3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6gdy7"]
+radius = 200.0
+
+[node name="SlugmoController" type="RigidBody2D"]
+collision_mask = 7
+gravity_scale = 0.0
+script = ExtResource("1_7sbsk")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6gdy7")
+debug_color = Color(0, 0.63, 0.4725, 0.215686)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("2_483r3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(20, -47, 32, -45, 42, -37, 45, -33, 50, -21, 52, 1, 48, 22, 40, 34, 30, 41, 18, 42, 9, 42, -3, 39, -21, 31, -46, 15, -53, 11, -56, 6, -54, 0, -55, -4, -55, -11, -51, -15, -25, -30, 2, -43)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+simplify_path = true
+avoidance_enabled = true
+radius = 25.0
+avoidance_layers = 3
+avoidance_mask = 3

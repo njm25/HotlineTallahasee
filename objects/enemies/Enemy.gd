@@ -14,6 +14,8 @@ var player_in_area = null
 @export var roam_wait_time = 2.0
 @export var health = 0
 @export var player_damage = 0
+@export var is_friendly: bool = false
+@export var is_invincible: bool = false
 var roam_timer = 0.0
 var target_position: Vector2
 
@@ -38,12 +40,13 @@ func _ready():
 	original_modulate = sprite.modulate
 
 func damage(amount: int):
-	health -= amount
-	if health <= 0:
-		kill()
-	else:
-		start_flash()
-		show_damage_label(amount)
+	if not is_invincible:
+		health -= amount
+		if health <= 0:
+			kill()
+		else:
+			start_flash()
+			show_damage_label(amount)
 
 func start_flash():
 	is_flashing = true
@@ -111,10 +114,11 @@ func _on_area_body_entered(body):
 		current_state = EnemyState.ALERT
 
 func _on_area_body_exited(body):
-	if body is PlayerController:
-		player_in_area = null
-		current_state = EnemyState.UNALERT
-		choose_random_roam_target()
+	if is_friendly:
+		if body is PlayerController:
+			player_in_area = null
+			current_state = EnemyState.UNALERT
+			choose_random_roam_target()
 
 func _physics_process(delta):
 	match current_state:
@@ -143,10 +147,30 @@ func choose_random_roam_target():
 	navigation_agent.target_position = potential_target
 
 func handle_attacking(delta):
-	if player_in_area:
-		var direction = (player_in_area.global_position - global_position).normalized()
-		var target_angle = direction.angle()
-		rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
+	if is_friendly:
+		
+		if player_in_area:
+			var direction = (player_in_area.global_position - global_position).normalized()
+			var target_angle = direction.angle()
+			rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
+	else:
+		if player_in_area:
+			# Set the player's position as the target for the NavigationAgent2D
+			navigation_agent.target_position = player_in_area.global_position
+			
+			# Check if navigation is finished
+			if not navigation_agent.is_navigation_finished():
+				# Move toward the next path position
+				var next_position = navigation_agent.get_next_path_position()
+				var direction = (next_position - global_position).normalized()
+				
+				# Apply force to move towards the next path position
+				var force = direction * run_speed
+				apply_central_impulse(force)
+				
+				# Rotate to face the direction of movement
+				var target_angle = direction.angle()
+				rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
 
 func handle_roaming(delta):
 	if navigation_agent.is_navigation_finished():

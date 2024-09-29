@@ -98,6 +98,10 @@ func get_input():
 		cancel_reload_burst()  # Cancel any ongoing reload or burst fire
 		get_node("PlayerInventory").prev_weapon()
 	
+	if Input.is_action_just_pressed('cycle'):
+		get_node("PlayerInventory").current_weapon.cycle()
+
+	
 	var current_weapon = get_node("PlayerInventory").current_weapon
 	
 	var mouse_global_pos = get_global_mouse_position()
