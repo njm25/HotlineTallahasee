@@ -10,6 +10,5 @@ func _init():
 	friction = 0.2  # Gremlin-specific friction
 	health = 1000
 	is_friendly = true
-	is_invincible = true
 	# You can call the parent constructor if any initialization logic is added later
 	super._init()
