@@ -8,10 +8,9 @@ func _ready():
 func _on_body_entered(other):
 	if other is PlayerController:
 		_player = other
-		var player_inventory = _player.get_node("PlayerInventory")
 		
-		var modifier = WeaponAddMaxBounce.new()
+		var modifier = PlayerSpeed.new()
 		
-		player_inventory.apply_modifier(modifier)
+		_player.apply_modifier(modifier)
 		
 		

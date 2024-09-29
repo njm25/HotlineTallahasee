@@ -9,67 +9,87 @@ var current_weapon_index := -1  # -1 indicates no weapon equipped
 var weapon_instance = null
 var player = null  # Reference to the player node
 
-# Store default stats for weapons dynamically
-var weapon_defaults := {}
-var weapon_modified_flags := {}
+# Store applied modifiers for weapons dynamically
+var weapon_modifiers := {}  # Dictionary with weapon -> list of modifiers
+var weapon_defaults := {}  # Store original weapon stats
+
 func apply_modifier(modifier: Modifier):
-	# Apply additive modifiers dynamically to weapons
-	for key in modifier.add.keys():
-		for weapon in inventory_slots:
-			# Initialize default and flag storage for the weapon
-			if weapon not in weapon_defaults:
-				weapon_defaults[weapon] = {}
-				weapon_modified_flags[weapon] = {}
+	# Save and apply the modifier to all weapons
+	for weapon in inventory_slots:
+		# Initialize the modifiers and default storage if not done yet
+		if weapon not in weapon_modifiers:
+			weapon_modifiers[weapon] = []
+		if weapon not in weapon_defaults:
+			weapon_defaults[weapon] = {}
+		
+		# Save the modifier
+		weapon_modifiers[weapon].append({
+			"add": modifier.add.duplicate(),
+			"multiply": modifier.multiply.duplicate()
+		})
+		
+		# Apply additive modifiers dynamically to the weapon
+		for key in modifier.add.keys():
+			if not weapon_defaults[weapon].has(key):
+				weapon_defaults[weapon][key] = weapon.get(key)  # Store the original value
+			var old_value = weapon.get(key)
+			weapon.set(key, old_value + modifier.add[key])
+		
+		# Apply multiplicative modifiers dynamically to the weapon
+		for key in modifier.multiply.keys():
+			if not weapon_defaults[weapon].has(key):
+				weapon_defaults[weapon][key] = weapon.get(key)  # Store the original value for multiplication
+			var old_value = weapon.get(key)
+			weapon.set(key, old_value * modifier.multiply[key])
 
-			# Check if this key has been modified before
-			if not weapon_modified_flags[weapon].get(key):
-				# Store the default value and set the modified flag
-				if weapon.get(key):  # Check if the weapon has the property
-					weapon_defaults[weapon][key] = weapon.get(key)
-				else:
-					weapon_defaults[weapon][key] = 0  # Default to 0 if the property doesn't exist
-				weapon_modified_flags[weapon][key] = true
-
-			# Apply additive modifier, even if the current value is 0
-			if weapon.get(key):
-				weapon.set(key, weapon.get(key) + modifier.add[key])
-			else:
-				# If the weapon doesn't have this key, initialize it with the modifier value
-				weapon.set(key, modifier.add[key])
-
-	# Apply multiplicative modifiers dynamically to weapons
-	for key in modifier.multiply.keys():
-		for weapon in inventory_slots:
-			# Initialize default and flag storage for the weapon
-			if weapon not in weapon_defaults:
-				weapon_defaults[weapon] = {}
-				weapon_modified_flags[weapon] = {}
-
-			# Check if this key has been modified before
-			if not weapon_modified_flags[weapon].has(key):
-				# Store the default value and set the modified flag
-				if weapon.has(key):  # Check if the weapon has the property
-					weapon_defaults[weapon][key] = weapon.get(key)
-				else:
-					weapon_defaults[weapon][key] = 1  # Default to 1 for multiplication
-				weapon_modified_flags[weapon][key] = true
-
-			# Apply multiplicative modifier, even if the current value is 0
-			if weapon.has(key):
-				weapon.set(key, weapon.get(key) * modifier.multiply[key])
-			else:
-				# If the weapon doesn't have this key, initialize it with the modifier value
-				weapon.set(key, modifier.multiply[key])
+func remove_modifier(modifier: Modifier):
+	# Remove the effects of the specified modifier from all weapons
+	for weapon in inventory_slots:
+		
+		# Apply the inverse of additive modifiers
+		for key in modifier.add.keys():
+			if key in weapon:
+				var old_value = weapon.get(key)
+				weapon.set(key, old_value - modifier.add[key])
+				
+		# Apply the inverse of multiplicative modifiers
+		for key in modifier.multiply.keys():
+			if key in weapon:
+				if modifier.multiply[key] != 0:
+					var old_value = weapon.get(key)
+					weapon.set(key, old_value / modifier.multiply[key])
+				
+		# Remove the modifier from the list if it exists
+		if weapon in weapon_modifiers:
+			var modifiers_to_remove = []
+			for i in range(weapon_modifiers[weapon].size()):
+				var stored_modifier = weapon_modifiers[weapon][i]
+				if stored_modifier["add"] == modifier.add and stored_modifier["multiply"] == modifier.multiply:
+					modifiers_to_remove.append(i)
+			
+			for i in modifiers_to_remove:
+				weapon_modifiers[weapon].remove_at(i)
+			
 
 func restore_defaults():
-	# Restore each weapon's stats to the stored defaults
+	# Restore defaults for all weapons and clear the modifier lists
 	for weapon in inventory_slots:
-		if weapon_defaults.has(weapon):
-			for key in weapon_defaults[weapon]:
-				weapon.set(key, weapon_defaults[weapon][key])
-				# Reset the modification flag so future modifications can work correctly
-				weapon_modified_flags[weapon][key] = false
+		restore_defaults_for_weapon(weapon)
+		weapon_modifiers[weapon].clear()
 
+func restore_defaults_for_weapon(weapon: Weapon):
+	# Restore the default values for a specific weapon
+	if weapon in weapon_defaults:
+		for key in weapon_defaults[weapon]:
+			weapon.set(key, weapon_defaults[weapon][key])
+
+func apply_modifier_to_weapon(modifier: Modifier, weapon: Weapon):
+	# Apply a modifier to a single weapon (used after removing a modifier)
+	for key in modifier.add.keys():
+		weapon.set(key, weapon.get(key) + modifier.add[key])
+	for key in modifier.multiply.keys():
+		weapon.set(key, weapon.get(key) * modifier.multiply[key])
+		
 func create_weapon(weapon: Weapon, _player):
 	# Set the player reference if not already set
 	if player == null:
@@ -88,6 +108,11 @@ func create_weapon(weapon: Weapon, _player):
 	# Set the current weapon index to the index of the new weapon
 	current_weapon_index = inventory_slots.find(weapon)
 	current_weapon = weapon
+
+	# Reapply modifiers to the weapon if any are saved
+	if weapon in weapon_modifiers:
+		for modifier in weapon_modifiers[weapon]:
+			apply_modifier_to_weapon(modifier, weapon)
 
 	# Update the weapon instance and equip the new weapon
 	update_weapon()

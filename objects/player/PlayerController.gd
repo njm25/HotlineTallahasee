@@ -46,45 +46,68 @@ var friction_modifiers: Array = []
 
 var default_values := {}
 var modified_flags := {}
+var applied_modifiers := []
+
+# Store default values
 
 func apply_modifier(modifier: Modifier):
-	# Apply additive modifiers dynamically
+	
+	# Store the modifier
+	applied_modifiers.append({
+		"add": modifier.add.duplicate(),
+		"multiply": modifier.multiply.duplicate()
+	})
+	
+	# Apply additive modifiers
 	for key in modifier.add.keys():
-		# Initialize the flag if it doesn't exist
-		if not modified_flags.has(key):
-			modified_flags[key] = false
-
-		# Store default value before modifying only if it hasn't been modified yet
-		if not modified_flags[key]:
-			default_values[key] = get(key)
-			modified_flags[key] = true  # Mark this key as modified
-
-		# Apply additive modifier
-		if has_meta(key):
-			set(key, get(key) + modifier.add[key])
-
-	# Apply multiplicative modifiers dynamically
+		if not default_values.has(key):
+			default_values[key] = get(key)  # Store the original value
+		var old_value = get(key)
+		set(key, old_value + modifier.add[key])
+	
+	# Apply multiplicative modifiers
 	for key in modifier.multiply.keys():
-		# Initialize the flag if it doesn't exist
-		if not modified_flags.has(key):
-			modified_flags[key] = false
+		if not default_values.has(key):
+			default_values[key] = get(key)  # Store the original value
+		var old_value = get(key)
+		set(key, old_value * modifier.multiply[key])
 
-		# Store default value before modifying only if it hasn't been modified yet
-		if not modified_flags[key]:
-			default_values[key] = get(key)
-			modified_flags[key] = true  # Mark this key as modified
-
-		# Apply multiplicative modifier
-		if has_meta(key):
-			set(key, get(key) * modifier.multiply[key])
+func remove_modifier(modifier: Modifier):
+	
+	# Apply the inverse of additive modifiers
+	for key in modifier.add.keys():
+		if key in self:
+			var old_value = get(key)
+			set(key, old_value - modifier.add[key])
+		
+	# Apply the inverse of multiplicative modifiers
+	for key in modifier.multiply.keys():
+		if key in self:
+			if modifier.multiply[key] != 0:
+				var old_value = get(key)
+				set(key, old_value / modifier.multiply[key])
+			
+	# Remove the modifier from the list if it exists
+	var modifiers_to_remove = []
+	for i in range(applied_modifiers.size()):
+		var stored_modifier = applied_modifiers[i]
+		if stored_modifier["add"] == modifier.add and stored_modifier["multiply"] == modifier.multiply:
+			modifiers_to_remove.append(i)
+	
+	for i in modifiers_to_remove:
+		applied_modifiers.remove_at(i)
+	
 
 func restore_defaults():
 	# Restore all variables to their stored defaults
 	for key in default_values.keys():
-		if has_meta(key):
+		if key in self:
 			set(key, default_values[key])
-			# Reset the modification flag so future modifications can work correctly
-			modified_flags[key] = false
+	
+	# Clear the applied modifiers list
+	applied_modifiers.clear()
+	
+	
 func get_input():
 	var input = Vector2()
 	var current_speed = speed  # Default walking speed
