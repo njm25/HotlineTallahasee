@@ -25,9 +25,10 @@ texture = ExtResource("2_483r3")
 polygon = PackedVector2Array(20, -47, 32, -45, 42, -37, 45, -33, 50, -21, 52, 1, 48, 22, 40, 34, 30, 41, 18, 42, 9, 42, -3, 39, -21, 31, -46, 15, -53, 11, -56, 6, -54, 0, -55, -4, -55, -11, -51, -15, -25, -30, 2, -43)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 60.0
+target_desired_distance = 60.0
 path_postprocessing = 1
-simplify_path = true
 avoidance_enabled = true
-radius = 25.0
+radius = 55.0
 avoidance_layers = 3
 avoidance_mask = 3
