@@ -71,7 +71,6 @@ func apply_modifier(modifier: Modifier):
 			default_values[key] = get(key)  # Store the original value
 		var old_value = get(key)
 		set(key, old_value * modifier.multiply[key])
-
 func remove_modifier(modifier: Modifier):
 	
 	# Apply the inverse of additive modifiers
@@ -94,9 +93,10 @@ func remove_modifier(modifier: Modifier):
 		if stored_modifier["add"] == modifier.add and stored_modifier["multiply"] == modifier.multiply:
 			modifiers_to_remove.append(i)
 	
+	# Reverse the list before removing items to avoid index errors
+	modifiers_to_remove.reverse()
 	for i in modifiers_to_remove:
 		applied_modifiers.remove_at(i)
-	
 
 func restore_defaults():
 	# Restore all variables to their stored defaults
