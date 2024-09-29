@@ -1,11 +1,11 @@
 extends Node2D  # Ensure you're extending Node2D here for get_global_mouse_position to work
 
 @export var health = 100
-@export var player_inventory = []
+@export var player_inventory = []  # Assuming this is a reference to PlayerInventory
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var player_inventory = get_node("PlayerController/PlayerInventory")
+	player_inventory = get_node("PlayerController/PlayerInventory")  # Ensure you're getting the correct node
 	var player = get_node("PlayerController")
 	var pistol = Pistol.new()
 	var toolgun = ToolGun.new()
@@ -24,6 +24,7 @@ func _process(delta: float) -> void:
 	var current_weapon = player_inventory.current_weapon
 	var ammo_label = get_node("GUI/AmmoLabel")
 	var tool_gun_label = get_node("GUI/ToolGunLabel")
+	var cards_label = get_node("GUI/CardsLabel")  # New label to display cards
 	
 	# Ensure current weapon is a Weapon instance
 	if current_weapon is Weapon:
@@ -54,3 +55,13 @@ func _process(delta: float) -> void:
 		ammo_label.text = ""
 		tool_gun_label.text = ""
 		tool_gun_label.visible = false
+	
+	# Access the CardManager and update CardsLabel with card names
+	var card_manager = get_node("PlayerController/CardManager")  # Assuming CardManager is a child of PlayerInventory
+	var card_names = ""
+	
+	for card in card_manager.cards:
+		card_names += card.card_name + "\n"  # Append each card's name to the label text
+	
+	# Update the CardsLabel text
+	cards_label.text = card_names

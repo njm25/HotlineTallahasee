@@ -12,5 +12,10 @@ func _init() -> void:
 	var _multiply = {
 	}
 
+	var _card_name = "Speedup"
+	var _type = "Player"
+	
+	self.card_name = _card_name
+	self.type = _type
 	self.add = _add
 	self.multiply = _multiply

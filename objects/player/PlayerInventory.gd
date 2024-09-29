@@ -14,7 +14,7 @@ var weapon_modifiers := {}  # Dictionary with weapon -> list of modifiers
 var weapon_defaults := {}  # Store original weapon stats
 
 func apply_modifier(modifier: Modifier):
-	# Save and apply the modifier to all weapons
+	# Save andapply the modifier to all weapons
 	for weapon in inventory_slots:
 		# Initialize the modifiers and default storage if not done yet
 		if weapon not in weapon_modifiers:

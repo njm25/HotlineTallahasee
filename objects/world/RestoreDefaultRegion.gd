@@ -8,9 +8,10 @@ func _ready():
 func _on_body_entered(other):
 	if other is PlayerController:
 		_player = other
-		
-		var modifier = PlayerSpeed.new()
-		
-		_player.remove_modifier(modifier)
-		
-	
+		var card_manager = _player.get_node("CardManager")
+
+		# Check if there are any cards in the card_manager
+		if card_manager.cards.size() > 0:
+			# If the array is not empty, remove the last card
+			var last_card = card_manager.cards[-1]  # Access the last card in the array
+			card_manager.remove_card(last_card)
