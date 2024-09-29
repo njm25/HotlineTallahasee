@@ -18,12 +18,14 @@ var roam_timer = 0.0
 var target_position: Vector2
 
 # New variables for damage flash effect
-@onready var sprite: Sprite2D = $Sprite2D  # Make sure this path is correct
+@onready var sprite: Sprite2D = $Sprite2D  # Ensure the path is correct
 @export var flash_duration: float = 0.5
 @export var flash_intensity: float = 0.5  # How much to increase the saturation
 var is_flashing: bool = false
 var flash_timer: float = 0.0
 var original_modulate: Color
+
+@export var label_duration: float = 1.0  # Time for damage label to show
 
 func _init() -> void:
 	pass
@@ -41,6 +43,7 @@ func damage(amount: int):
 		kill()
 	else:
 		start_flash()
+		show_damage_label(amount)
 
 func start_flash():
 	is_flashing = true
@@ -49,6 +52,48 @@ func start_flash():
 	var s = min(original_modulate.s + flash_intensity, 1.0)  # Increase saturation
 	var v = original_modulate.v
 	sprite.modulate = Color.from_hsv(h, s, v, original_modulate.a)
+
+# Updated function to use Godot 4.x Tween system with non-rotating label
+func show_damage_label(damage_amount: int):
+	var label_parent = Node2D.new()
+	add_child(label_parent)
+	
+	var label = Label.new()
+	label.text = str(damage_amount)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_color_override("font_color", Color.WHITE)
+	label.add_theme_font_size_override("font_size", 14)  # Adjust font size as needed
+	
+	# Add random offset
+	var random_offset = Vector2(
+		randf_range(-10, 10),
+		randf_range(-10, 10)
+	)
+	label.position = Vector2(-20, -sprite.texture.get_size().y / 2 - 20) + random_offset
+
+	label_parent.add_child(label)
+
+	# Create a new Tween using create_tween()
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(label, "position:y", label.position.y - 30, label_duration)
+	tween.tween_property(label, "modulate:a", 0, label_duration)
+
+	# Connect the 'finished' signal to handle the cleanup after the animation ends
+	tween.connect("finished", Callable(self, "_on_tween_finished").bind(label_parent))
+
+	# Set up the label_parent to counteract the enemy's rotation
+	set_process(true)
+
+func _process(delta):
+	for child in get_children():
+		if child is Node2D and child.get_child_count() > 0 and child.get_child(0) is Label:
+			child.global_rotation = 0
+
+# Updated function to remove the label_parent after animation finishes
+func _on_tween_finished(label_parent: Node2D):
+	label_parent.queue_free()
 
 func heal(amount: int):
 	health += amount
@@ -99,9 +144,9 @@ func choose_random_roam_target():
 
 func handle_attacking(delta):
 	if player_in_area:
-				var direction = (player_in_area.global_position - global_position).normalized()
-				var target_angle = direction.angle()
-				rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
+		var direction = (player_in_area.global_position - global_position).normalized()
+		var target_angle = direction.angle()
+		rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
 
 func handle_roaming(delta):
 	if navigation_agent.is_navigation_finished():
