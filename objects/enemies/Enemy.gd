@@ -16,8 +16,18 @@ var player_in_area = null
 @export var player_damage = 0
 @export var is_friendly: bool = false
 @export var is_invincible: bool = false
+@export var shoots_projectile = false
+@export var can_melee = false
+@export var fire_rate: float = 1.0  # Time between projectile shots
+@export var melee_fire_rate: float = 1.0  # Time between melee attacks
+@export var use_last_position: bool = false  # Flag to determine behavior
+var last_known_player_position: Vector2 = Vector2()  # To store last known position
+var player_reference = null  # To store the player reference
 var roam_timer = 0.0
 var target_position: Vector2
+var shoot_timer: float = 0.0
+var melee_timer: float = 0.0
+
 
 # New variables for damage flash effect
 @onready var sprite: Sprite2D = $Sprite2D  # Ensure the path is correct
@@ -38,6 +48,10 @@ func _ready():
 	area.connect("body_exited", self._on_area_body_exited)
 	choose_random_roam_target()
 	original_modulate = sprite.modulate
+
+	# Enable contact monitoring
+	contact_monitor = true
+	max_contacts_reported = 4  # Adjust this value based on your needs
 
 func damage(amount: int):
 	if not is_invincible:
@@ -117,18 +131,27 @@ func kill():
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	state.linear_velocity *= friction
 	state.angular_velocity *= friction
-
+	
 func _on_area_body_entered(body):
 	if body is PlayerController:
 		player_in_area = body
+		player_reference = body  # Store player reference if needed
 		current_state = EnemyState.ALERT
 
 func _on_area_body_exited(body):
-	if is_friendly:
-		if body is PlayerController:
-			player_in_area = null
+	if body is PlayerController:
+		player_in_area = null
+		last_known_player_position = body.global_position  # Save last known position
+		if is_friendly:
 			current_state = EnemyState.UNALERT
 			choose_random_roam_target()
+		else:
+			# Use the last known position if use_last_position is true
+			if use_last_position:
+				navigation_agent.target_position = last_known_player_position
+			else:
+				navigation_agent.target_position = body.global_position
+				player_reference = body  # Store the player reference to follow
 
 func _physics_process(delta):
 	match current_state:
@@ -157,31 +180,64 @@ func choose_random_roam_target():
 	navigation_agent.target_position = potential_target
 
 func handle_attacking(delta):
-	if is_friendly:
-		
-		if player_in_area:
+	if player_in_area:
+		if shoots_projectile:
+			# Player is within the Area2D (shooting range)
 			var direction = (player_in_area.global_position - global_position).normalized()
 			var target_angle = direction.angle()
 			rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
-	else:
-		if player_in_area:
-			# Set the player's position as the target for the NavigationAgent2D
+
+			# Shoot projectile if cooldown is over
+			shoot_timer -= delta
+			if shoot_timer <= 0:
+				shoot_projectile()
+				shoot_timer = fire_rate
+		else:
+			# If the enemy can melee, check for melee attack
+			if can_melee:
+				melee_timer -= delta
+				if melee_timer <= 0:
+					for body in get_colliding_bodies():
+						if body is PlayerController:
+							melee_attack()
+							melee_timer = melee_fire_rate
+							break
+
+			# Chase the player
 			navigation_agent.target_position = player_in_area.global_position
-			
-			# Check if navigation is finished
 			if not navigation_agent.is_navigation_finished():
-				# Move toward the next path position
 				var next_position = navigation_agent.get_next_path_position()
 				var direction = (next_position - global_position).normalized()
-				
-				# Apply force to move towards the next path position
 				var force = direction * run_speed
 				apply_central_impulse(force)
-				
-				# Rotate to face the direction of movement
+
 				var target_angle = direction.angle()
 				rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
+	else:
+		# Player is outside the Area2D (chase the player or their last known position)
+		if shoots_projectile or can_melee:
+			if use_last_position:
+				# Move towards the last known position of the player
+				navigation_agent.target_position = last_known_player_position
+			elif player_reference:
+				# Move towards the player's current position
+				navigation_agent.target_position = player_reference.global_position
 
+			if not navigation_agent.is_navigation_finished():
+				var next_position = navigation_agent.get_next_path_position()
+				var direction = (next_position - global_position).normalized()
+				var force = direction * run_speed
+				apply_central_impulse(force)
+
+				var target_angle = direction.angle()
+				rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
+			else:
+				# Update to keep pursuing the target
+				if use_last_position:
+					navigation_agent.target_position = last_known_player_position
+				elif player_reference:
+					navigation_agent.target_position = player_reference.global_position
+					
 func handle_roaming(delta):
 	if navigation_agent.is_navigation_finished():
 		roam_timer -= delta
@@ -195,3 +251,10 @@ func handle_roaming(delta):
 		apply_central_impulse(force)
 		var target_angle = direction.angle()
 		rotation = lerp_angle(rotation, target_angle, roam_turn_speed * delta)
+func shoot_projectile():
+	print("shooting")
+	pass
+
+func melee_attack():
+	print("meleeing")
+	pass
