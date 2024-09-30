@@ -1,7 +1,7 @@
 class_name	PlayerController extends CharacterBody2D
 
-@export var speed = 500
-@export var sprint_speed = 700
+@export var speed = 400
+@export var sprint_speed = 400
 @export var sneak_speed = 150
 @export var default_friction = 0.1
 @export var sliding_friction = 0.01
