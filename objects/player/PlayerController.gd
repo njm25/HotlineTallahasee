@@ -1,11 +1,12 @@
-class_name	PlayerController extends CharacterBody2D
+class_name PlayerController extends CharacterBody2D
 
 @export var speed = 500
-@export var sprint_speed = 700
+@export var sprint_speed = 500
 @export var sneak_speed = 150
 @export var default_friction = 0.1
-@export var acceleration = 10
-@export var sliding_friction = 0.01
+@export var acceleration = 0.1
+@export var sliding_acceleration = 0.05
+@export var sliding_deceleration = 0.005
 @export var push_force = 80
 @export var no_friction = 0.2
 @export var dash_speed = 800
@@ -18,14 +19,27 @@ var is_sliding = false
 var is_dashing = false
 var dash_timer = 0.0
 var dash_direction = Vector2.ZERO
+var current_friction = default_friction
 var cooldown_timer = 0.0
 
-var target_speed = speed
-var current_speed = 0.0
-var target_friction = default_friction
-var current_friction = default_friction
+# New variables for smooth dash
 var current_dash_speed = 0.0
-var is_moving = false  # Flag to track if the player is moving
+var target_friction = default_friction
+
+func damage(amount: int):
+	health -= amount
+	if health <= 0:
+		kill()
+		
+
+func heal(amount: int):
+	health += amount
+
+func kill():
+	queue_free()
+
+
+
 # Modifiers for stacking
 var speed_modifiers: Array = []
 var friction_modifiers: Array = []
@@ -34,18 +48,10 @@ var default_values := {}
 var modified_flags := {}
 var applied_modifiers := []
 
-func damage(amount: int):
-	health -= amount
-	if health <= 0:
-		kill()
-
-func heal(amount: int):
-	health += amount
-
-func kill():
-	queue_free()
+# Store default values
 
 func apply_modifier(modifier: Modifier):
+	
 	# Store the modifier
 	applied_modifiers.append({
 		"add": modifier.add.duplicate(),
@@ -65,21 +71,21 @@ func apply_modifier(modifier: Modifier):
 			default_values[key] = get(key)  # Store the original value
 		var old_value = get(key)
 		set(key, old_value * modifier.multiply[key])
-
 func remove_modifier(modifier: Modifier):
+	
 	# Apply the inverse of additive modifiers
 	for key in modifier.add.keys():
 		if key in self:
 			var old_value = get(key)
 			set(key, old_value - modifier.add[key])
-	
+		
 	# Apply the inverse of multiplicative modifiers
 	for key in modifier.multiply.keys():
 		if key in self:
 			if modifier.multiply[key] != 0:
 				var old_value = get(key)
 				set(key, old_value / modifier.multiply[key])
-	
+			
 	# Remove the modifier from the list if it exists
 	var modifiers_to_remove = []
 	for i in range(applied_modifiers.size()):
@@ -100,9 +106,11 @@ func restore_defaults():
 	
 	# Clear the applied modifiers list
 	applied_modifiers.clear()
-
+	
+	
 func get_input():
 	var input = Vector2()
+	var current_speed = speed  # Default walking speed
 	
 	# Check for weapon switching
 	if Input.is_action_just_pressed('nextweapon'):
@@ -112,6 +120,8 @@ func get_input():
 	if Input.is_action_just_pressed('prevweapon'):
 		cancel_reload_burst()  # Cancel any ongoing reload or burst fire
 		get_node("PlayerInventory").prev_weapon()
+	
+
 	
 	var current_weapon = get_node("PlayerInventory").current_weapon
 	
@@ -126,14 +136,13 @@ func get_input():
 		else:
 			if Input.is_action_just_pressed('shoot'):
 				current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
-	
-	# Update target speed based on input
+			
+	# Check for sprinting (cannot sprint and sneak at the same time)
 	if Input.is_action_pressed('run') and not Input.is_action_pressed('sneak'):
-		target_speed = sprint_speed
+		current_speed = sprint_speed
+	# Check for sneaking
 	elif Input.is_action_pressed('sneak'):
-		target_speed = sneak_speed
-	else:
-		target_speed = speed
+		current_speed = sneak_speed
 	
 	# Get directional input
 	if Input.is_action_pressed('ui_right'):
@@ -148,8 +157,10 @@ func get_input():
 		if current_weapon is Weapon:
 			current_weapon.reload(self)
 	
-	return input.normalized()
+	return input.normalized() * current_speed
 
+# Function to cancel reloads and bursts
+# Function to cancel reloads and bursts
 func cancel_reload_burst():
 	var current_weapon = get_node("PlayerInventory").current_weapon
 	if current_weapon is Weapon:
@@ -183,61 +194,71 @@ func _process(delta):
 	# Update the dash cooldown timer
 	if cooldown_timer > 0:
 		cooldown_timer -= delta
-func exponential_interpolation(start_value, target_value, factor, delta):
-	return lerp(float(start_value), float(target_value), 1.0 - pow(float(factor), float(delta)))
+
 
 func _physics_process(delta):
 	if is_dashing:
 		dash_timer -= delta
 		if dash_timer <= 0:
 			is_dashing = false
-		current_dash_speed = move_toward(current_dash_speed, dash_speed, dash_speed * 10 * delta)
-		velocity = dash_direction * current_dash_speed
+			target_friction = default_friction if not is_sliding else sliding_acceleration
+		else:
+			# Gradually increase dash speed
+			current_dash_speed = move_toward(current_dash_speed, dash_speed, dash_speed * 10 * delta)
+			velocity = dash_direction * current_dash_speed
+			target_friction = dash_friction
+		
+		# Smoothly interpolate friction
+		current_friction = lerp(current_friction, target_friction, 10 * delta)
+		
+		move_and_slide()
+		return
+
+	var direction = get_input()
+
+	if Input.is_action_pressed('sneak'):
+		target_friction = no_friction
+	elif is_sliding:
+		target_friction = sliding_acceleration if direction.length() > 0 else sliding_deceleration
 	else:
-		current_dash_speed = move_toward(current_dash_speed, 0, dash_speed * 5 * delta)
-		
-		var direction = get_input()
-		
-		# Update target friction
-		if is_sliding:
-			target_friction = sliding_friction
-		elif Input.is_action_pressed('sneak'):
-			target_friction = no_friction
-		else:
-			target_friction = default_friction
-		
-		# Smoothly interpolate current friction using exponential decay
-		current_friction = exponential_interpolation(current_friction, target_friction, 0.01, delta)
-		
-		# If there's input and the player was not moving, start accelerating from zero
+		target_friction = default_friction
+
+	# Smoothly interpolate friction
+	current_friction = lerp(current_friction, target_friction, 10 * delta)
+
+	# Gradually decrease dash speed when not dashing
+	current_dash_speed = move_toward(current_dash_speed, 0, dash_speed * 5 * delta)
+
+	if is_sliding:
 		if direction.length() > 0:
-			if not is_moving:  # Player just started moving
-				current_speed = 0  # Reset speed to start smooth acceleration
-				is_moving = true
-			
-			# Accelerate towards target speed using exponential interpolation
-			current_speed = exponential_interpolation(current_speed, target_speed, 0.01, delta)
-			velocity = direction * current_speed
+			velocity = velocity.lerp(direction, sliding_acceleration)
 		else:
-			if is_moving:  # Player just stopped moving
-				is_moving = false
-			# Apply exponential decay when no input is given, reducing velocity smoothly
-			current_speed = exponential_interpolation(current_speed, 0, 0.01, delta)
+			velocity = velocity.lerp(Vector2.ZERO, sliding_deceleration)
+	else:
+		if direction.length() > 0:
+			velocity = velocity.lerp(direction, acceleration)
+		else:
 			velocity = velocity.lerp(Vector2.ZERO, current_friction)
-	
-	# Move the player using the calculated velocity
+
 	move_and_slide()
-	
-	# Handle collisions
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
+# New function to handle dash input and logic
 func _input(event):
-	if event.is_action_pressed('dash') and not is_dashing and (cooldown_timer <= 0 or cooldown_timer == TYPE_NIL):
+	# Only dash if the cooldown has finished and the player is not already dashing
+	if event.is_action_pressed('dash') and not is_dashing and (cooldown_timer <= 0 || cooldown_timer == TYPE_NIL):
 		is_dashing = true
 		dash_timer = dash_duration
-		cooldown_timer = dash_cooldown
+		cooldown_timer = dash_cooldown  # Start the cooldown timer
+
+		# Only apply dash friction if the player is not sliding
+		if not is_sliding:
+			current_friction = dash_friction  # Temporarily reduce friction during dash
+		
+		# Calculate dash direction based on the mouse position
 		dash_direction = (get_global_mouse_position() - global_position).normalized()
-		current_dash_speed = 0  # Start dash speed from 0
+		
+		velocity = dash_direction * dash_speed  # Apply dash in mouse direction
