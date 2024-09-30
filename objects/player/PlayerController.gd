@@ -1,9 +1,10 @@
 class_name	PlayerController extends CharacterBody2D
 
-@export var speed = 400
-@export var sprint_speed = 400
+@export var speed = 500
+@export var sprint_speed = 700
 @export var sneak_speed = 150
 @export var default_friction = 0.1
+@export var acceleration = 10
 @export var sliding_friction = 0.01
 @export var push_force = 80
 @export var no_friction = 0.2
@@ -24,7 +25,7 @@ var current_speed = 0.0
 var target_friction = default_friction
 var current_friction = default_friction
 var current_dash_speed = 0.0
-
+var is_moving = false  # Flag to track if the player is moving
 # Modifiers for stacking
 var speed_modifiers: Array = []
 var friction_modifiers: Array = []
@@ -182,6 +183,8 @@ func _process(delta):
 	# Update the dash cooldown timer
 	if cooldown_timer > 0:
 		cooldown_timer -= delta
+func exponential_interpolation(start_value, target_value, factor, delta):
+	return lerp(float(start_value), float(target_value), 1.0 - pow(float(factor), float(delta)))
 
 func _physics_process(delta):
 	if is_dashing:
@@ -203,14 +206,23 @@ func _physics_process(delta):
 		else:
 			target_friction = default_friction
 		
-		# Smoothly interpolate current friction
-		current_friction = lerp(current_friction, target_friction, 10 * delta)
+		# Smoothly interpolate current friction using exponential decay
+		current_friction = exponential_interpolation(current_friction, target_friction, 0.01, delta)
 		
-		# Set velocity directly based on target speed and direction without interpolation
+		# If there's input and the player was not moving, start accelerating from zero
 		if direction.length() > 0:
-			velocity = direction * target_speed
+			if not is_moving:  # Player just started moving
+				current_speed = 0  # Reset speed to start smooth acceleration
+				is_moving = true
+			
+			# Accelerate towards target speed using exponential interpolation
+			current_speed = exponential_interpolation(current_speed, target_speed, 0.01, delta)
+			velocity = direction * current_speed
 		else:
-			# Apply friction when no input is given, reducing velocity smoothly
+			if is_moving:  # Player just stopped moving
+				is_moving = false
+			# Apply exponential decay when no input is given, reducing velocity smoothly
+			current_speed = exponential_interpolation(current_speed, 0, 0.01, delta)
 			velocity = velocity.lerp(Vector2.ZERO, current_friction)
 	
 	# Move the player using the calculated velocity

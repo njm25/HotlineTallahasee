@@ -15,6 +15,10 @@ run/main_scene="res://objects/main.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://assets/icon.svg"
 
+[display]
+
+mouse_cursor/custom_image="res://assets/bosshair.png"
+
 [dotnet]
 
 project/assembly_name="HotlineTallahassee"
@@ -97,3 +101,6 @@ cycle={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+anti_aliasing/screen_space_roughness_limiter/amount=4.0
+anti_aliasing/screen_space_roughness_limiter/limit=1.0
+2d/snap/snap_2d_transforms_to_pixel=true

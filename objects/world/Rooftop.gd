@@ -10,7 +10,6 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_body_entered(body):
-	print("hello")
 	if body is PlayerController:
 		var roof = get_node("ColorRect")
 		# Create a tween and animate the modulate alpha (fade out)
