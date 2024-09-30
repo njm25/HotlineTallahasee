@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var smoothing_speed: float = 12.0  # Adjust this value to change smoothing speed
+@export var smoothing_speed: float = 8.0  # Adjust this value to change smoothing speed
 
 var target_position: Vector2 = Vector2.ZERO
 
