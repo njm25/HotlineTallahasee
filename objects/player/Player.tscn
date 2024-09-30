@@ -71,9 +71,6 @@ region_rect = Rect2(128, 0, 32, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerController"]
 shape = SubResource("CircleShape2D_mch14")
 
-[node name="Camera2D" type="Camera2D" parent="Player/PlayerController"]
-zoom = Vector2(1.405, 1.405)
-
 [node name="CardManager" type="Node2D" parent="Player/PlayerController"]
 script = ExtResource("4_w7voo")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://bsjfrmmnl2jj"]
+[gd_scene load_steps=51 format=4 uid="uid://bsjfrmmnl2jj"]
 
 [ext_resource type="Texture2D" uid="uid://do2nns76bn6nv" path="res://assets/devassets.png" id="1_3o88o"]
 [ext_resource type="Script" path="res://objects/world/iceSlip.gd" id="1_iwrf1"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://objects/world/RestoreDefaultRegion.gd" id="8_gyku6"]
 [ext_resource type="Texture2D" uid="uid://c2ldsmtjk5rei" path="res://assets/EearthIslandTileset.png" id="8_ptjve"]
 [ext_resource type="Script" path="res://objects/world/Map.gd" id="8_wjp7u"]
+[ext_resource type="Script" path="res://objects/world/Camera.gd" id="13_wdpw0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ulbt8"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -405,3 +406,7 @@ script = ExtResource("1_iwrf1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IceRegion"]
 position = Vector2(32, -720)
 shape = SubResource("RectangleShape2D_u6k3x")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.405, 1.405)
+script = ExtResource("13_wdpw0")
