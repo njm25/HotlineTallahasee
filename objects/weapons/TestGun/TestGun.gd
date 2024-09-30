@@ -15,11 +15,11 @@ func _init() -> void:
 	recoil_force = 15
 	ammo_capacity = 99999
 	current_ammo = 99999
-	#burst_fire =  true
-	#burst_shot_delay = 0.00001
-	#burst_delay = 0.9
-	#burst_count = 8
-	#spread = 0.15
+	burst_fire =  true
+	burst_shot_delay = 0.00001
+	burst_delay = 0.9
+	burst_count = 8
+	spread = 0.15
 	damage = 35
 	super._init()
 	
