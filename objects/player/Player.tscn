@@ -54,6 +54,7 @@ remote_path = NodePath("../../GUI")
 update_rotation = false
 
 [node name="PointLight2D" type="PointLight2D" parent="Player/PlayerController"]
+visible = false
 position = Vector2(-0.00012207, 0)
 scale = Vector2(4.65, 2.8193)
 energy = 0.46
