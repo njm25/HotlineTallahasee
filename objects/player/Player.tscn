@@ -54,11 +54,11 @@ remote_path = NodePath("../../GUI")
 update_rotation = false
 
 [node name="PointLight2D" type="PointLight2D" parent="Player/PlayerController"]
-visible = false
 position = Vector2(-0.00012207, 0)
 scale = Vector2(4.65, 2.8193)
-energy = 0.46
+blend_mode = 2
 shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.203922)
 shadow_item_cull_mask = 6
 texture = SubResource("GradientTexture2D_66usp")
 
