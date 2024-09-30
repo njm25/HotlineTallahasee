@@ -409,7 +409,6 @@ offset_bottom = 86.0
 color = Color(1, 1, 0, 0.333333)
 
 [node name="Rooftop" type="Area2D" parent="."]
-visible = false
 script = ExtResource("12_c8tyx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooftop"]
