@@ -401,13 +401,13 @@ offset_right = 86.0
 offset_bottom = 86.0
 color = Color(1, 1, 0, 0.333333)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Rooftop" type="Area2D" parent="."]
 script = ExtResource("12_c8tyx")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooftop"]
 polygon = PackedVector2Array(-334, -847, 390, -850, 402, -600, 493, -592, 496, 77, -335, 79)
 
-[node name="ColorRect" type="ColorRect" parent="Area2D"]
+[node name="ColorRect" type="ColorRect" parent="Rooftop"]
 light_mask = 6
 z_index = 1
 z_as_relative = false
