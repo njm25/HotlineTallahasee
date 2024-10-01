@@ -1,7 +1,7 @@
 extends 'res://objects/weapons/Weapon.gd'
 class_name ToolGun
 
-var enemies = ["Gremlin", "Slugmo"]
+var enemies = ["Gremlin", "Slugmo", "Gromlin"]
 var selected_enemy_index = 0
 var _enemy_scene = null
 

@@ -20,9 +20,10 @@ func _init() -> void:
 	#burst_delay = 0.9
 	#burst_count = 8
 	has_bloom = true
-	max_bloom = 0.3
-	bloom_reset_time = 10
+	max_bloom = 1
+	bloom_reset_time = 0.001
 	bloom_increase_rate = 0.01
+	bloom_decrease_rate = 0.1
 	
 	
 	spread = 0

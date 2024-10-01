@@ -107,7 +107,12 @@ func restore_defaults():
 	# Clear the applied modifiers list
 	applied_modifiers.clear()
 	
-	
+func _unhandled_input(event):
+	var current_weapon = get_node("PlayerInventory").current_weapon
+	if event.is_action_released("shoot"):
+		if current_weapon is Weapon:
+			current_weapon.stop_shooting()
+			
 func get_input():
 	var input = Vector2()
 	var current_speed = speed  # Default walking speed
@@ -133,10 +138,13 @@ func get_input():
 		if current_weapon.is_continuous:
 			if Input.is_action_pressed('shoot'):
 				current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
+			elif Input.is_action_just_released('shoot'):
+				current_weapon.stop_shooting()
 		else:
 			if Input.is_action_just_pressed('shoot'):
 				current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
-			
+			elif Input.is_action_just_released('shoot'):
+				current_weapon.stop_shooting()
 	# Check for sprinting (cannot sprint and sneak at the same time)
 	if Input.is_action_pressed('run') and not Input.is_action_pressed('sneak'):
 		current_speed = sprint_speed
