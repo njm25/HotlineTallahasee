@@ -4,6 +4,7 @@ class_name Enemy
 enum EnemyState { UNALERT, ALERT }
 var current_state = EnemyState.UNALERT
 var player_in_area = null
+@export var enemy_type = ""
 @export var turn_speed = 5.0
 @export var roam_turn_speed = 2.0
 @export var roam_speed = 50.0
@@ -21,6 +22,7 @@ var player_in_area = null
 @export var fire_rate: float = 1.0  # Time between projectile shots
 @export var melee_fire_rate: float = 1.0  # Time between melee attacks
 @export var use_last_position: bool = false  # Flag to determine behavior
+
 var last_known_player_position: Vector2 = Vector2()  # To store last known position
 var player_reference = null  # To store the player reference
 var roam_timer = 0.0
@@ -104,6 +106,9 @@ func show_damage_label(damage_amount: int):
 	set_process(true)
 
 func _process(delta):
+	if player_in_area:
+		if player_in_area.is_dead:
+			player_in_area = null
 	for child in get_children():
 		if child is Node2D and child.get_child_count() > 0 and child.get_child(0) is Label:
 			child.global_rotation = 0
@@ -195,7 +200,7 @@ func handle_attacking(delta):
 				# Shoot projectile if cooldown is over
 				shoot_timer -= delta
 				if shoot_timer <= 0:
-					shoot_projectile()
+					shoot_projectile(player_in_area)
 					shoot_timer = fire_rate
 			else:
 				# If the enemy can melee, check for melee attack
@@ -204,7 +209,7 @@ func handle_attacking(delta):
 					if melee_timer <= 0:
 						for body in get_colliding_bodies():
 							if body is PlayerController:
-								melee_attack()
+								melee_attack(body)
 								melee_timer = melee_fire_rate
 								break
 
@@ -256,10 +261,45 @@ func handle_roaming(delta):
 		apply_central_impulse(force)
 		var target_angle = direction.angle()
 		rotation = lerp_angle(rotation, target_angle, roam_turn_speed * delta)
-func shoot_projectile():
-	print("shooting")
-	pass
 
-func melee_attack():
-	print("meleeing")
+func get_enemy_projectile_scene() -> PackedScene:
+	var scene_path = "res://objects/enemies/%s/%sProjectile.tscn" % [enemy_type, enemy_type]
+	var projectile_scene = load(scene_path)
+	if projectile_scene:
+		return projectile_scene
+	else:
+		print("Error: Could not load projectile scene for enemy type: %s" % enemy_type)
+		return null
+func shoot_projectile(player: PlayerController):
+	# Get the projectile scene for the enemy based on enemy_type
+	var projectile_scene = get_enemy_projectile_scene()
+	if projectile_scene == null:
+		print("Error: Could not load projectile scene for enemy type: %s" % enemy_type)
+		return
+
+	# Instantiate the projectile
+	var projectile_instance = projectile_scene.instantiate()
+
+	# Set projectile properties like bounces, damage, etc.
+	projectile_instance.set_max_bounces(0)  # You can modify or expose this property
+	projectile_instance.set_damage(player_damage)  # Assuming player_damage is the projectile damage
+
+	# Calculate the direction towards the player
+	var direction_to_player = (player.global_position - global_position).normalized()
+
+	# Set the projectile's position with a slight offset, if necessary
+	var offset = Vector2(10, 0)  # Customize this offset as needed
+	var rotated_offset = offset.rotated(direction_to_player.angle())
+	projectile_instance.position = global_position + rotated_offset
+
+	# Set the projectile's velocity based on the direction to the player
+	projectile_instance.velocity = direction_to_player * 300.0  # 300 is an example speed, can be adjusted
+
+	# Add the projectile to the scene tree
+	get_parent().add_child(projectile_instance)
+	print("Enemy of type %s shoots projectile at player!" % enemy_type)
+
+
+func melee_attack(player: PlayerController):
+	player.damage(player_damage)
 	pass

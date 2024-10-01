@@ -3,6 +3,7 @@ class_name SlugmoController
 
 # Gremlin-specific variables set in _init
 func _init():
+	enemy_type = "Slugmo"
 	run_speed = 10.0  # Gremlin-specific roam speed
 	roam_speed = 8.0
 	turn_speed = 2.0  # Gremlin-specific turn speed

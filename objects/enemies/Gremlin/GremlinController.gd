@@ -3,6 +3,7 @@ class_name GremlinController
 
 # Gremlin-specific variables set in _init
 func _init():
+	enemy_type = "Gremlin"
 	run_speed = 60.0  # Gremlin-specific roam speed
 	roam_speed = 40.0
 	turn_speed = 6.0  # Gremlin-specific turn speed
@@ -11,6 +12,6 @@ func _init():
 	health = 100
 	player_damage = 50
 	can_melee = true
-	shoots_projectile = true
+	shoots_projectile = false
 	# You can call the parent constructor if any initialization logic is added later
 	super._init()

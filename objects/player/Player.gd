@@ -21,13 +21,20 @@ func test_print():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var player_inventory = get_node("PlayerController/PlayerInventory")
-	var current_weapon = player_inventory.current_weapon
+	var player = get_node("PlayerController")
+	var current_weapon = null
 	var ammo_label = get_node("GUI/AmmoLabel")
 	var tool_gun_label = get_node("GUI/ToolGunLabel")
 	var cards_label = get_node("GUI/CardsLabel")  # New label to display cards
+	var health_label = get_node("GUI/HealthLabel")  # New label to display cards
 	
+	if player_inventory:
+			
+		current_weapon = player_inventory.current_weapon
 	# Ensure current weapon is a Weapon instance
 	if current_weapon is Weapon:
+		
+
 		# Handle ammo display for weapons that have ammo
 		if current_weapon.has_ammo:
 			ammo_label.text = str(current_weapon.current_ammo)
@@ -60,8 +67,12 @@ func _process(delta: float) -> void:
 	var card_manager = get_node("PlayerController/CardManager")  # Assuming CardManager is a child of PlayerInventory
 	var card_names = ""
 	
-	for card in card_manager.cards:
-		card_names += card.card_name + "\n"  # Append each card's name to the label text
-	
+	if card_manager:
+		for card in card_manager.cards:
+			card_names += card.card_name + "\n"  # Append each card's name to the label text
+	var current_health = 0
+	if player:
+		current_health = player.health
 	# Update the CardsLabel text
 	cards_label.text = card_names
+	health_label.text = str(current_health)

@@ -45,6 +45,12 @@ offset_right = 100084.0
 offset_bottom = 112.0
 metadata/_edit_use_anchors_ = true
 
+[node name="HealthLabel" type="RichTextLabel" parent="Player/GUI"]
+offset_left = -85.0
+offset_top = 72.0
+offset_right = -45.0
+offset_bottom = 112.0
+
 [node name="PlayerController" type="CharacterBody2D" parent="Player"]
 collision_mask = 3
 script = ExtResource("2_56kq6")
