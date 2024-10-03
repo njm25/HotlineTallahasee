@@ -8,7 +8,8 @@ var current_menu: Control
 var menu_names = [
 	"MainMenu",
 	"MapMenu",
-	"OptionsMenu"
+	"OptionsMenu",
+	"PauseMenu"
 ]
 
 # Base path where the menus are stored

@@ -23,7 +23,7 @@ var is_flashing: bool = false
 var flash_timer: float = 0.0
 var original_modulate: Color
 var is_dead= false
-
+var is_paused = false
 var i_frame_timer = 0.0         # Timer to track i-frame duration
 var is_invincible = false       # Flag to track invincibility status
 
@@ -139,64 +139,66 @@ func restore_defaults():
 	applied_modifiers.clear()
 	
 func _unhandled_input(event):
-	var current_weapon = get_node("PlayerInventory").current_weapon
-	if event.is_action_released("shoot"):
-		if current_weapon is Weapon:
-			current_weapon.stop_shooting()
+	if !is_paused:
+		var current_weapon = get_node("PlayerInventory").current_weapon
+		if event.is_action_released("shoot"):
+			if current_weapon is Weapon:
+				current_weapon.stop_shooting()
 			
 func get_input():
-	var input = Vector2()
-	var current_speed = speed  # Default walking speed
-	
-	# Check for weapon switching
-	if Input.is_action_just_pressed('nextweapon'):
-		cancel_reload_burst()  # Cancel any ongoing reload or burst fire
-		get_node("PlayerInventory").next_weapon()
+	if !is_paused:
+		var input = Vector2()
+		var current_speed = speed  # Default walking speed
+		
+		# Check for weapon switching
+		if Input.is_action_just_pressed('nextweapon'):
+			cancel_reload_burst()  # Cancel any ongoing reload or burst fire
+			get_node("PlayerInventory").next_weapon()
 
-	if Input.is_action_just_pressed('prevweapon'):
-		cancel_reload_burst()  # Cancel any ongoing reload or burst fire
-		get_node("PlayerInventory").prev_weapon()
-	
+		if Input.is_action_just_pressed('prevweapon'):
+			cancel_reload_burst()  # Cancel any ongoing reload or burst fire
+			get_node("PlayerInventory").prev_weapon()
+		
 
-	
-	var current_weapon = get_node("PlayerInventory").current_weapon
-	
-	if Input.is_action_just_pressed('cycle'):
+		
+		var current_weapon = get_node("PlayerInventory").current_weapon
+		
+		if Input.is_action_just_pressed('cycle'):
+			if current_weapon is Weapon:
+				get_node("PlayerInventory").current_weapon.cycle()
+		var mouse_global_pos = get_global_mouse_position()
 		if current_weapon is Weapon:
-			get_node("PlayerInventory").current_weapon.cycle()
-	var mouse_global_pos = get_global_mouse_position()
-	if current_weapon is Weapon:
-		if current_weapon.is_continuous:
-			if Input.is_action_pressed('shoot'):
-				current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
-			elif Input.is_action_just_released('shoot'):
-				current_weapon.stop_shooting()
-		else:
-			if Input.is_action_just_pressed('shoot'):
-				current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
-			elif Input.is_action_just_released('shoot'):
-				current_weapon.stop_shooting()
-	# Check for sprinting (cannot sprint and sneak at the same time)
-	if Input.is_action_pressed('run') and not Input.is_action_pressed('sneak'):
-		current_speed = sprint_speed
-	# Check for sneaking
-	elif Input.is_action_pressed('sneak'):
-		current_speed = sneak_speed
-	
-	# Get directional input
-	if Input.is_action_pressed('ui_right'):
-		input.x += 1
-	if Input.is_action_pressed('ui_left'):
-		input.x -= 1
-	if Input.is_action_pressed('ui_down'):
-		input.y += 1
-	if Input.is_action_pressed('ui_up'):
-		input.y -= 1
-	if Input.is_action_just_pressed('reload'):
-		if current_weapon is Weapon:
-			current_weapon.reload(self)
-	
-	return input.normalized() * current_speed
+			if current_weapon.is_continuous:
+				if Input.is_action_pressed('shoot'):
+					current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
+				elif Input.is_action_just_released('shoot'):
+					current_weapon.stop_shooting()
+			else:
+				if Input.is_action_just_pressed('shoot'):
+					current_weapon.shoot_with_fire_rate(self, mouse_global_pos)
+				elif Input.is_action_just_released('shoot'):
+					current_weapon.stop_shooting()
+		# Check for sprinting (cannot sprint and sneak at the same time)
+		if Input.is_action_pressed('run') and not Input.is_action_pressed('sneak'):
+			current_speed = sprint_speed
+		# Check for sneaking
+		elif Input.is_action_pressed('sneak'):
+			current_speed = sneak_speed
+		
+		# Get directional input
+		if Input.is_action_pressed('ui_right'):
+			input.x += 1
+		if Input.is_action_pressed('ui_left'):
+			input.x -= 1
+		if Input.is_action_pressed('ui_down'):
+			input.y += 1
+		if Input.is_action_pressed('ui_up'):
+			input.y -= 1
+		if Input.is_action_just_pressed('reload'):
+			if current_weapon is Weapon:
+				current_weapon.reload(self)
+		
+		return input.normalized() * current_speed
 
 # Function to cancel reloads and bursts
 # Function to cancel reloads and bursts
@@ -229,7 +231,8 @@ func cancel_reload_burst():
 
 func _process(delta):
 	if is_dead == false:
-		look_at(get_global_mouse_position())
+		if !is_paused:
+			look_at(get_global_mouse_position())
 			# Existing i-frame logic
 		if is_invincible:
 			i_frame_timer -= delta
@@ -274,6 +277,8 @@ func _physics_process(delta):
 			return
 
 		var direction = get_input()
+		if not direction:
+			direction = Vector2.ZERO
 
 		if Input.is_action_pressed('sneak'):
 			target_friction = no_friction
