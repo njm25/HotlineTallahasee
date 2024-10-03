@@ -1,6 +1,6 @@
 extends 'res://objects/maps/Map.gd'
-var player_inventory
 func _ready() -> void:
+	create_camera()
 	spawn_player()
 
 func _init() -> void:

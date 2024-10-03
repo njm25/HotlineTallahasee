@@ -10,6 +10,10 @@ var menu_scene = preload("res://objects/maps/Menu/Menu.tscn")  # Preload the men
 var menu_instance
 var canvas_layer_instance  # This will store the dynamically created CanvasLayer
 
+
+var camera_scene = preload("res://objects/world/Camera/Camera.tscn")  # Preload the menu scene
+var camera_instance
+
 # Signal for respawn and death
 signal player_respawned(new_player)
 signal player_died
@@ -17,10 +21,16 @@ signal player_died
 func _ready() -> void:
 	pass
 
+func create_camera():
+	
+	camera_instance = camera_scene.instantiate()
+	add_child(camera_instance)
+
 func spawn_player():
 	player_instance = player_scene.instantiate()
 	add_child(player_instance)
 	player = player_instance.get_node("Player/PlayerController")
+
 
 	# Connect to the death signal from the player
 	player.connect("player_died", self._on_player_died)
