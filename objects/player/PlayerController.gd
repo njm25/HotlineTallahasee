@@ -18,6 +18,7 @@ class_name PlayerController extends CharacterBody2D
 @onready var player_sprite: Sprite2D = $Sprite2D  # Ensure the path is correct
 @export var flash_duration: float = 0.5
 @export var flash_intensity: float = 0.5  # How much to increase the saturation
+@export var invincibility: bool = false
 var is_flashing: bool = false
 var flash_timer: float = 0.0
 var original_modulate: Color
@@ -36,15 +37,17 @@ var cooldown_timer = 0.0
 # New variables for smooth dash
 var current_dash_speed = 0.0
 var target_friction = default_friction
+signal player_died
 
 func damage(amount: int):
-	if not is_invincible:  # Prevent damage if i-frames are active
-		health -= amount
-		if health <= 0:
-			kill()
-		else:
-			activate_i_frames()  # Activate i-frames after taking damage
-			start_flash()  # Start flashing effect
+	if not invincibility:
+		if not is_invincible:  # Prevent damage if i-frames are active
+			health -= amount
+			if health <= 0:
+				kill()
+			else:
+				activate_i_frames()  # Activate i-frames after taking damage
+				start_flash()  # Start flashing effect
 func start_flash():
 	is_flashing = true
 	flash_timer = flash_duration
@@ -64,7 +67,7 @@ func heal(amount: int):
 
 func kill():
 	is_dead = true
-	set_visible(false)
+	emit_signal("player_died")
 
 
 

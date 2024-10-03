@@ -229,7 +229,7 @@ func handle_attacking(delta):
 			if use_last_position:
 				# Move towards the last known position of the player
 				navigation_agent.target_position = last_known_player_position
-			elif player_reference:
+			elif player_reference and is_instance_valid(player_reference):
 				# Move towards the player's current position
 				navigation_agent.target_position = player_reference.global_position
 
@@ -245,7 +245,7 @@ func handle_attacking(delta):
 				# Update to keep pursuing the target
 				if use_last_position:
 					navigation_agent.target_position = last_known_player_position
-				elif player_reference:
+				elif player_reference and is_instance_valid(player_reference):
 					navigation_agent.target_position = player_reference.global_position
 			
 func handle_roaming(delta):
@@ -297,7 +297,6 @@ func shoot_projectile(player: PlayerController):
 
 	# Add the projectile to the scene tree
 	get_parent().add_child(projectile_instance)
-	print("Enemy of type %s shoots projectile at player!" % enemy_type)
 
 
 func melee_attack(player: PlayerController):

@@ -17,7 +17,7 @@ func shoot(player: PlayerController, mouse_pos):
 	if _enemy_scene:
 		var enemy_instance = _enemy_scene.instantiate()
 		enemy_instance.global_position = mouse_pos
-		player.get_parent().add_child(enemy_instance)
+		player.get_parent().get_parent().get_parent().add_child(enemy_instance)
 
 func cycle():
 	selected_enemy_index += 1

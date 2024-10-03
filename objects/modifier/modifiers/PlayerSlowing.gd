@@ -1,4 +1,4 @@
-extends 'res://objects/Modifier.gd'
+extends 'res://objects/modifier/Modifier.gd'
 class_name PlayerSlowing
 
 # Initialize the slowing modifier
