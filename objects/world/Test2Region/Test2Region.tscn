@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://besa7oi2kxa6p"]
+
+[ext_resource type="Script" path="res://objects/world/Test2Region/Test2Region.gd" id="1_fyssf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sl6n1"]
+size = Vector2(96, 96)
+
+[node name="Test2Region" type="Area2D"]
+position = Vector2(394, -438)
+script = ExtResource("1_fyssf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(38, 38)
+shape = SubResource("RectangleShape2D_sl6n1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 86.0
+offset_bottom = 86.0
+color = Color(1, 1, 0, 0.333333)

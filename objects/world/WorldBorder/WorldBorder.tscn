@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://rpnmpobecdrg"]
+
+[ext_resource type="Script" path="res://objects/world/WorldBorder/WorldBorder.gd" id="1_so23r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8siv4"]
+size = Vector2(6653.5, 1284.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0n23"]
+size = Vector2(831.25, 6903.5)
+
+[node name="WorldBorder" type="Area2D"]
+collision_layer = 11
+collision_mask = 15
+script = ExtResource("1_so23r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(208, -3284)
+shape = SubResource("RectangleShape2D_8siv4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(274, 2943)
+shape = SubResource("RectangleShape2D_8siv4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(3351.38, -323.25)
+shape = SubResource("RectangleShape2D_c0n23")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(-2940, -308)
+shape = SubResource("RectangleShape2D_c0n23")

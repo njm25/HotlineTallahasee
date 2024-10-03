@@ -1,7 +1,7 @@
 extends Control
 
 # List of map names (can be extended later)
-var maps = ["DevIsland"]
+var maps = ["DevIsland", "ScaryHouse"]
 var main_script
 
 	
@@ -37,7 +37,7 @@ func normalize_name(map_name: String) -> String:
 # Function called when a map button is pressed
 func _on_map_button_pressed(index: int) -> void:
 	var selected_map = maps[index]
-	var map_path = "res://objects/world/maps/" + selected_map + "/" + selected_map + ".tscn"
+	var map_path = "res://objects/maps/" + selected_map + "/" + selected_map + ".tscn"
 	get_tree().change_scene_to_file(map_path)# Function called when a map button is pressed
 
 func _on_back_button_pressed() -> void:

@@ -13,7 +13,7 @@ var menu_names = [
 ]
 
 # Base path where the menus are stored
-var base_path = "res://objects/world/maps/Menu/"
+var base_path = "res://objects/maps/Menu/"
 var main_script = null
 
 func _ready() -> void:

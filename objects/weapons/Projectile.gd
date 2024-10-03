@@ -42,7 +42,7 @@ func _physics_process(delta):
 			queue_free()  # Remove the projectile
 
 		# Handle collision with walls (e.g., Map) and bounce
-		if collider is Map:
+		if collider is TileMapLayer:
 			handle_bounce(collision)
 			
 	# Rotate the projectile based on its velocity direction

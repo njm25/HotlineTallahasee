@@ -1,11 +1,12 @@
 extends Node2D
+class_name Map
 
 var player_scene = preload("res://objects/player/Player.tscn")
 var player_instance
 var player
 var player_is_dead: bool = false
 
-var menu_scene = preload("res://objects/world/maps/Menu/Menu.tscn")  # Preload the menu scene
+var menu_scene = preload("res://objects/maps/Menu/Menu.tscn")  # Preload the menu scene
 var menu_instance
 var canvas_layer_instance  # This will store the dynamically created CanvasLayer
 
@@ -13,9 +14,8 @@ var canvas_layer_instance  # This will store the dynamically created CanvasLayer
 signal player_respawned(new_player)
 signal player_died
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	spawn_player()
+	pass
 
 func spawn_player():
 	player_instance = player_scene.instantiate()
