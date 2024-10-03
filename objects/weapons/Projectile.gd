@@ -4,7 +4,7 @@ class_name Projectile
 var bounces = 0
 var max_bounces = 0  # Maximum number of bounces
 var damage = 0
-var knockback_force = 100  # Knockback force magnitude
+var knockback_force = 0  # Knockback force magnitude
 var can_damage_player = false
 
 func set_max_bounces(_max_bounces):

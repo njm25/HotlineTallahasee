@@ -22,10 +22,7 @@ offset_top = 50.0
 offset_right = 146.0
 offset_bottom = 151.0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="TitleScreen" type="Sprite2D" parent="VBoxContainer/AspectRatioContainer"]
+[node name="TitleScreen" type="Sprite2D" parent="VBoxContainer"]
 position = Vector2(526, 274)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_4m5oa")

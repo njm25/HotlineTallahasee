@@ -20,7 +20,7 @@ class_name Weapon
 @export var burst_shot_delay: float = 0.1  # Delay between shots in a burst
 @export var burst_delay: float = 0.5  # Delay between bursts
 @export var damage: int = 0
-
+@export var knockback: float = 0.0
 # Bloom-related variables
 @export var has_bloom: bool = false
 @export var max_bloom: float = 0.5
@@ -80,6 +80,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	projectile_instance.set_visible(false)
 	projectile_instance.set_max_bounces(max_bounces)
 	projectile_instance.set_damage(damage)
+	projectile_instance.set_knockback_force(knockback)
 	player.get_parent().add_child(projectile_instance)
 
 	var offset = projectile_spawn_offset
