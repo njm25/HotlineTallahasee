@@ -361,14 +361,25 @@ tile_set = SubResource("TileSet_6t5bi")
 use_kinematic_bodies = true
 
 [node name="TestRegion" parent="." instance=ExtResource("10_0iesl")]
+position = Vector2(432, -528)
+scale = Vector2(4.80199, 4.78316)
 
 [node name="Test2Region" parent="." instance=ExtResource("11_ogxb4")]
+position = Vector2(432, -400)
+scale = Vector2(4.80691, 4.79475)
 
 [node name="Rooftop" parent="." instance=ExtResource("12_24nik")]
+visible = false
+position = Vector2(81, -379)
+scale = Vector2(-43.4895, 49.2032)
 
 [node name="WorldBorder" parent="." instance=ExtResource("13_xhqi7")]
+position = Vector2(0, -3.8147e-06)
+scale = Vector2(-1367.21, 1058.98)
 
 [node name="IceRegion" parent="." instance=ExtResource("14_fb5vs")]
+position = Vector2(31, -719)
+scale = Vector2(35.5906, -12.1078)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.405, 1.405)

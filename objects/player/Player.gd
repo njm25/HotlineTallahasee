@@ -1,22 +1,8 @@
 extends Node2D  # Ensure you're extending Node2D here for get_global_mouse_position to work
 
-@export var health = 100
-@export var player_inventory = []  # Assuming this is a reference to PlayerInventory
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player_inventory = get_node("PlayerController/PlayerInventory")  # Ensure you're getting the correct node
-	var player = get_node("PlayerController")
-	var pistol = Pistol.new()
-	var toolgun = ToolGun.new()
-	var testgun = TestGun.new()
-	
-	player_inventory.create_weapon(pistol, player)
-	player_inventory.create_weapon(toolgun, player)
-	player_inventory.create_weapon(testgun, player)
-
-func test_print():
-	print("this works")
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

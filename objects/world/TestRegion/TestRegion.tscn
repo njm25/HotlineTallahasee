@@ -3,19 +3,16 @@
 [ext_resource type="Script" path="res://objects/world/TestRegion/TestRegion.gd" id="1_2qgsi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1p3dj"]
-size = Vector2(96, 96)
 
 [node name="TestRegion" type="Area2D"]
-position = Vector2(394, -438)
 script = ExtResource("1_2qgsi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(38, -90)
 shape = SubResource("RectangleShape2D_1p3dj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -10.0
-offset_top = -138.0
-offset_right = 86.0
-offset_bottom = -42.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 color = Color(0.83, 0, 0.0138331, 0.556863)

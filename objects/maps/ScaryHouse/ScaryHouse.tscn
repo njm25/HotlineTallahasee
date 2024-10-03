@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=4 uid="uid://d20142s4cf03u"]
 
-[ext_resource type="Script" path="res://objects/maps/DevIsland/DevIsland.gd" id="1_m14di"]
+[ext_resource type="Script" path="res://objects/maps/ScaryHouse/ScaryHouse.gd" id="1_oujf4"]
 [ext_resource type="Texture2D" uid="uid://do2nns76bn6nv" path="res://assets/devassets.png" id="2_hennm"]
 [ext_resource type="Texture2D" uid="uid://rtlnvwlebgqa" path="res://assets/icedevass.png" id="3_5mon1"]
 [ext_resource type="Texture2D" uid="uid://so0x8kvs6i6w" path="res://assets/loopingtile.png" id="4_jji0i"]
@@ -336,7 +336,7 @@ sources/5 = SubResource("TileSetAtlasSource_io1hv")
 sources/6 = SubResource("TileSetAtlasSource_qub7l")
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_m14di")
+script = ExtResource("1_oujf4")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_left = -474169.0
