@@ -3,6 +3,7 @@ extends Node
 var navigator: Navigator
 var menus = {}  # Stores the menus as a dictionary (menu name -> Control)
 var current_menu: Control
+var previous_menus = []  # Stack to track the previously visited menus
 
 # Array of menu names
 var menu_names = [
@@ -34,7 +35,17 @@ func _ready() -> void:
 
 # Function to navigate to any menu by its name
 func navigate(menu_name: String) -> void:
+	# Push the current menu to the previous menus stack before navigating
+	if current_menu:
+		previous_menus.push_front(current_menu)
 	navigator.navigate_to(menu_name)
+	current_menu = menus[menu_name]  # Update current menu reference
+
+# Function to go back to the previous menu
+func back() -> void:
+	if previous_menus.size() > 0:
+		var previous_menu = previous_menus.pop_front()
+		navigate(previous_menu.name)
 
 # Function to quit the game
 func _quit_game() -> void:
