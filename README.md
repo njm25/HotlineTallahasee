@@ -3,7 +3,7 @@
 
 ## Prerequisites
 
-- [Godot](https://godotengine.org/download) (Make sure to download the .NET version)
+- [Godot](https://godotengine.org/download) (Make sure to download the .NET version).
 
 ## Getting Started
 
