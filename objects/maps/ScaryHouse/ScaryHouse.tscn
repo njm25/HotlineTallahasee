@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dvwuo1ewvvhmo" path="res://assets/smallerboxtiles.png" id="5_58s52"]
 [ext_resource type="Texture2D" uid="uid://gis52cdgbbj1" path="res://assets/icedevtile.png" id="6_buajy"]
 [ext_resource type="Texture2D" uid="uid://c2ldsmtjk5rei" path="res://assets/EearthIslandTileset.png" id="7_cjkvu"]
-[ext_resource type="Script" path="res://objects/world/Camera.gd" id="8_efhsd"]
+[ext_resource type="PackedScene" uid="uid://cuw02nvu4pm4s" path="res://objects/world/Camera/Camera.tscn" id="8_usvsl"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ulbt8"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -350,6 +350,4 @@ tile_map_data = PackedByteArray("AAD2//j/BgADAAsAAAD2//n/BgADAAsAAAD2//r/BgADAAs
 tile_set = SubResource("TileSet_6t5bi")
 use_kinematic_bodies = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.405, 1.405)
-script = ExtResource("8_efhsd")
+[node name="Camera2D" parent="." instance=ExtResource("8_usvsl")]

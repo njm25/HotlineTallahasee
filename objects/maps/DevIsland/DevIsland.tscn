@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bc0e0mbsgyq5f" path="res://objects/world/Rooftop/Rooftop.tscn" id="12_24nik"]
 [ext_resource type="PackedScene" uid="uid://rpnmpobecdrg" path="res://objects/world/WorldBorder/WorldBorder.tscn" id="13_xhqi7"]
 [ext_resource type="PackedScene" uid="uid://64mythb3tro8" path="res://objects/world/IceRegion/IceRegion.tscn" id="14_fb5vs"]
-[ext_resource type="Script" path="res://objects/world/Camera.gd" id="15_0nxed"]
+[ext_resource type="PackedScene" uid="uid://cuw02nvu4pm4s" path="res://objects/world/Camera/Camera.tscn" id="14_rrdi1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ulbt8"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -369,7 +369,6 @@ position = Vector2(432, -400)
 scale = Vector2(4.80691, 4.79475)
 
 [node name="Rooftop" parent="." instance=ExtResource("12_24nik")]
-visible = false
 position = Vector2(81, -379)
 scale = Vector2(-43.4895, 49.2032)
 
@@ -381,6 +380,4 @@ scale = Vector2(-1367.21, 1058.98)
 position = Vector2(31, -719)
 scale = Vector2(35.5906, -12.1078)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.405, 1.405)
-script = ExtResource("15_0nxed")
+[node name="Camera2D" parent="." instance=ExtResource("14_rrdi1")]

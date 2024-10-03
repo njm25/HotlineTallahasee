@@ -1,13 +1,11 @@
-[gd_scene load_steps=43 format=3 uid="uid://cfolwx88aspw5"]
+[gd_scene load_steps=41 format=3 uid="uid://dspt6yddmtfms"]
 
-[ext_resource type="Script" path="res://objects/maps/DevIsland/DevIsland.gd" id="1_vt610"]
-[ext_resource type="Texture2D" uid="uid://do2nns76bn6nv" path="res://assets/devassets.png" id="3_am8j6"]
-[ext_resource type="Texture2D" uid="uid://rtlnvwlebgqa" path="res://assets/icedevass.png" id="4_f6o00"]
-[ext_resource type="Texture2D" uid="uid://so0x8kvs6i6w" path="res://assets/loopingtile.png" id="5_gn7k2"]
-[ext_resource type="Texture2D" uid="uid://dvwuo1ewvvhmo" path="res://assets/smallerboxtiles.png" id="6_3mils"]
-[ext_resource type="Texture2D" uid="uid://gis52cdgbbj1" path="res://assets/icedevtile.png" id="7_wqw8a"]
-[ext_resource type="Texture2D" uid="uid://c2ldsmtjk5rei" path="res://assets/EearthIslandTileset.png" id="8_q8bdf"]
-[ext_resource type="Script" path="res://objects/world/Camera.gd" id="14_5f8n5"]
+[ext_resource type="Texture2D" uid="uid://do2nns76bn6nv" path="res://assets/devassets.png" id="1_nb3i8"]
+[ext_resource type="Texture2D" uid="uid://rtlnvwlebgqa" path="res://assets/icedevass.png" id="2_bwayl"]
+[ext_resource type="Texture2D" uid="uid://so0x8kvs6i6w" path="res://assets/loopingtile.png" id="3_8dfqq"]
+[ext_resource type="Texture2D" uid="uid://dvwuo1ewvvhmo" path="res://assets/smallerboxtiles.png" id="4_qn4t0"]
+[ext_resource type="Texture2D" uid="uid://gis52cdgbbj1" path="res://assets/icedevtile.png" id="5_e3syu"]
+[ext_resource type="Texture2D" uid="uid://c2ldsmtjk5rei" path="res://assets/EearthIslandTileset.png" id="6_e574q"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ulbt8"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -16,7 +14,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 
 agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_amgda"]
-texture = ExtResource("3_am8j6")
+texture = ExtResource("1_nb3i8")
 4:0/size_in_atlas = Vector2i(4, 4)
 4:0/0 = 0
 0:0/size_in_atlas = Vector2i(4, 4)
@@ -26,12 +24,12 @@ texture = ExtResource("3_am8j6")
 12:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ulbt8")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yk27v"]
-texture = ExtResource("4_f6o00")
+texture = ExtResource("2_bwayl")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7s1a4"]
-texture = ExtResource("5_gn7k2")
+texture = ExtResource("3_8dfqq")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
@@ -47,7 +45,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 
 agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_caaxy"]
-texture = ExtResource("6_3mils")
+texture = ExtResource("4_qn4t0")
 0:0/size_in_atlas = Vector2i(2, 2)
 0:0/0 = 0
 0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_3tmse")
@@ -58,11 +56,11 @@ texture = ExtResource("6_3mils")
 2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_2xh54")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_72bo2"]
-texture = ExtResource("5_gn7k2")
+texture = ExtResource("3_8dfqq")
 texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_io1hv"]
-texture = ExtResource("7_wqw8a")
+texture = ExtResource("5_e3syu")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
@@ -196,7 +194,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 
 agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qub7l"]
-texture = ExtResource("8_q8bdf")
+texture = ExtResource("6_e574q")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_eo2nd")
@@ -335,20 +333,6 @@ sources/4 = SubResource("TileSetAtlasSource_72bo2")
 sources/5 = SubResource("TileSetAtlasSource_io1hv")
 sources/6 = SubResource("TileSetAtlasSource_qub7l")
 
-[node name="Node2D" type="Node2D"]
-script = ExtResource("1_vt610")
-
-[node name="Background" type="ColorRect" parent="."]
-offset_left = -474169.0
-offset_top = -479807.0
-offset_right = 525830.0
-offset_bottom = 520192.0
-color = Color(0.356863, 0.431373, 0.882353, 1)
-
-[node name="TileMap" type="TileMapLayer" parent="."]
+[node name="TileMap" type="TileMapLayer"]
 tile_set = SubResource("TileSet_6t5bi")
 use_kinematic_bodies = true
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.405, 1.405)
-script = ExtResource("14_5f8n5")

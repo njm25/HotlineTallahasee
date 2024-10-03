@@ -17,6 +17,7 @@ config/icon="res://assets/icon.svg"
 
 [display]
 
+window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://assets/bosshair.png"
 
 [dotnet]
