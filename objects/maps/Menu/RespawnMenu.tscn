@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlhl0r8xssy0h"]
+
+[ext_resource type="Script" path="res://objects/maps/Menu/RespawnMenu.gd" id="1_v0g5q"]
+[ext_resource type="Texture2D" uid="uid://cclj0gem3t0q6" path="res://assets/diead.png" id="2_xu8x7"]
+
+[node name="RespawnMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v0g5q")
+
+[node name="Diead" type="Sprite2D" parent="."]
+position = Vector2(581, 335)
+scale = Vector2(1.57895, 1.43811)
+texture = ExtResource("2_xu8x7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 95.0
+offset_bottom = 90.0
+
+[node name="RespawnButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Respawn"

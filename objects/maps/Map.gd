@@ -44,7 +44,21 @@ func _on_player_died():
 		player_instance.queue_free()
 		player = null
 		player_instance = null
-		spawn_player()
+		show_respawn_menu()
+
+
+func show_respawn_menu():
+	if not canvas_layer_instance:
+		canvas_layer_instance = CanvasLayer.new()
+		add_child(canvas_layer_instance)
+		menu_instance = menu_scene.instantiate()  # Instantiate the menu scene
+		canvas_layer_instance.add_child(menu_instance)  # Add the menu to the CanvasLayer
+
+		# Navigate to the PauseMenu control in the Menu scene
+		var respawn_menu = menu_instance.navigate("RespawnMenu")
+
+		if respawn_menu:
+			respawn_menu.grab_focus()  # Ensure the respawn menu control gets focus
 
 # Detect input for escape key
 func _input(event):

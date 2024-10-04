@@ -11,7 +11,7 @@ func _ready() -> void:
 	game_node.connect("player_respawned", self._on_player_respawned)
 
 func _process(delta: float) -> void:
-	if player:
+	if is_instance_valid(player):
 		# Update the target position
 		target_position = player.global_position
 		
