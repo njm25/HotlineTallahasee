@@ -7,6 +7,7 @@ var damage = 0
 var knockback_force = 0  # Knockback force magnitude
 var can_damage_player = false
 
+
 func set_max_bounces(_max_bounces):
 	max_bounces = _max_bounces
 

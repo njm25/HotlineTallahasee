@@ -11,23 +11,22 @@ func _init() -> void:
 	
 	max_bounces = 0
 	reload_time = 2
-	has_recoil = false
-	recoil_force = 15
+	has_recoil = true
+	recoil_force = 150
 	ammo_capacity = 99999
 	current_ammo = 99999
-	burst_fire =  true
-	burst_shot_delay = 0.00001
-	burst_delay = 0.9
-	burst_count = 8
+	
+	damage = 1
+	#burst_fire =  true
+	#burst_shot_delay = 0.00001
+	#burst_delay = 0.9
+	#burst_count = 8
 	#has_bloom = true
 	#max_bloom = 1
 	#bloom_reset_time = 0.001
 	#bloom_increase_rate = 0.01
 	#bloom_decrease_rate = 0.1
-	knockback=100
 	
-	spread = 0
-	damage = 35
 	super._init()
 	
 func shoot(player: PlayerController, mouse_pos: Vector2):

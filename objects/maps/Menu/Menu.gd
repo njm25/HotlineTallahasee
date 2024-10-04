@@ -10,7 +10,8 @@ var menu_names = [
 	"MainMenu",
 	"MapMenu",
 	"OptionsMenu",
-	"PauseMenu"
+	"PauseMenu",
+	"RespawnMenu"
 ]
 
 # Base path where the menus are stored
