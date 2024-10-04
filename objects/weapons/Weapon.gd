@@ -21,12 +21,6 @@ class_name Weapon
 @export var burst_delay: float = 0.5  # Delay between bursts
 @export var damage: int = 0
 @export var knockback: float = 0.0
-# Bloom-related variables
-@export var has_bloom: bool = false
-@export var max_bloom: float = 0.5
-@export var bloom_reset_time: float = 1.0
-@export var bloom_increase_rate: float = 0.1  # New variable to control how quickly bloom increases
-@export var bloom_decrease_rate: float = 0.2  # New variable to control how quickly bloom decreases
 
 var is_reloading: bool = false  # To prevent shooting while reloading
 var is_bursting: bool = false  # To prevent firing while in burst fire mode
@@ -35,37 +29,10 @@ var last_shot_time: float = 0.0  # Tracks the time when the last shot was fired
 var burst_shots_fired: int = 0  # Tracks how many shots have been fired in the current burst
 var current_player = null  # Stores the player reference during burst
 var current_mouse_pos = Vector2.ZERO  # Stores the mouse position during burst
-
-# Bloom-related variables
-var current_bloom: float = 0.0
-var bloom_reset_timer: float = 0.0
 var is_shooting: bool = false  # New variable to track if the player is actively shooting
-var bloom_timer: Timer = Timer.new()
 func _init() -> void:
-	add_child(bloom_timer)
-	bloom_timer.set_wait_time(bloom_reset_timer)  # Adjust the timing for bloom decrease checks
-	bloom_timer.connect("timeout", self._on_bloom_timer_timeout)
-	bloom_timer.start()
-
-# Bloom handling logic, to be invoked gradually
-func _on_bloom_timer_timeout():
-	# If the player isn't shooting, decrease bloom gradually
-	if not is_shooting and has_bloom:
-		decrease_bloom()
-# Function to manage bloom changes
-func _process(delta):
-	# Handle bloom increase while shooting
-	if is_shooting:
-		# Gradually increase bloom while shooting
-		current_bloom = min(current_bloom + bloom_increase_rate * delta, max_bloom)
-	else:
-		# Custom bloom decay when not shooting
-		if current_bloom > 0:
-			# Non-linear decay using a quadratic approach (you can customize this further)
-			current_bloom -= (bloom_decrease_rate * delta) * (1 + (current_bloom / max_bloom))
-			# Ensure bloom doesn't drop below zero
-			if current_bloom < 0:
-				current_bloom = 0
+	pass
+	
 func cycle():
 	pass
 # Fires the projectile from the player in the given direction, adjusted by accuracy
@@ -91,9 +58,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 
 	var final_direction = (mouse_pos - projectile_start_pos).normalized()
 
-	# Apply accuracy to the final firing direction, including bloom's effect on spread
-	# The spread will naturally decrease as the bloom decreases
-	var total_spread = spread + current_bloom  # Spread includes bloom value
+	var total_spread = spread 
 	var accuracy_deviation = randf_range(-total_spread, total_spread)
 	var inaccurate_direction = final_direction.rotated(accuracy_deviation)
 
@@ -119,15 +84,7 @@ func shoot(player: PlayerController, mouse_pos: Vector2):
 		if has_recoil:
 			apply_recoil_to_player(player, -corrected_direction)
 
-		increase_bloom()  # Increase bloom on shooting
 		current_ammo -= 1
-
-func increase_bloom():
-	if has_bloom:
-		current_bloom = min(current_bloom + bloom_increase_rate, max_bloom)
-func decrease_bloom():
-	if has_bloom:
-		current_bloom = max(current_bloom - bloom_decrease_rate, 0.0)
 
 # Handle shooting with fire rate control and burst fire
 func shoot_with_fire_rate(player: PlayerController, mouse_pos: Vector2):
@@ -157,11 +114,6 @@ func fire_burst_shot():
 
 		if has_recoil:
 			apply_recoil_to_player(current_player, -corrected_direction)
-
-		# Apply bloom gradually for burst fire
-		if has_bloom:
-			current_bloom = min(current_bloom + (max_bloom * bloom_increase_rate), max_bloom)
-			bloom_reset_timer = 0.0
 
 		burst_shots_fired += 1
 
@@ -234,4 +186,3 @@ func get_gun_type():
 
 func stop_shooting():
 	is_shooting = false  # Set shooting state to false
-	# Gradual bloom decrease will now happen over time via the bloom timer

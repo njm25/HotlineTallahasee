@@ -48,22 +48,29 @@ func _on_player_died():
 
 
 func show_respawn_menu():
+	# Create a new CanvasLayer if it doesn't exist
 	if not canvas_layer_instance:
 		canvas_layer_instance = CanvasLayer.new()
 		add_child(canvas_layer_instance)
-		menu_instance = menu_scene.instantiate()  # Instantiate the menu scene
-		canvas_layer_instance.add_child(menu_instance)  # Add the menu to the CanvasLayer
+	
+	# Remove all children from the CanvasLayer (including PauseMenu if present)
+	for child in canvas_layer_instance.get_children():
+		child.queue_free()
 
-		# Navigate to the PauseMenu control in the Menu scene
-		var respawn_menu = menu_instance.navigate("RespawnMenu")
+	# Instantiate the RespawnMenu and add it to the CanvasLayer
+	menu_instance = menu_scene.instantiate()  # Instantiate the menu scene
+	canvas_layer_instance.add_child(menu_instance)
 
-		if respawn_menu:
-			respawn_menu.grab_focus()  # Ensure the respawn menu control gets focus
+	# Navigate to the RespawnMenu control in the Menu scene
+	var respawn_menu = menu_instance.navigate("RespawnMenu")
+	if respawn_menu:
+		respawn_menu.grab_focus()  # Ensure the respawn menu control gets focus
 
 # Detect input for escape key
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):  # Escape key is mapped to "ui_cancel" in InputMap
-		_toggle_pause_menu()
+		if player:
+			_toggle_pause_menu()
 
 # Toggle the pause menu visibility
 func _toggle_pause_menu():
