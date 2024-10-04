@@ -7,6 +7,7 @@ func _ready() -> void:
 
 func _init():
 	can_damage_player = true
+	can_damage_enemy = false
 	super._init()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -6,7 +6,7 @@ var max_bounces = 0  # Maximum number of bounces
 var damage = 0
 var knockback_force = 0  # Knockback force magnitude
 var can_damage_player = false
-
+var can_damage_enemy = true
 
 func set_max_bounces(_max_bounces):
 	max_bounces = _max_bounces
@@ -28,8 +28,9 @@ func _physics_process(delta):
 		var collider = collision.get_collider()
 		# Handle collision with Enemy
 		if collider is Enemy:
-			collider.damage(damage)  # Apply damage to the enemy
-			apply_knockback(collider)  # Apply knockback to the enemy
+			if can_damage_enemy:
+				collider.damage(damage)  # Apply damage to the enemy
+				apply_knockback(collider)  # Apply knockback to the enemy
 			queue_free()  # Remove the projectile
 
 		if collider is PlayerController:
