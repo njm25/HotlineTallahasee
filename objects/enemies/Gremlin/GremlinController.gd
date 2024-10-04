@@ -4,8 +4,8 @@ class_name GremlinController
 # Gremlin-specific variables set in _init
 func _init():
 	enemy_type = "Gremlin"
-	run_speed = 60.0  # Gremlin-specific roam speed
-	roam_speed = 40.0
+	run_speed = 120.0  # Gremlin-specific roam speed
+	roam_speed = 100.0
 	turn_speed = 6.0  # Gremlin-specific turn speed
 	roam_turn_speed = 3.0  # Gremlin-specific roam turn speed
 	friction = 0.2  # Gremlin-specific friction
