@@ -38,19 +38,13 @@ func spawn_enemy():
 	if enemies_spawned < start_round.max_enemies:
 		var enemy_type = choose_enemy_type()
 		var enemy_scene = enemy_scenes.get(enemy_type, null)
-		if enemy_scene:
+		if enemy_scene and is_instance_valid(player):
 			var enemy_instance = enemy_scene.instantiate()
-			var spawn_offset
-			var attempts = 0
-			while attempts < 10:
-				spawn_offset = Vector2(randf_range(-spawn_distance, spawn_distance), randf_range(-spawn_distance, spawn_distance))
-				var spawn_position = player.global_position + spawn_offset
-				if nav_area.map_get_path(player.global_position, spawn_position).size() > 0:
-					enemy_instance.global_position = spawn_position
-					add_child(enemy_instance)
-					enemies_spawned += 1
-					return
-				attempts += 1
+			var spawn_offset = Vector2(randf_range(-spawn_distance, spawn_distance), randf_range(-spawn_distance, spawn_distance))
+			var spawn_position = player.global_position + spawn_offset
+			enemy_instance.global_position = spawn_position
+			add_child(enemy_instance)
+			enemies_spawned += 1
 
 func choose_enemy_type() -> String:
 	var rand_value = randf()
