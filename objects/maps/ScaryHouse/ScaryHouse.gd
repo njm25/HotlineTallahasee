@@ -16,7 +16,6 @@ func spawn_player():
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	create_camera()
-	spawn_player()
 	spawn_enemies_in_circle()
 	
 func spawn_enemies_in_circle() -> void:

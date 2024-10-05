@@ -25,7 +25,15 @@ func create_camera():
 	
 	camera_instance = camera_scene.instantiate()
 	add_child(camera_instance)
+	spawn_player()
+	create_game_manager(player)
 
+func create_game_manager(player: PlayerController):
+	var game_manager = load("res://objects/maps/GameManager.tscn").instantiate()
+	game_manager.player = player
+	add_child(game_manager)
+	
+	
 func spawn_player():
 	player_instance = player_scene.instantiate()
 	add_child(player_instance)

@@ -336,3 +336,4 @@ sources/6 = SubResource("TileSetAtlasSource_qub7l")
 [node name="TileMap" type="TileMapLayer"]
 tile_set = SubResource("TileSet_6t5bi")
 use_kinematic_bodies = true
+navigation_enabled = false
