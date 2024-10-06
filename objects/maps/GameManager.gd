@@ -3,7 +3,8 @@ class_name GameManager
 
 # Variables to control round transitions and enemy spawning
 var enemies_spawned = 0
-@export var current_round: int = 0
+var enemies_alive = []  # Track living enemies
+@export var current_round: int = 1
 @export var round_duration: float = 30.0  # Time for a round to complete
 @onready var round_timer = Timer.new()
 @export var start_round: Round = Round.new()  # Declare start_round to be set in the Map class
@@ -29,6 +30,7 @@ func start_new_round(round: Round):
 	add_child(round_timer)
 	round_timer.start(round_duration)
 	enemies_spawned = 0
+	enemies_alive.clear()
 	var spawn_timer = Timer.new()
 	add_child(spawn_timer)
 	spawn_timer.start(round.spawning_rate)
@@ -45,6 +47,14 @@ func spawn_enemy():
 			enemy_instance.global_position = spawn_position
 			add_child(enemy_instance)
 			enemies_spawned += 1
+			enemies_alive.append(enemy_instance)
+
+	# Remove invalid instances from enemies_alive
+	enemies_alive = enemies_alive.filter(is_instance_valid)
+
+	# Check if all enemies have spawned and are defeated
+	if enemies_spawned == start_round.max_enemies and enemies_alive.size() == 0:
+		end_round()
 
 func choose_enemy_type() -> String:
 	var rand_value = randf()
