@@ -14,7 +14,7 @@ var camera_scene = preload("res://objects/world/Camera/Camera.tscn")  # Preload 
 var camera_instance
 
 var player_gui: PackedScene = preload("res://objects/world/GUI/PlayerGUI.tscn")
-
+var player_gui_instance = null
 # Signal for respawn and death
 signal player_respawned(new_player)
 signal player_died
@@ -39,9 +39,10 @@ func instance_player_gui():
 		child.queue_free()
 
 	# Instantiate the Player GUI and add it to the CanvasLayer
-	var player_gui_instance = player_gui.instantiate()
+	player_gui_instance = player_gui.instantiate()
 	canvas_layer_instance.add_child(player_gui_instance)
 	player_gui_instance.set_player(player)
+
 
 func create_camera():
 	camera_instance = camera_scene.instantiate()

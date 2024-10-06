@@ -18,14 +18,18 @@ func set_player(player_instance: PlayerController) -> void:
 func update_labels() -> void:
 	if not player:
 		return
-
+	var game = get_parent().get_parent().get_node("GameManager")
 	var player_inventory = player.get_node("PlayerInventory")
 	var current_weapon = player_inventory.current_weapon if player_inventory else null
 	var ammo_label = get_node("AmmoLabel")
 	var tool_gun_label = get_node("ToolGunLabel")
 	var cards_label = get_node("CardsLabel")
 	var health_label = get_node("HealthLabel")
-
+	var round_label = get_node("RoundLabel")
+	
+	if is_instance_valid(game):
+		round_label.text = str(game.current_round)
+	
 	# Handle ammo display for weapons that have ammo
 	if current_weapon and current_weapon is Weapon and current_weapon.has_ammo:
 		ammo_label.text = str(current_weapon.current_ammo)
