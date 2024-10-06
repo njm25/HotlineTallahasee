@@ -10,9 +10,10 @@ var menu_scene = preload("res://objects/maps/Menu/Menu.tscn")  # Preload the men
 var menu_instance
 var canvas_layer_instance  # This will store the dynamically created CanvasLayer
 
-
 var camera_scene = preload("res://objects/world/Camera/Camera.tscn")  # Preload the menu scene
 var camera_instance
+
+var player_gui: PackedScene = preload("res://objects/world/GUI/PlayerGUI.tscn")
 
 # Signal for respawn and death
 signal player_respawned(new_player)
@@ -21,24 +22,40 @@ signal player_died
 func _ready() -> void:
 	pass
 
-func create_camera():
-	
-	camera_instance = camera_scene.instantiate()
-	add_child(camera_instance)
+func start_game():
+	create_camera()
 	spawn_player()
 	create_game_manager(player)
+	instance_player_gui()
+
+func instance_player_gui():
+	# Create a new CanvasLayer dynamically if it doesn't exist
+	if not canvas_layer_instance:
+		canvas_layer_instance = CanvasLayer.new()
+		add_child(canvas_layer_instance)
+
+	# Remove all children from the CanvasLayer (including any previous GUI elements)
+	for child in canvas_layer_instance.get_children():
+		child.queue_free()
+
+	# Instantiate the Player GUI and add it to the CanvasLayer
+	var player_gui_instance = player_gui.instantiate()
+	canvas_layer_instance.add_child(player_gui_instance)
+	player_gui_instance.set_player(player)
+
+func create_camera():
+	camera_instance = camera_scene.instantiate()
+	add_child(camera_instance)
 
 func create_game_manager(player: PlayerController):
 	var game_manager = load("res://objects/maps/GameManager.tscn").instantiate()
 	game_manager.player = player
 	add_child(game_manager)
-	
-	
+
 func spawn_player():
 	player_instance = player_scene.instantiate()
 	add_child(player_instance)
 	player = player_instance.get_node("Player/PlayerController")
-
 
 	# Connect to the death signal from the player
 	player.connect("player_died", self._on_player_died)
@@ -54,13 +71,12 @@ func _on_player_died():
 		player_instance = null
 		show_respawn_menu()
 
-
 func show_respawn_menu():
 	# Create a new CanvasLayer if it doesn't exist
 	if not canvas_layer_instance:
 		canvas_layer_instance = CanvasLayer.new()
 		add_child(canvas_layer_instance)
-	
+
 	# Remove all children from the CanvasLayer (including PauseMenu if present)
 	for child in canvas_layer_instance.get_children():
 		child.queue_free()
@@ -87,7 +103,7 @@ func _toggle_pause_menu():
 		canvas_layer_instance.queue_free()  # Remove the canvas layer and the menu
 		canvas_layer_instance = null
 		menu_instance = null
-		
+
 		# Re-enable player input when menu is closed
 		if player:
 			player.is_paused = false
@@ -104,7 +120,7 @@ func _toggle_pause_menu():
 		var pause_menu = menu_instance.navigate("PauseMenu")
 		if pause_menu:
 			pause_menu.grab_focus()  # Ensure the pause menu control gets focus
-		
+
 		# Disable player input while the menu is active
 		if player:
 			player.is_paused = true

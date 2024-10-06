@@ -18,7 +18,7 @@ class_name PlayerController extends CharacterBody2D
 @onready var player_sprite: Sprite2D = $Sprite2D  # Ensure the path is correct
 @export var flash_duration: float = 0.5
 @export var flash_intensity: float = 0.5  # How much to increase the saturation
-@export var invincibility: bool = false
+@export var invincibility: bool = true
 var is_flashing: bool = false
 var flash_timer: float = 0.0
 var original_modulate: Color

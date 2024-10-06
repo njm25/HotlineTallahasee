@@ -15,7 +15,7 @@ func _init() -> void:
 	ammo_capacity = 99999
 	current_ammo = 99999
 	
-	damage = 1
+	damage = 100
 	#burst_fire =  true
 	#burst_shot_delay = 0.00001
 	#burst_delay = 0.9
