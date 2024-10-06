@@ -27,7 +27,8 @@ func _ready():
 	start_new_round(start_round)
 
 func start_new_round(round: Round):
-	add_child(round_timer)
+	if not round_timer.get_parent():
+		add_child(round_timer)
 	round_timer.start(round_duration)
 	enemies_spawned = 0
 	enemies_alive.clear()
