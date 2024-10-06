@@ -7,7 +7,7 @@ var enemies_spawned = 0
 @export var round_duration: float = 30.0  # Time for a round to complete
 @onready var round_timer = Timer.new()
 @export var start_round: Round = Round.new()  # Declare start_round to be set in the Map class
-@export var spawn_distance: float = 100.0  # Distance from player where enemies spawn
+@export var spawn_distance: float = 500.0  # Distance from player where enemies spawn
 
 var player: PlayerController
 var enemy_scenes = {}  # Dictionary to preload enemy scenes
