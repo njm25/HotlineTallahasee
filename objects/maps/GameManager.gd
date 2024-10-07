@@ -5,7 +5,6 @@ class_name GameManager
 var enemies_spawned = 0
 var enemies_alive = []  # Track living enemies
 @export var current_round_index: int = 1
-@export var round_duration: float = 30.0  # Time for a round to complete
 @onready var round_timer = Timer.new()
 @export var start_round: Round = Round.new()  # Declare start_round to be set in the Map class
 @export var spawn_distance: float = 100.0  # Distance from player where enemies spawn
@@ -36,7 +35,6 @@ func _ready():
 func start_new_round(round: Round):
 	if not round_timer.get_parent():
 		add_child(round_timer)
-	round_timer.start(round_duration)
 	enemies_spawned = 0
 	enemies_alive.clear()
 	spawn_timer.start(round.spawning_rate)
