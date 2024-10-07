@@ -21,7 +21,8 @@ class_name Weapon
 @export var burst_delay: float = 0.5  # Delay between bursts
 @export var damage: int = 0
 @export var knockback: float = 0.0
-
+@export var num_penetrations: int=0
+@export var penetration_multihit: bool=false
 var is_reloading: bool = false  # To prevent shooting while reloading
 var is_bursting: bool = false  # To prevent firing while in burst fire mode
 var is_in_burst_delay: bool = false  # To prevent firing between bursts
@@ -30,6 +31,7 @@ var burst_shots_fired: int = 0  # Tracks how many shots have been fired in the c
 var current_player = null  # Stores the player reference during burst
 var current_mouse_pos = Vector2.ZERO  # Stores the mouse position during burst
 var is_shooting: bool = false  # New variable to track if the player is actively shooting
+
 func _init() -> void:
 	pass
 	
@@ -48,6 +50,7 @@ func fire_projectile(player, mouse_pos, corrected_direction):
 	projectile_instance.set_max_bounces(max_bounces)
 	projectile_instance.set_damage(damage)
 	projectile_instance.set_knockback_force(knockback)
+	projectile_instance.set_penetrations(num_penetrations)
 	player.get_parent().add_child(projectile_instance)
 
 	var offset = projectile_spawn_offset

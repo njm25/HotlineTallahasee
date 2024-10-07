@@ -5,8 +5,8 @@ func _init() -> void:
 	has_projectile = true
 	
 	projectile_spawn_offset = Vector2(26, 12)
-	speed = 800
-	fire_rate = 0.01
+	speed = 1000
+	fire_rate = 0.5
 	is_continuous = true
 	
 	max_bounces = 0
@@ -15,7 +15,8 @@ func _init() -> void:
 	ammo_capacity = 99999
 	current_ammo = 99999
 	
-	damage = 100
+	damage = 1
+	num_penetrations=2
 	#burst_fire =  true
 	#burst_shot_delay = 0.00001
 	#burst_delay = 0.9

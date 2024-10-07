@@ -22,7 +22,7 @@ var player_in_area = null
 @export var fire_rate: float = 1.0  # Time between projectile shots
 @export var melee_fire_rate: float = 1.0  # Time between melee attacks
 @export var use_last_position: bool = false  # Flag to determine behavior
-
+@export var penetratable: bool=false;
 
 var last_known_player_position: Vector2 = Vector2()  # To store last known position
 var player_reference = null  # To store the player reference

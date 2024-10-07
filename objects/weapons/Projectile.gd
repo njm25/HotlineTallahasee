@@ -7,6 +7,10 @@ var damage = 0
 var knockback_force = 0  # Knockback force magnitude
 var can_damage_player = false
 var can_damage_enemy = true
+var num_penetrations = 0
+
+func set_penetrations(_num_penetrations):
+	num_penetrations = _num_penetrations+1
 
 func set_max_bounces(_max_bounces):
 	max_bounces = _max_bounces
@@ -31,13 +35,18 @@ func _physics_process(delta):
 			if can_damage_enemy:
 				collider.damage(damage)  # Apply damage to the enemy
 				apply_knockback(collider)  # Apply knockback to the enemy
-			queue_free()  # Remove the projectile
+				if num_penetrations > 0:
+					num_penetrations -= 1  # Decrease the number of penetrations
+					if num_penetrations == 0:
+						queue_free()  # Remove the projectile if no penetrations left
+				else:
+					queue_free()  # Remove the projectile if no penetrations allowed
 
 		if collider is PlayerController:
 			if can_damage_player:
 				collider.damage(damage)	
 				apply_knockback(collider)  # Apply knockback to the player
-			queue_free()  # Remove the projectile
+				queue_free()  # Remove the projectile
 
 		if collider is Projectile:
 			collider.queue_free()  # Remove the other projectile
