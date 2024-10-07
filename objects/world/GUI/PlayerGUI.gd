@@ -28,7 +28,14 @@ func update_labels() -> void:
 	var round_label = get_node("RoundLabel")
 	
 	if is_instance_valid(game):
-		round_label.text = str(game.current_round)
+		var game_status_text = ""
+		game_status_text += "Current round: " + str(game.current_round_index) + "\n"
+		game_status_text += "Max enemies: " + str(game.current_round.max_enemies) + "\n"
+		game_status_text += "Enemies spawned: " + str(game.enemies_spawned) + "\n"
+		game_status_text += "Enemies alive: " + str(game.enemies_alive.size()) + "\n"
+		game_status_text += "Round duration: " + str(game.round_duration) + "\n"
+		game_status_text += "Spawn distance: " + str(game.spawn_distance) + "\n"
+		round_label.text = game_status_text
 	
 	# Handle ammo display for weapons that have ammo
 	if current_weapon and current_weapon is Weapon and current_weapon.has_ammo:
