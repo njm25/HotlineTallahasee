@@ -23,6 +23,7 @@ var player_in_area = null
 @export var melee_fire_rate: float = 1.0  # Time between melee attacks
 @export var use_last_position: bool = false  # Flag to determine behavior
 
+
 var last_known_player_position: Vector2 = Vector2()  # To store last known position
 var player_reference = null  # To store the player reference
 var roam_timer = 0.0
@@ -149,7 +150,8 @@ func _on_area_body_entered(body):
 	if body is PlayerController:
 		player_in_area = body
 		player_reference = body  # Store player reference if needed
-		player_reference.connect("player_died", self._on_player_death)
+		if not player_in_area.is_connected("player_died", self._on_player_death):
+			player_in_area.connect("player_died", self._on_player_death)
 		current_state = EnemyState.ALERT
 
 func _on_player_death():
