@@ -13,7 +13,7 @@ var canvas_layer_instance  # This will store the dynamically created CanvasLayer
 var camera_scene = preload("res://objects/world/Camera/Camera.tscn")  # Preload the menu scene
 var camera_instance
 
-var player_gui: PackedScene = preload("res://objects/world/GUI/PlayerGUI.tscn")
+var player_gui: PackedScene = preload("res://objects/player/PlayerGUI.tscn")
 var player_gui_instance = null
 # Signal for respawn and death
 var gui_layer_instance
