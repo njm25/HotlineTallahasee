@@ -18,7 +18,6 @@ var spawn_timer: Timer = Timer.new()  # Reuse spawn timer between rounds
 
 func _ready():
 	# Get the navigation area from the map scene
-	nav_area = get_parent().get_node("NavigationRegion2D")
 
 	player.connect("player_died", self._on_player_died)
 	# Preload enemy scenes during initialization
