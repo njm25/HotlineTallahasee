@@ -29,7 +29,7 @@ var roam_timer = 0.0
 var target_position: Vector2
 var shoot_timer: float = 0.0
 var melee_timer: float = 0.0
-
+var is_melee_attacking: bool = false
 
 # New variables for damage flash effect
 @onready var sprite: Sprite2D = $Sprite2D  # Ensure the path is correct
@@ -40,6 +40,10 @@ var flash_timer: float = 0.0
 var original_modulate: Color
 
 @export var label_duration: float = 1.0  # Time for damage label to show
+
+# New variable for melee range detection
+@onready var melee_range_area: Area2D = $MeleeRange
+var player_in_melee_range = false
 
 func _init() -> void:
 	pass
@@ -54,6 +58,10 @@ func _ready():
 	# Enable contact monitoring
 	contact_monitor = true
 	max_contacts_reported = 4  # Adjust this value based on your needs
+
+	# Connect signals for melee range
+	melee_range_area.connect("body_entered", self._on_melee_range_body_entered)
+	melee_range_area.connect("body_exited", self._on_melee_range_body_exited)
 
 func damage(amount: int):
 	if not is_invincible:
@@ -158,6 +166,17 @@ func _on_area_body_exited(body):
 				navigation_agent.target_position = body.global_position
 				player_reference = body  # Store the player reference to follow
 
+func _on_melee_range_body_entered(body):
+	if body is PlayerController:
+		player_in_melee_range = true
+		is_melee_attacking = true
+		melee_timer = melee_fire_rate  # Start the melee timer
+
+func _on_melee_range_body_exited(body):
+	if body is PlayerController:
+		player_in_melee_range = false
+		is_melee_attacking = false
+
 func _physics_process(delta):
 	match current_state:
 		EnemyState.ALERT:
@@ -183,6 +202,7 @@ func choose_random_roam_target():
 	var random_offset = Vector2(randf_range(-1, 1), randf_range(-1, 1)) * roam_radius
 	var potential_target = global_position + random_offset
 	navigation_agent.target_position = potential_target
+
 func handle_attacking(delta):
 	if player_in_area:
 		if is_friendly:
@@ -204,14 +224,11 @@ func handle_attacking(delta):
 					shoot_timer = fire_rate
 			else:
 				# If the enemy can melee, check for melee attack
-				if can_melee:
+				if can_melee and is_melee_attacking:
 					melee_timer -= delta
-					if melee_timer <= 0:
-						for body in get_colliding_bodies():
-							if body is PlayerController:
-								melee_attack(body)
-								melee_timer = melee_fire_rate
-								break
+					if player_in_melee_range and melee_timer <= 0:
+						melee_attack(player_in_area)
+						melee_timer = melee_fire_rate
 
 				# Chase the player
 				navigation_agent.target_position = player_in_area.global_position
@@ -270,6 +287,7 @@ func get_enemy_projectile_scene() -> PackedScene:
 	else:
 		print("Error: Could not load projectile scene for enemy type: %s" % enemy_type)
 		return null
+
 func shoot_projectile(player: PlayerController):
 	# Get the projectile scene for the enemy based on enemy_type
 	var projectile_scene = get_enemy_projectile_scene()
@@ -297,7 +315,6 @@ func shoot_projectile(player: PlayerController):
 
 	# Add the projectile to the scene tree
 	get_parent().add_child(projectile_instance)
-
 
 func melee_attack(player: PlayerController):
 	player.damage(player_damage)

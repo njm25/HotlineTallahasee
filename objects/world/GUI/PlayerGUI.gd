@@ -18,7 +18,7 @@ func set_player(player_instance: PlayerController) -> void:
 func update_labels() -> void:
 	if not player:
 		return
-	var game = get_parent().get_parent().get_node("GameManager")
+	var game = get_parent().get_parent().get_node_or_null("GameManager")
 	var player_inventory = player.get_node("PlayerInventory")
 	var current_weapon = player_inventory.current_weapon if player_inventory else null
 	var ammo_label = get_node("AmmoLabel")
