@@ -8,9 +8,6 @@ func spawn_player():
 		player_inventory.create_weapon(pistol, player)
 		
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	start_game()
 
 func _init() -> void:
 	pass

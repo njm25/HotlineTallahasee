@@ -22,7 +22,7 @@ signal player_respawned(new_player)
 signal player_died
 
 func _ready() -> void:
-	pass
+	start_game()
 
 func start_game():
 	create_camera()
