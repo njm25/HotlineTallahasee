@@ -17,7 +17,6 @@ offset_left = 21.0
 offset_top = 21.0
 offset_right = 1020.0
 offset_bottom = 1020.0
-text = "Cards"
 
 [node name="HealthLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -25,7 +24,6 @@ offset_left = 20.0
 offset_top = 570.0
 offset_right = 1019.0
 offset_bottom = 1569.0
-text = "Health"
 
 [node name="AmmoLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -33,7 +31,6 @@ offset_left = 20.0
 offset_top = 600.0
 offset_right = 1019.0
 offset_bottom = 1599.0
-text = "Ammo"
 
 [node name="ToolGunLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -50,4 +47,3 @@ offset_top = 9.0
 offset_right = 681.0
 offset_bottom = 1008.0
 grow_horizontal = 0
-text = "Round"

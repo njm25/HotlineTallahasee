@@ -8,6 +8,7 @@ script = ExtResource("1_uwfmi")
 
 [node name="Pistol" type="Sprite2D" parent="."]
 visible = false
+z_index = 4
 position = Vector2(17, 10)
 rotation = -1.5708
 texture = ExtResource("2_jfvw6")
@@ -15,6 +16,7 @@ texture = ExtResource("2_jfvw6")
 [node name="ToolGun" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0.204609, 0.419961, 0.881305, 1)
+z_index = 4
 position = Vector2(17, 10)
 rotation = -1.5708
 texture = ExtResource("2_jfvw6")
@@ -22,6 +24,7 @@ texture = ExtResource("2_jfvw6")
 [node name="TestGun" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0.808376, 0.150372, 0.317822, 1)
+z_index = 4
 position = Vector2(17, 10)
 rotation = -1.57079
 texture = ExtResource("2_jfvw6")

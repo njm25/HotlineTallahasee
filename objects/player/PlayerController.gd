@@ -1,5 +1,6 @@
 class_name PlayerController extends CharacterBody2D
 
+@onready var death_scene: PackedScene = load("res://objects/player/PlayerPerish.tscn")
 @export var speed = 500
 @export var sprint_speed = 500
 @export var sneak_speed = 150
@@ -67,6 +68,17 @@ func heal(amount: int):
 
 func kill():
 	is_dead = true
+		# Instantiate the death scene
+	var death_node = death_scene.instantiate()
+
+	# Set its position to the enemy's position
+	death_node.global_position = global_position
+	death_node.global_rotation = global_rotation - deg_to_rad(90)
+	# Add the death node to the scene tree
+	get_parent().get_parent().get_parent().add_child(death_node)
+
+	# Remove the enemy from the scene
+	queue_free()
 	emit_signal("player_died")
 
 

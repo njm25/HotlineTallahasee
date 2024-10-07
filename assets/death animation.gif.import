@@ -1,0 +1,15 @@
+[remap]
+
+importer="import_gif_to_sprite_frames"
+type="SpriteFrames"
+uid="uid://bci4ahq0bbykc"
+path="res://.godot/imported/death animation.gif-92de62886477886ee631d996fe995fde.tres"
+
+[deps]
+
+source_file="res://assets/death animation.gif"
+dest_files=["res://.godot/imported/death animation.gif-92de62886477886ee631d996fe995fde.tres"]
+
+[params]
+
+frames_per_second=30

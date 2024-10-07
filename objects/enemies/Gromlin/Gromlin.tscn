@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://vs1yxi61cueb"]
+[gd_scene load_steps=6 format=3 uid="uid://vs1yxi61cueb"]
 
 [ext_resource type="Script" path="res://objects/enemies/Gromlin/GromlinController.gd" id="1_00nry"]
 [ext_resource type="Texture2D" uid="uid://b2cotgq5e6616" path="res://assets/enemy.png" id="2_us45g"]
@@ -8,6 +8,9 @@ radius = 200.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbtr4"]
 radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oywyh"]
+size = Vector2(11.875, 27)
 
 [node name="GremlinController" type="RigidBody2D"]
 collision_mask = 7
@@ -35,3 +38,10 @@ avoidance_enabled = true
 radius = 25.0
 avoidance_layers = 3
 avoidance_mask = 3
+
+[node name="MeleeRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
+position = Vector2(8.9375, -1.5)
+shape = SubResource("RectangleShape2D_oywyh")
+debug_color = Color(9.62615e-07, 0.626153, 0.513756, 0.42)

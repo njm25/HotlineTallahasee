@@ -36,6 +36,7 @@ shadow_item_cull_mask = 6
 texture = SubResource("GradientTexture2D_66usp")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/PlayerController"]
+z_index = 3
 rotation = -1.5708
 texture = ExtResource("3_tn72x")
 region_enabled = true

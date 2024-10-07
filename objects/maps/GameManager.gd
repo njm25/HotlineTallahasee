@@ -5,6 +5,7 @@ class_name GameManager
 var enemies_spawned = 0
 var enemies_alive = []  # Track living enemies
 @export var current_round_index: int = 1
+@export var round_duration: float = 30.0  # Time for a round to complete
 @onready var round_timer = Timer.new()
 @export var start_round: Round = Round.new()  # Declare start_round to be set in the Map class
 @export var spawn_distance: float = 100.0  # Distance from player where enemies spawn
@@ -19,6 +20,7 @@ func _ready():
 	# Get the navigation area from the map scene
 	nav_area = get_parent().get_node("NavigationRegion2D")
 
+	player.connect("player_died", self._on_player_died)
 	# Preload enemy scenes during initialization
 	for enemy_type in start_round.dict_of_possible_enemies.keys():
 		var enemy_scene_path = "res://objects/enemies/%s/%s.tscn" % [enemy_type, enemy_type]
@@ -31,6 +33,9 @@ func _ready():
 	# Start the first round
 	current_round = start_round.duplicate()  # Use a copy of start_round to ensure data is carried over
 	start_new_round(current_round)
+
+func _on_player_died():
+	pass
 
 func start_new_round(round: Round):
 	if not round_timer.get_parent():
