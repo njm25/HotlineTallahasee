@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjae0lm5fnlcd"]
+[gd_scene load_steps=5 format=3 uid="uid://cjae0lm5fnlcd"]
 
 [ext_resource type="Script" path="res://objects/enemies/Slugmo/SlugmoController.gd" id="1_7sbsk"]
 [ext_resource type="Texture2D" uid="uid://h1tbf5vum25i" path="res://assets/slugmo.png" id="2_483r3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gdy7"]
 radius = 200.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwyhq"]
+size = Vector2(0, 0)
 
 [node name="SlugmoController" type="RigidBody2D"]
 collision_mask = 7
@@ -32,3 +35,10 @@ avoidance_enabled = true
 radius = 55.0
 avoidance_layers = 3
 avoidance_mask = 3
+
+[node name="MeleeRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
+position = Vector2(8.9375, -1.5)
+shape = SubResource("RectangleShape2D_lwyhq")
+debug_color = Color(9.62615e-07, 0.626153, 0.513756, 0.42)
