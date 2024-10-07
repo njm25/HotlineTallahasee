@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://objects/player/PlayerPerish.gd" id="2_r5aen"]
 
 [node name="PlayerPerish" type="AnimatedSprite2D"]
-z_index = 3
 sprite_frames = ExtResource("1_d0c3c")
 animation = &"gif"
 script = ExtResource("2_r5aen")

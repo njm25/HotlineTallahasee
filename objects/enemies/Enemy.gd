@@ -149,7 +149,11 @@ func _on_area_body_entered(body):
 	if body is PlayerController:
 		player_in_area = body
 		player_reference = body  # Store player reference if needed
+		player_reference.connect("player_died", self._on_player_death)
 		current_state = EnemyState.ALERT
+
+func _on_player_death():
+	current_state = EnemyState.UNALERT
 
 func _on_area_body_exited(body):
 	if body is PlayerController:
