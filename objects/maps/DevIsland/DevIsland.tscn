@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://bsjfrmmnl2jj"]
+[gd_scene load_steps=13 format=4 uid="uid://bsjfrmmnl2jj"]
 
 [ext_resource type="Script" path="res://objects/maps/DevIsland/DevIsland.gd" id="1_4r2v2"]
 [ext_resource type="Texture2D" uid="uid://biv311c61nrt8" path="res://assets/backgrondisland.png" id="2_4m0l6"]
 [ext_resource type="TileSet" uid="uid://d2ony36eeidr0" path="res://objects/world/TileMap/TileMap.tres" id="3_034of"]
+[ext_resource type="PackedScene" uid="uid://ds0aimqr05dsj" path="res://objects/world/SpawnRegion/SpawnRegion.tscn" id="9_rk4no"]
 [ext_resource type="PackedScene" uid="uid://dvcet50el2eal" path="res://objects/world/TestRegion/TestRegion.tscn" id="10_0iesl"]
 [ext_resource type="PackedScene" uid="uid://besa7oi2kxa6p" path="res://objects/world/Test2Region/Test2Region.tscn" id="11_ogxb4"]
 [ext_resource type="PackedScene" uid="uid://bc0e0mbsgyq5f" path="res://objects/world/Rooftop/Rooftop.tscn" id="12_24nik"]
@@ -98,3 +99,15 @@ scale = Vector2(-1367.21, 1058.98)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IceRegion"]
 position = Vector2(32.25, -720.5)
 shape = SubResource("RectangleShape2D_1mhcb")
+
+[node name="SpawnRegion2" parent="." instance=ExtResource("9_rk4no")]
+gromlin = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpawnRegion2"]
+polygon = PackedVector2Array(833, -1409, 828, -784, 1250, -779, 1197, -1398)
+
+[node name="SpawnRegion" parent="." instance=ExtResource("9_rk4no")]
+gremlin = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpawnRegion"]
+polygon = PackedVector2Array(-555, -1697, -571, -1211, 604, -1200, 561, -1713)

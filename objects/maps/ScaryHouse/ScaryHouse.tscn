@@ -20,10 +20,7 @@ tile_set = ExtResource("2_lbcwh")
 use_kinematic_bodies = true
 
 [node name="SpawnRegion" parent="." instance=ExtResource("2_0mjwh")]
-gremlin = false
 gromlin = true
-slugmo = false
-spawn_enabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpawnRegion"]
 polygon = PackedVector2Array(-62, 121, -73, 290, 314, 285, 309, 144)
