@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds0aimqr05dsj"]
+
+[ext_resource type="Script" path="res://objects/world/SpawnRegion/SpawnRegion.gd" id="1_df262"]
+
+[node name="SpawnRegion" type="Area2D" groups=["SpawnRegion"]]
+script = ExtResource("1_df262")

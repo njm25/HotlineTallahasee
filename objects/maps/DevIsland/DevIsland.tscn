@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://bsjfrmmnl2jj"]
+[gd_scene load_steps=12 format=4 uid="uid://bsjfrmmnl2jj"]
 
 [ext_resource type="Script" path="res://objects/maps/DevIsland/DevIsland.gd" id="1_4r2v2"]
 [ext_resource type="Texture2D" uid="uid://biv311c61nrt8" path="res://assets/backgrondisland.png" id="2_4m0l6"]
@@ -16,6 +16,12 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-652, -1886, 602, -1886
 parsed_geometry_type = 1
 parsed_collision_mask = 4294967046
 source_geometry_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76sxd"]
+size = Vector2(93, 95)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mhcb"]
+size = Vector2(703.5, 223)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_4r2v2")
@@ -40,22 +46,55 @@ use_kinematic_bodies = true
 navigation_polygon = SubResource("NavigationPolygon_0d13y")
 navigation_layers = 0
 
+[node name="Rooftop" parent="." instance=ExtResource("12_24nik")]
+
+[node name="ColorRect" type="ColorRect" parent="Rooftop"]
+light_mask = 6
+z_index = 4
+offset_left = -362.0
+offset_top = -887.0
+offset_right = 537.0
+offset_bottom = 111.0
+color = Color(0.26, 0.013, 0.0171166, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooftop"]
+polygon = PackedVector2Array(-336, -846, -333, 75, 492, 77, 492, -586, 404, -586, 397, -843)
+
 [node name="TestRegion" parent="." instance=ExtResource("10_0iesl")]
 position = Vector2(432, -528)
-scale = Vector2(4.80199, 4.78316)
+
+[node name="ColorRect" type="ColorRect" parent="TestRegion"]
+offset_left = -47.0
+offset_top = -47.0
+offset_right = 48.0
+offset_bottom = 49.0
+color = Color(0, 0.76, 0.0253333, 0.415686)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestRegion"]
+shape = SubResource("RectangleShape2D_76sxd")
 
 [node name="Test2Region" parent="." instance=ExtResource("11_ogxb4")]
 position = Vector2(432, -400)
-scale = Vector2(4.80691, 4.79475)
 
-[node name="Rooftop" parent="." instance=ExtResource("12_24nik")]
-position = Vector2(81, -379)
-scale = Vector2(-43.4895, 49.2032)
+[node name="ColorRect" type="ColorRect" parent="Test2Region"]
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 47.0
+offset_bottom = 48.0
+color = Color(0.23, 0.371167, 1, 0.415686)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Test2Region"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_76sxd")
 
 [node name="WorldBorder" parent="." instance=ExtResource("13_xhqi7")]
 position = Vector2(0, -3.8147e-06)
 scale = Vector2(-1367.21, 1058.98)
 
 [node name="IceRegion" parent="." instance=ExtResource("14_fb5vs")]
-position = Vector2(31, -719)
-scale = Vector2(35.5906, -12.1078)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IceRegion"]
+position = Vector2(32.25, -720.5)
+shape = SubResource("RectangleShape2D_1mhcb")

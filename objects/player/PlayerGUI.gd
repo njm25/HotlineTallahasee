@@ -33,7 +33,6 @@ func update_labels() -> void:
 		game_status_text += "Max enemies: " + str(game.current_round.max_enemies) + "\n"
 		game_status_text += "Enemies spawned: " + str(game.enemies_spawned) + "\n"
 		game_status_text += "Enemies alive: " + str(game.enemies_alive.size()) + "\n"
-		game_status_text += "Spawn distance: " + str(game.spawn_distance) + "\n"
 		round_label.text = game_status_text
 	
 	# Handle ammo display for weapons that have ammo
