@@ -30,7 +30,7 @@ b)	the requirements and design document, including the sections they wrote or co
 c)	the implementation and testing document, including the sections they wrote or contributed to
 d)	the source code
 •	Nico has contributed to most of the code that has been implemented.
-•	
+•	Daniel created enemy and player health bars that will cause them to die once they hit 0.
 •	
 •	The rest of the group members intend to contribute more during the next increment. All four of us have had weekly meetings to discuss what we want to implement, but Nico has laid the groundwork for the project so far.
 
