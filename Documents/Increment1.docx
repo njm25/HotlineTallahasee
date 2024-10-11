@@ -1,0 +1,55 @@
+Progress Report
+- Increment 1 -
+Group #12
+
+1)	Team Members
+● Andrei Desnica (aed21n)
+● Daniel Halterman (drh22a)
+● Kristian Moncada (km21v)
+● Nico Milette (njm21)
+
+2)	Project Title and Description
+
+Hotline Tallahassee is a top-down shooter that incorporates ideas from both the game Hotline Miami and Call of Duty Zombies. The game will include rounds of zombies that the player can eliminate with weapons and continue to increase their round counter.
+
+3)	Accomplishments and overall project status during this increment 
+During the first increment, we were able to create a baseline for the game with a map, obstacles, a playable character, weapons, and enemies. So far, we are making great progress, and it tracks towards us completing everything that we want to have accomplished by the end.
+4)	Challenges, changes in the plan and scope of the project and things that went wrong during this increment
+
+A challenge we are currently experiencing is having the light block the vision of the enemies, so they do not face the player when blocked by an obstacle.
+
+5)	Team Member Contribution for this increment
+Please list each individual member and their contributions to each of the deliverables in this increment (be as detailed as possible). In other words, describe the contribution of each team member to:
+a)	the progress report,
+•	Daniel Halterman wrote most of the progress report (parts 1, 2, 3, 4, 5, 6, 7)
+•	Nico contributed to (parts 1, 4, 5, 6)
+•	Kristian contributed to (parts 1, 4, 5, 6)
+•	Andrei contributed to (parts 1, 4, 5, 6)
+
+b)	the requirements and design document, including the sections they wrote or contributed to
+c)	the implementation and testing document, including the sections they wrote or contributed to
+d)	the source code
+•	Nico has contributed to most of the code that has been implemented.
+•	
+•	
+•	The rest of the group members intend to contribute more during the next increment. All four of us have had weekly meetings to discuss what we want to implement, but Nico has laid the groundwork for the project so far.
+
+e)	the video or presentation
+
+6)	Plans for the next increment
+During the next increment, we want to add a starting screen, a way to track waves of enemies, and have a way to melee/shoot and kill enemies.
+ 
+7)	Stakeholder Communication
+Subject: Project Update on "Hotline Tallahassee" Development
+Dear Stakeholders,
+I hope this message finds you well. I’m writing to provide an update on the progress of our current project, Hotline Tallahassee, a top-down shooter inspired by elements from both Hotline Miami and Call of Duty Zombies. The goal of this project is to deliver a dynamic gaming experience by blending fast-paced gameplay with strategic enemy waves.
+We are pleased to report that during this development phase, we have successfully built the core framework for the game. This includes a playable character, basic weapons, enemies, and a functional map with obstacles. These foundational elements represent a significant portion of the gameplay mechanics, and overall, our timeline remains on track with the objectives we’ve set for this increment.
+However, we have encountered a technical challenge that requires additional time and iteration to resolve. Specifically, there is an issue with the enemies’ vision being obstructed by environmental obstacles, which prevents them from properly tracking the player when line-of-sight is interrupted. While this behavior is somewhat expected from a design standpoint, it poses gameplay challenges in terms of enemy AI behavior and overall player experience.
+We are working on refining this mechanic to ensure that enemies appropriately react to environmental factors while maintaining the level of difficulty and immersion we aim to achieve. While this has shifted some of our focus, these kinds of adjustments are normal in development and part of refining a polished final product.
+Looking forward, we aim to implement additional features that will enhance the overall experience. First, a functional start screen to provide users with an intuitive entry into the game. Second, a mechanism to track and manage the progression of enemy waves. Lastly, development of the character’s ability to shoot and eliminate enemies, which will further solidify the combat dynamics of the game.
+While some adjustments to the original plan have been necessary, we remain confident in our ability to deliver a high-quality product within our projected timeline. Thank you for your continued support as we work through these refinements. We will provide further updates as we progress through the next phase of development.
+Best regards,
+Daniel Halterman
+Project Dev, Hotline Tallahassee
+8)	Link to video
+Paste here the link to your video.
