@@ -16,8 +16,8 @@ Nico Milette (njm21)
 
 2.	Platforms, APIs, Databases, and other technologies used (5 points) 
 •	Godot
-3.	Execution-based Functional Testing (10 points)
 
+3.	Execution-based Functional Testing (10 points)
 1. Game Loading Properly
 •	Testing Method: We launched the game multiple times across different devices to evaluate loading times and verify that all assets and player data loaded correctly without errors.
 •	Expected Outcome: The game should load within an acceptable time frame, with all assets present and functioning, and player data accurately reflecting saved progress.
@@ -42,8 +42,24 @@ Nico Milette (njm21)
 8. Game Over Condition
 •	Testing Method: We tested the game-over condition by allowing the player’s health to reach zero and monitoring the game’s response.
 •	Expected Outcome: The game should end appropriately and display the game-over screen with feedback.
+
 4.	Execution-based Non-Functional Testing (10 points)
-Describe how/if you performed non-functional testing for your project (i.e., tested for the non-functional requirements listed in your RD). 
+1. Performance Testing
+Testing Method: We utilized profiling tools within Godot to monitor frame rates during gameplay, specifically during high-action sequences with multiple enemies on screen. We conducted tests on everyone's own hardware configurations to assess performance consistency.
+Expected Outcome: The game maintained a minimum of 60 frames per second across all tested devices.
+2. Reliability Testing (Not completed but needs to so that we can ensure we do not need to change our program)
+Testing Method: We can stress testing by running extended gameplay sessions to identify any potential crashes or bugs.
+Expected Outcome: The game should operate without crashing or significant bugs, demonstrating high reliability during normal gameplay.
+3. Compatibility Testing (Not completed but needs to so that we can ensure we do not need to change our program)
+Testing Method: We tested the game on various devices with different operating systems and hardware specifications, including low-end and high-end PCs, to ensure compatibility.
+Expected Outcome: The game functioned correctly across all tested devices, maintaining performance and visual quality.
+4. Scalability Testing (Not completed but needs to so that we can ensure we do not need to change our program)
+Testing Method: We simulated gameplay scenarios involving increasing numbers of enemies and player actions to assess the game's performance under load. This included monitoring frame rates and responsiveness as complexity increased.
+Expected Outcome: The game maintained a stable performance without significant loss of frames, confirming its scalability for more intense gameplay.
+5. Maintainability Testing
+Testing Method: We reviewed the code for documentation and modular design.
+Expected Outcome: The codebase was found to be well-documented and modular, allowing for us to have extremely customizable enemies and weapons, but will also give us the ability to modify stats in game, for more emerging gameplay.
+
 5.	Non-Execution-based Testing (10 points)
-Describe how/if you performed non-execution-based testing (such as code reviews/inspections/walkthroughs). 
+Every week on Thursday we would meet up and discuss the code we wanted to implement. Any code written before the meeting would be discussed and we would look for any errors we saw or any changes we wanted to make. Nico would share his screen on discord and write the code and we would be watching him to make sure the code he was writing fit with what all of our ideas were. 
 
