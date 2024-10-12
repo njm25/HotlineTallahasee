@@ -20,6 +20,10 @@ class_name PlayerController extends CharacterBody2D
 @export var flash_duration: float = 0.5
 @export var flash_intensity: float = 0.5  # How much to increase the saturation
 @export var invincibility: bool = false
+@export var regen_amount: int = 1  # Amount of health to regenerate per tick
+@export var regen_interval: float = 1.0  # Time interval between each regen tick
+@export var max_health: int = 100  # Player's max health
+var regen_timer: Timer = null  # Timer for health regeneration
 var is_flashing: bool = false
 var flash_timer: float = 0.0
 var original_modulate: Color
@@ -40,6 +44,23 @@ var current_dash_speed = 0.0
 var target_friction = default_friction
 signal player_died
 
+func _ready():
+	# Initialize health regen timer
+	regen_timer = Timer.new()
+	add_child(regen_timer)
+	regen_timer.wait_time = regen_interval
+	regen_timer.connect("timeout", Callable(self, "_on_regen_tick"))
+	regen_timer.start()
+	
+func _on_regen_tick():
+	if health < max_health:
+		health += regen_amount
+		if health > max_health:
+			health = max_health  # Cap health at max
+			print("Regenerating health. Current health:", health)
+	else:
+		regen_timer.stop()  # Stop regeneration when health is full
+
 func damage(amount: int):
 	if not invincibility:
 		if not is_invincible:  # Prevent damage if i-frames are active
@@ -49,6 +70,8 @@ func damage(amount: int):
 			else:
 				activate_i_frames()  # Activate i-frames after taking damage
 				start_flash()  # Start flashing effect
+
+				regen_timer.start()
 func start_flash():
 	is_flashing = true
 	flash_timer = flash_duration
@@ -65,6 +88,10 @@ func activate_i_frames():
 
 func heal(amount: int):
 	health += amount
+	# Restart health regeneration if needed
+	if health < max_health:
+		regen_timer.start()
+
 
 func kill():
 	is_dead = true
@@ -80,8 +107,7 @@ func kill():
 	# Remove the enemy from the scene
 	queue_free()
 	emit_signal("player_died")
-
-
+	
 
 # Modifiers for stacking
 var speed_modifiers: Array = []
