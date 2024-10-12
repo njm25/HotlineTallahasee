@@ -32,4 +32,13 @@ Rationale: Vital feedback for the player to manage their health and weapon effec
 Rationale: Proper game termination and feedback on the player’s performance are critical to the gameplay loop.
 
 3.	Non-functional Requirements (10 points)
-List the non-functional requirements of the system (any requirement referring to a property of the system, such as security, safety, software quality, performance, reliability, etc.) You may provide a brief rationale for any requirement which you feel requires explanation as to how and/or why the requirement was derived.
+1. Performance - The game should maintain a minimum frame rate of 60 frames per second (FPS) on target devices, even during high-action scenarios with multiple enemies on screen.
+Rationale: A consistent frame rate is crucial for smooth gameplay, which directly impacts player experience and engagement.
+2. Usability - The user interface (UI) should be intuitive and easy to navigate, with clear instructions and feedback for all actions.
+Rationale: A user-friendly interface enhances player satisfaction and retention, making it easier for players to understand game mechanics and controls.
+3. Reliability - The game should not crash or exhibit significant bugs during normal gameplay.
+Rationale: High reliability is essential for player trust and enjoyment. Frequent crashes can lead to frustration and abandonment of the game.
+4. Compatibility - The game should be compatible with a range of devices, including various PC configurations and operating systems, ensuring consistent performance across platforms.
+Rationale: Broader compatibility allows more players to access the game, increasing its potential audience and overall success.
+5. Maintainability - The code should be well documented and modular, allowing for easy updates and modifications to gameplay mechanics or features.
+Rationale: Maintainable code is crucial for ongoing development and future updates, enabling the team to respond quickly to issues.
