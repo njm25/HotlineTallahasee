@@ -1,1 +1,59 @@
+Software Implementation and Testing Document 
+
+For
+
+Group 12
+
+
+
+Version 1.0
+
+
+
+Authors: 
+Andrei Desnica (aed21n)
+Daniel Halterman (drh22a)
+Kristian Moncada (km21v)
+Nico Milette (njm21)
+
+
+
+
+ 
+1.	Programming Languages (5 points)
+•	C++
+•	GDScript 
+
+2.	Platforms, APIs, Databases, and other technologies used (5 points) 
+•	Godot
+3.	Execution-based Functional Testing (10 points)
+
+1. Game Loading Properly
+•	Testing Method: We launched the game multiple times across different devices to evaluate loading times and verify that all assets and player data loaded correctly without errors.
+•	Expected Outcome: The game should load within an acceptable time frame, with all assets present and functioning, and player data accurately reflecting saved progress.
+2. Movement Control 
+•	Testing Method: We tested the WASD input system for character movement by having multiple team members play the game and control the character using the specified keys.
+•	Expected Outcome: The character should respond promptly to WASD inputs, moving smoothly in the intended directions.
+3. Aiming Mechanics 
+•	Testing Method: We validated the 360-degree aiming feature by allowing testers to aim using both mouse and joystick input. We also checked if the aim was responsive and accurate during gameplay.
+•	Expected Outcome: The player should be able to aim freely in all directions without lag or unintended behavior.
+4. Shooting Mechanics 
+•	Testing Method: We tested the shooting feature by having players use the starting weapon to engage with enemies. We observed the interaction of bullets/projectiles with enemies and confirmed that hit detection worked as expected.
+•	Expected Outcome: Players should successfully shoot at enemies, and the projectiles should impact them, resulting in appropriate damage.
+5. Enemy Waves Spawning 
+•	Testing Method: We monitored the spawning of enemy waves, ensuring that each subsequent wave increased in difficulty (e.g., more enemies, faster enemies) as designed.
+•	Expected Outcome: Each wave should present a greater challenge, confirming that the difficulty scaling functions correctly.
+6. Dash Mechanic
+•	Testing Method: We tested the dash ability by using the designated keys to evade enemy attacks during gameplay.
+•	Expected Outcome: The character should dash in the direction of movement, providing temporary invulnerability.
+7. Health and Weapon Display
+•	Testing Method: We observed the on-screen display of the player's health and weapon ammo during gameplay, confirming it updates accurately.
+•	Expected Outcome: The display should reflect current health and weapon ammo in real-time.
+8. Game Over Condition
+•	Testing Method: We tested the game-over condition by allowing the player’s health to reach zero and monitoring the game’s response.
+•	Expected Outcome: The game should end appropriately and display the game-over screen with feedback.
+4.	Execution-based Non-Functional Testing (10 points)
+Describe how/if you performed non-functional testing for your project (i.e., tested for the non-functional requirements listed in your RD). 
+5.	Non-Execution-based Testing (10 points)
+Describe how/if you performed non-execution-based testing (such as code reviews/inspections/walkthroughs). 
 
