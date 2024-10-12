@@ -70,8 +70,8 @@ func damage(amount: int):
 			else:
 				activate_i_frames()  # Activate i-frames after taking damage
 				start_flash()  # Start flashing effect
-				if regen_timer.stopped:
-					regen_timer.start()
+
+				regen_timer.start()
 func start_flash():
 	is_flashing = true
 	flash_timer = flash_duration
@@ -89,7 +89,7 @@ func activate_i_frames():
 func heal(amount: int):
 	health += amount
 	# Restart health regeneration if needed
-	if regen_timer.stopped and health < max_health:
+	if health < max_health:
 		regen_timer.start()
 
 
