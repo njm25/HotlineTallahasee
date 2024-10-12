@@ -1,14 +1,8 @@
 Software Requirements and Design Document 
 
 For
-
 Group 12
-
-
-
 Version 1.0
-
-
 
 Authors: 
 Andrei Desnica (aed21n)
@@ -16,75 +10,26 @@ Daniel Halterman (drh22a)
 Kristian Moncada (km21v)
 Nico Milette (njm21)
 
-
-
  
 1.	Overview (5 points)
  Hotline Tallahassee is a top-down, round-based shooter game where players face waves of enemies while collecting upgrades to improve their character's abilities and weapons. Drawing inspiration from games like Hotline Miami and Call of Duty Zombies, this project offers fast-paced action with a simple, intuitive gameplay loop. Players will start with basic weapons and minimal enemies, but as they survive waves, the enemies become more challenging, and players can unlock upgrades to increase their odds of survival. The game aims to blend strategic elements, where players must choose the right upgrades, with intense, skill-based gameplay. The project is being developed on the Godot Engine, targeting the PC platform, with C# as the primary programming language.
 2.	Functional Requirements (10 points)
-1.	The system will allow the player to control the player character using WASD input for movement.
-Priority: High
+1. The game will load properly with no errors or bugs.
+Rationale: Having a non-functional game is pointless and accomplishes nothing.
+2.	The system will allow the player to control the player character using WASD input for movement.
 Rationale: Movement is fundamental to the game, as it directly impacts player control and gameplay experience.
-2.	The system will enable the player character to aim in 360 degrees using the mouse cursor or joystick, allowing for omni-directional shooting.
-Priority: High
+3.	The system will enable the player character to aim in 360 degrees using the mouse cursor or joystick, allowing for omni-directional shooting.
 Rationale: Accurate aiming is critical in top-down shooters, ensuring smooth and engaging combat mechanics.
-3.	The system will allow the player character to shoot enemies using a starting weapon, with bullets or projectiles interacting with enemies.
-Priority: High
+4.	The system will allow the player character to shoot enemies using a starting weapon, with bullets or projectiles interacting with enemies.
 Rationale: Shooting mechanics are central to the game’s combat experience and necessary for wave-based progression.
-4.	The system will spawn waves of enemies at increasing difficulty levels as each wave progresses.
-Priority: High
+5.	The system will spawn waves of enemies at increasing difficulty levels as each wave progresses.
 Rationale: The core gameplay loop revolves around defeating waves of enemies, making this a key feature.
-5.	The system will track and display the number of enemies left in each wave, informing the player of their progress in real-time.
-Priority: Medium
-Rationale: While not central to gameplay mechanics, providing clear feedback on wave progress enhances player strategy and engagement.
-6.	The system will allow the player to earn currency by defeating enemies, which can be spent on upgrades for the player’s stats or weapons.
-Priority: Medium
-Rationale: This adds depth and progression to the game, keeping players engaged through customization and improvement over time.
-7.	The system will allow the player to purchase upgrades, including weapon damage, fire rate, and player health regeneration, from a shop between waves.
-Priority: Medium
-Rationale: The upgrade system is integral to the game’s progression model and encourages strategic choices between waves.
-8.	The system will spawn different types of enemies, each with unique behaviors (e.g., fast-moving enemies, ranged enemies).
-Priority: High
-Rationale: A variety of enemies enhances gameplay challenge and keeps the player engaged with different combat scenarios.
-9.	The system will include a start menu where the player can choose to start the game, access options, or quit.
-Priority: Medium
-Rationale: Basic user interface functionality for starting the game and accessing settings is expected in any game.
-10.	The system will allow the player character to dash in the direction of movement using the Shift or Space key for temporary evasion of enemy attacks.
-Priority: Low
+6.	The system will allow the player character to dash in the direction of movement using the Shift or Space key for temporary evasion of enemy attacks.
 Rationale: While enhancing player mobility and combat strategy, this feature is less critical to the core gameplay mechanics than movement and shooting.
-11.	The system will pause the game when the player presses the designated pause key, allowing access to a pause menu for options and game resumption.
-Priority: Low
-Rationale: Pausing the game is a convenience feature but not vital to the core experience.
-12.	The system will display the player’s health and weapon status on-screen during gameplay.
-Priority: High
+7.	The system will display the player’s health and weapon status on-screen during gameplay.
 Rationale: Vital feedback for the player to manage their health and weapon effectiveness during combat.
-13.	The system will end the game and display a game-over screen when the player’s health reaches zero.
-Priority: High
+8.	The system will end the game and display a game-over screen when the player’s health reaches zero.
 Rationale: Proper game termination and feedback on the player’s performance are critical to the gameplay loop.
-14.	The system will offer a retry option from the game-over screen to allow players to start a new session without returning to the main menu.
-Priority: Low
-Rationale: Enhances user experience and gameplay flow but is not essential for game functionality.
-15.	The system will save player progress between rounds, including currency earned and upgrades purchased.
-Priority: Medium
-Rationale: This ensures players don’t lose progress between sessions, adding to the user experience, but is not critical to core gameplay mechanics.
 
 3.	Non-functional Requirements (10 points)
 List the non-functional requirements of the system (any requirement referring to a property of the system, such as security, safety, software quality, performance, reliability, etc.) You may provide a brief rationale for any requirement which you feel requires explanation as to how and/or why the requirement was derived.
-4.	Use Case Diagram (10 points)
-This section presents the use case diagram and the textual descriptions of the use cases for the system under development. The use case diagram should contain all the use cases and relationships between them needed to describe the functionality to be developed. If you discover new use cases between two increments, update the diagram for your future increments. 
-Textual descriptions of use cases: For the first increment, the textual descriptions for the use cases are not required. However, the textual descriptions for all use cases discovered for your system are required for the second and third iterations.
-5.	Class Diagram and/or Sequence Diagrams (15 points)
-This section presents a high-level overview of the anticipated system architecture using a class diagram and/or sequence diagrams. 
-
-If the main paradigm used in your project is Object Oriented (i.e., you have classes or something that acts similar to classes in your system), then draw the Class Diagram of the entire system and Sequence Diagrams for the three (3) most important use cases in your system. 
-
-If the main paradigm in your system is not Object Oriented (i.e., you do not have classes or anything similar to classes in your system) then only draw Sequence Diagrams, but for all the use cases of your system. In this case, we will use a modified version of Sequence Diagrams, where instead of objects, the lifelines will represent the functions in the system involved in the action sequence. 
-
-Class Diagrams show the fundamental objects/classes that must be modeled with the system to satisfy its requirements and the relationships between them. Each class rectangle on the diagram must also include the attributes and the methods of the class (they can be refined between increments).  All the relationships between classes and their multiplicity must be shown on the class diagram. 
-
-A Sequence Diagram simply depicts interaction between objects (or functions - in our case - for non-OOP systems) in a sequential order, i.e. the order in which these interactions take place. Sequence diagrams describe how and in what order the objects in a system function. 
-6.	Operating Environment (5 points)
-Describe the environment in which the software will operate, including the hardware platform, operating system and versions, and any other software components or applications with which it must peacefully coexist.
-7.	Assumptions and Dependencies (5 points)
-List any assumed factors (as opposed to known facts) that could affect the requirements stated in this document. These could include third-party or commercial components that you plan to use, issues around the development or operating environment, or constraints. The project could be affected if these assumptions are incorrect, are not shared, or change. Also identify any dependencies the project has on external factors, such as software components that you intend to reuse from another project.
-
