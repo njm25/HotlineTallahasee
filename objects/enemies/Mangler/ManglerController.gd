@@ -10,7 +10,7 @@ func _init():
 	roam_turn_speed = 8.0  # Faster turn speed for better agility
 	friction = 0.1  # Lower friction for smoother, quicker movements
 	health = 50  # Lower health for the Mangler to balance its speed
-	player_damage = 30  # Lower damage than Gremlin, but can be adjusted
+	player_damage = 25  # Lower damage than Gremlin, but can be adjusted
 	can_melee = true
 	shoots_projectile = false
 	# You can call the parent constructor if any initialization logic is added later
