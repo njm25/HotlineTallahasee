@@ -20,6 +20,7 @@ tile_set = ExtResource("2_lbcwh")
 use_kinematic_bodies = true
 
 [node name="SpawnRegion" parent="." instance=ExtResource("2_0mjwh")]
+gremlin = true
 gromlin = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpawnRegion"]
@@ -27,12 +28,12 @@ polygon = PackedVector2Array(-62, 121, -73, 290, 314, 285, 309, 144)
 
 [node name="SpawnRegion2" parent="." instance=ExtResource("2_0mjwh")]
 gremlin = true
+mangler = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpawnRegion2"]
 polygon = PackedVector2Array(-265, -223, -265, -34, 181, -36, 192, -222)
 
 [node name="SpawnRegion3" parent="." instance=ExtResource("2_0mjwh")]
-gremlin = true
 gromlin = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpawnRegion3"]

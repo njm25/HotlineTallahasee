@@ -4,6 +4,7 @@ class_name SpawnRegion
 @export var gremlin: bool = false
 @export var gromlin: bool = false
 @export var slugmo: bool = false
+@export var mangler: bool = false
 @export var spawn_enabled: bool = true
 
 var game_manager: GameManager
@@ -20,6 +21,8 @@ func can_spawn_enemy(enemy_type: String) -> bool:
 			return gromlin
 		"slugmo":
 			return slugmo
+		"mangler":
+			return mangler
 		_:
 			return false
 
