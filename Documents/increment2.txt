@@ -1,0 +1,72 @@
+Increment 2 Report
+Team Members
+	•	Andrei Desnica (aed21n)
+	•	Daniel Halterman (drh22a)
+	•	Kristian Moncada (km21v)
+	•	Nico Milette (njm21)
+Project Title and Description
+Hotline Tallahassee is a top-down shooter that merges elements from Hotline Miami and Call of Duty Zombies. Players fend off waves of enemies using various weapons while surviving and progressing through increasingly challenging levels.
+Accomplishments
+During Increment 2, the following features and improvements were implemented:
+	1.	New Features:
+Added player health regeneration mechanics:
+Regeneration amount, interval, and maximum health are now configurable.
+A regeneration system activates during gameplay and stops at max health.
+Introduced a new enemy type: Mangler.
+Expanded spawn logic to accommodate the new enemy.
+	2.	Map Updates:
+Modified ScaryHouse.tscn to include a new spawn region (SpawnRegion3) for enemies like “Mangler.”
+	3.	Weapons:
+Updated weapon logic to include interactions with the new “Mangler” enemy.
+	4.	Assets:
+Added new visuals:
+enemy perish.gif
+tentacleimp.png and its import file.
+Challenges and Resolutions
+	1.	Challenges:
+Difficulty in implementing the health regeneration timer without impacting gameplay flow.
+Configuring “Mangler” spawn logic to balance gameplay without overwhelming the player.
+	2.	Resolution:
+Used a Timer node for efficient health regeneration.
+Adjusted spawn probabilities in Round.gd to ensure balanced enemy waves.
+Team Member Contributions
+	1.	Progress Report:
+Daniel: Provided additional insights and reviewed the final draft.
+Nico: Contributed technical explanations and reviewed content.
+Kristian: Provided additional insights and reviewed the final draft.
+Andrei: Drafted the report, particularly focusing on the new features and challenges
+	2.	Requirements and Design Document:
+Daniel: Added details about health regeneration and new enemy behavior.
+Nico, Kristian, and Andrei: Reviewed and refined the documentation.
+	3.	Implementation and Testing:
+Daniel: Helped with health regeneration testing and bug fixes.
+Nico: Implemented the new enemy logic and map changes.
+Kristian: Worked on balancing spawn probabilities and wave progression.
+Andrei: Assisted with code reviews and gameplay testing.
+	4.	Source Code:
+Nico: Major contributions to coding for “Mangler” and health regeneration features.
+Kristian and Daniel: Supported with testing and code refinement.
+Andrei: Provided feedback and suggestions, and had a lot of trouble incorporating the GunGame game mode.. 
+	5.	Video Presentation:
+Nico: Recorded the demonstration video.
+Daniel, Kristian, and Andrei: Reviewed and gave feedback on the video.
+Plans for Increment 3
+	1.	Develop a start screen for improved user experience.
+	2.	Implement a wave tracking system to display current and completed waves.
+	3.	Add melee attack mechanics for close-range combat.
+	4.	Conduct stress testing to ensure smooth performance with high enemy counts.
+	5.	Fix AI issues where enemies struggle to track the player when obstacles block their vision.
+Stakeholder Communication
+Subject: Increment 2 Progress Report on “Hotline Tallahassee”
+Dear Stakeholders,
+We are pleased to share the progress made during Increment 2 of the project “Hotline Tallahassee.”
+In this phase, we introduced a health regeneration system and a new enemy type, Mangler, both of which enhance the gameplay experience. The map and spawn logic were updated to integrate these changes seamlessly. New assets and animations were also added to improve the visual appeal of the game.
+Looking ahead, we aim to add a start screen, wave tracker, melee combat mechanics, and conduct extensive testing to refine performance.
+Thank you for your continued support, and we look forward to presenting further updates.
+Best regards,
+Daniel Halterman
+Project Developer, Hotline Tallahassee
+https://youtu.be/TkelQI2lLiQ
+https://youtu.be/TkelQI2lLiQ
+https://youtu.be/TkelQI2lLiQ
+
