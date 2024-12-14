@@ -1,0 +1,54 @@
+Increment 3 Report
+Team Members
+	•	Andrei Desnica (aed21n)
+	•	Daniel Halterman (drh22a)
+	•	Kristian Moncada (km21v)
+	•	Nico Milette (njm21)
+
+Project Title and Description
+Hotline Tallahassee is a top-down shooter inspired by Hotline Miami and Call of Duty Zombies. The game challenges players to survive increasing waves of enemies while utilizing various weapons and strategies.
+Accomplishments
+During Increment 3, the following features and improvements were implemented:
+	1.	Start Screen
+A polished start screen was added to create a professional entry point for the game. It provides a user-friendly interface for starting the gameplay experience.
+	2.	Wave Tracker
+A system to track and display the current wave was implemented, allowing players to monitor their progress through rounds.
+	3.	Enemy AI Improvements
+AI logic for enemy tracking was refined to address issues where obstacles blocked their vision. Enemies now respond more intelligently, improving the overall challenge and immersion.
+	4.	Stress Testing and Optimization
+Performance optimization was conducted to handle larger enemy waves without affecting gameplay performance. Several stress tests were completed to ensure stability.
+	5.	Bug Fixes
+Increment 3 focused on polishing previously added features and addressing bugs, especially in the player health regeneration and wave progression systems.
+	6.	Asset Updates
+New assets were added, including sound effects for melee attacks and improved visual elements for the UI, enhancing the player’s experience.
+Challenges and Resolutions
+	1.	Difficulty in integrating the wave tracker with existing systems while maintaining smooth gameplay. This was resolved by refactoring the wave logic and testing extensively.
+	2.	Balancing the melee attack mechanics without making them overpowered. This was achieved by adjusting damage outputs and cooldown times.
+Team Member Contributions
+Nico Milette
+	•	acted as the large majority of the horsepower when it came to the games production, code and Implementing the wave tracker and melee combat mechanics.
+	•	Worked extensively on performance optimizations and stress testing.
+	•	Reviewed and refined code to eliminate bugs and ensure compatibility across features.
+Andrei Desnica
+	•	Played a key role in drafting the report and documenting changes.
+	•	Provided detailed feedback during the implementation of features and helped identify areas for improvement.
+	•	Assisted in writing and organizing the Increment 3 report, ensuring all accomplishments were clearly documented.
+Daniel Halterman
+      •	Contributed significantly to testing the game, including stress testing the wave tracker and melee features.
+	•	Assisted in testing the wave tracker and melee features.
+	•	Coordinated team efforts to ensure all planned features were completed on schedule.
+Kristian Moncada
+	•	Focused on refining the enemy AI and balancing gameplay mechanics, particularly the melee combat.
+	•	Collaborated on testing and bug fixes, ensuring a smooth experience for players.
+
+Plans for Completion
+With the core features completed, the next steps include creating a final build of the game, conducting user testing, and preparing a presentation for stakeholders. The team will focus on ensuring the final version is polished and ready for deployment.
+Stakeholder Communication
+Subject: Final Increment Report for “Hotline Tallahassee”
+Dear Stakeholders,
+We are pleased to share the progress made during the final increment of “Hotline Tallahassee.” In this phase, we successfully completed the planned features, including a start screen, wave tracker, and melee combat mechanics. Additionally, we addressed AI improvements, conducted stress testing, and implemented performance optimizations. These efforts have significantly enhanced the gameplay experience.
+The game is now in its final stages, and we are on track to deliver a polished and engaging product. Thank you for your continued support throughout the project.
+Best regards,
+Andrei Desnica
+Project Developer, Hotline Tallahassee
+
