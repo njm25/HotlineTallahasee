@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://d20142s4cf03u"]
 
-[ext_resource type="Script" path="res://objects/maps/ScaryHouse/ScaryHouse.gd" id="1_oujf4"]
+[ext_resource type="Script" uid="uid://cp36gaxwfh5k3" path="res://objects/maps/ScaryHouse/ScaryHouse.gd" id="1_oujf4"]
 [ext_resource type="PackedScene" uid="uid://ds0aimqr05dsj" path="res://objects/world/SpawnRegion/SpawnRegion.tscn" id="2_0mjwh"]
 [ext_resource type="TileSet" uid="uid://d2ony36eeidr0" path="res://objects/world/TileMap/TileMap.tres" id="2_lbcwh"]
 

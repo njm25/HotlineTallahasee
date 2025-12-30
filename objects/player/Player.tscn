@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://4h3g0mbjmqmq"]
 
-[ext_resource type="Script" path="res://objects/player/PlayerController.gd" id="2_56kq6"]
+[ext_resource type="Script" uid="uid://0kcdqj81iv7n" path="res://objects/player/PlayerController.gd" id="2_56kq6"]
 [ext_resource type="Texture2D" uid="uid://do2nns76bn6nv" path="res://assets/devassets.png" id="3_tn72x"]
-[ext_resource type="Script" path="res://objects/player/CardManager.gd" id="4_w7voo"]
-[ext_resource type="Script" path="res://objects/player/PlayerInventory.gd" id="4_wom8u"]
+[ext_resource type="Script" uid="uid://dj7jjfsr0snyt" path="res://objects/player/CardManager.gd" id="4_w7voo"]
+[ext_resource type="Script" uid="uid://oc7athm7qrb6" path="res://objects/player/PlayerInventory.gd" id="4_wom8u"]
 
 [sub_resource type="Gradient" id="Gradient_bqfbw"]
 offsets = PackedFloat32Array(0.948052, 1)

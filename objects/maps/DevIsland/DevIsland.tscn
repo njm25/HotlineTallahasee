@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://bsjfrmmnl2jj"]
 
-[ext_resource type="Script" path="res://objects/maps/DevIsland/DevIsland.gd" id="1_4r2v2"]
+[ext_resource type="Script" uid="uid://cvb370pfxlp41" path="res://objects/maps/DevIsland/DevIsland.gd" id="1_4r2v2"]
 [ext_resource type="Texture2D" uid="uid://biv311c61nrt8" path="res://assets/backgrondisland.png" id="2_4m0l6"]
 [ext_resource type="TileSet" uid="uid://d2ony36eeidr0" path="res://objects/world/TileMap/TileMap.tres" id="3_034of"]
 [ext_resource type="PackedScene" uid="uid://ds0aimqr05dsj" path="res://objects/world/SpawnRegion/SpawnRegion.tscn" id="9_rk4no"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwd7n1ndckp1y"]
 
 [ext_resource type="SpriteFrames" uid="uid://bci4ahq0bbykc" path="res://assets/death animation.gif" id="1_d0c3c"]
-[ext_resource type="Script" path="res://objects/player/PlayerPerish.gd" id="2_r5aen"]
+[ext_resource type="Script" uid="uid://bl4rfq67edqvb" path="res://objects/player/PlayerPerish.gd" id="2_r5aen"]
 
 [node name="PlayerPerish" type="AnimatedSprite2D"]
 sprite_frames = ExtResource("1_d0c3c")

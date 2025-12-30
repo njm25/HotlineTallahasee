@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5jum8i6pqypv"]
 
-[ext_resource type="Script" path="res://objects/weapons/Pistol/PistolProjectile.gd" id="1_4c134"]
+[ext_resource type="Script" uid="uid://br50yyn0o38tw" path="res://objects/weapons/Pistol/PistolProjectile.gd" id="1_4c134"]
 [ext_resource type="Texture2D" uid="uid://d2bw6vmnvynpk" path="res://assets/bullet.png" id="1_foyl6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kxu5i"]

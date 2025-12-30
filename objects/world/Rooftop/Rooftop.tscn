@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bc0e0mbsgyq5f"]
 
-[ext_resource type="Script" path="res://objects/world/Rooftop/Rooftop.gd" id="1_uomdi"]
+[ext_resource type="Script" uid="uid://b7i1wv7x0k6iw" path="res://objects/world/Rooftop/Rooftop.gd" id="1_uomdi"]
 
 [node name="Rooftop" type="Area2D"]
 light_mask = 6
