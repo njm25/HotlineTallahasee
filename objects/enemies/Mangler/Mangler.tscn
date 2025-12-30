@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://tvsh1dl2raeg"]
 
-[ext_resource type="Script" path="res://objects/enemies/Mangler/ManglerController.gd" id="1_oxmwr"]
+[ext_resource type="Script" uid="uid://din1e41uh4kpw" path="res://objects/enemies/Mangler/ManglerController.gd" id="1_oxmwr"]
 [ext_resource type="Texture2D" uid="uid://cv74lruwe1f00" path="res://assets/tentacleimp.png" id="2_ketb7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gdy7"]

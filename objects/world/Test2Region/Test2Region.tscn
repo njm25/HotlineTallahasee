@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://besa7oi2kxa6p"]
 
-[ext_resource type="Script" path="res://objects/world/Test2Region/Test2Region.gd" id="1_fyssf"]
+[ext_resource type="Script" uid="uid://dwlca2ukx6d1m" path="res://objects/world/Test2Region/Test2Region.gd" id="1_fyssf"]
 
 [node name="Test2Region" type="Area2D"]
 script = ExtResource("1_fyssf")

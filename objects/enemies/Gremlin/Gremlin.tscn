@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bt327dru81p33"]
 
-[ext_resource type="Script" path="res://objects/enemies/Gremlin/GremlinController.gd" id="1_rb8dy"]
+[ext_resource type="Script" uid="uid://sb0oh1nhd5xu" path="res://objects/enemies/Gremlin/GremlinController.gd" id="1_rb8dy"]
 [ext_resource type="Texture2D" uid="uid://b2cotgq5e6616" path="res://assets/enemy.png" id="2_6doyi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gdy7"]

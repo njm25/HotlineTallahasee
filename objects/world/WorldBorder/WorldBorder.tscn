@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://rpnmpobecdrg"]
 
-[ext_resource type="Script" path="res://objects/world/WorldBorder/WorldBorder.gd" id="1_so23r"]
+[ext_resource type="Script" uid="uid://fw0bf1opyoun" path="res://objects/world/WorldBorder/WorldBorder.gd" id="1_so23r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8siv4"]
 size = Vector2(10.1374, 19.2011)

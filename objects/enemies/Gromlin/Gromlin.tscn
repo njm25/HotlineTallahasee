@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://vs1yxi61cueb"]
 
-[ext_resource type="Script" path="res://objects/enemies/Gromlin/GromlinController.gd" id="1_00nry"]
+[ext_resource type="Script" uid="uid://doioh3nbd3tfi" path="res://objects/enemies/Gromlin/GromlinController.gd" id="1_00nry"]
 [ext_resource type="Texture2D" uid="uid://b2cotgq5e6616" path="res://assets/enemy.png" id="2_us45g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gdy7"]
